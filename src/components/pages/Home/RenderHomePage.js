@@ -7,7 +7,7 @@ function RenderHomePage(props) {
   const { userInfo, authService } = props;
   return (
     <>
-      <Navigation />
+      <Navigation username={userInfo.name} />
     </>
   );
 }
