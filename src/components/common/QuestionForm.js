@@ -1,37 +1,68 @@
-import React, { useState } from 'react';
-import FormInput from './FormInput';
+import React, { useState, useEffect, createRef } from 'react';
+import { Form, Input, Button } from 'antd';
+// import FormInput from './FormInput';
+import { MinusCircleOutlined } from '@ant-design/icons';
 
-const QuestionForm = ({ title, defaultQuestions }) => {
-  const [questionNums, setQuestionNums] = useState([1, 2, 3]);
-  const [questionInput, setQuestionInput] = useState({
-    question1: '',
-    question2: '',
-    question3: '',
-  });
+// const formItemLayout = {
+//   labelCol: {
+//     xs: { span: 24 },
+//     sm: { span: 4 },
+//   },
+//   wrapperCol: {
+//     xs: { span: 24 },
+//     sm: { span: 20 },
+//   },
+// };
+//
+// const formItemLayoutWithOutLabel = {
+//   wrapperCol: {
+//     xs: { span: 24, offset: 0 },
+//     sm: { span: 20, offset: 4 },
+//   },
+// };
 
-  const changeInput = evt => {
-    setQuestionInput({
-      ...questionInput,
-      [evt.target.name]: evt.target.value,
-    });
-  };
-
+const QuestionForm = ({ defaultQuestions }) => {
+  // const ref1 = createRef()
   return (
-    <form>
-      <h2>{title}</h2>
-      {questionNums.map((num, idx) => {
-        return (
-          <FormInput
-            key={num}
-            labelId={`Question ${num}`}
-            name={`question${num}`}
-            placeholder={defaultQuestions[idx] ? defaultQuestions[idx] : ''}
-            val={questionInput[`question${num}`]}
-            changeInput={changeInput}
-          />
-        );
-      })}
-    </form>
+    <Form name="question-form">
+      <Form.List name="questions">
+        {(fields, { add, remove }) => {
+          if (fields == 0) {
+            defaultQuestions.forEach(q => {
+              add(q);
+            });
+          }
+          return (
+            <div>
+              {fields.map((field, index) => (
+                <Form.Item key={field.key} label={`Question ${index + 1}`}>
+                  <Input placeholder="question" style={{ width: '60%' }} />
+                  {fields.length > 1 ? (
+                    <MinusCircleOutlined
+                      style={{ margin: '0 8px' }}
+                      onClick={() => {
+                        remove(field.name);
+                      }}
+                    />
+                  ) : null}
+                </Form.Item>
+              ))}
+              <Form.Item>
+                <Button
+                  type="primary"
+                  onClick={() => {
+                    add();
+                  }}
+                  style={{ width: '60%' }}
+                >
+                  add
+                </Button>
+              </Form.Item>
+            </div>
+          );
+        }}
+      </Form.List>
+    </Form>
   );
 };
 
