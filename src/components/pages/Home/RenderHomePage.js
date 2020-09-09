@@ -13,9 +13,33 @@ function RenderHomePage(props) {
           title="Apollo"
           style={{ backgroundColor: '#191919', padding: '2rem' }}
           extra={[
-            <Button style={{ backgroundColor: '#705C55' }}>New Topic</Button>,
-            <Button style={{ backgroundColor: '#705C55' }}>Join Topic</Button>,
-            <Button style={{ backgroundColor: '#705C55' }}>Sign Out</Button>,
+            <Button
+              style={{
+                backgroundColor: '#705C55',
+                border: '1px solid #BC9D7E',
+                fontWeight: 'bold',
+              }}
+            >
+              New Topic
+            </Button>,
+            <Button
+              style={{
+                backgroundColor: '#705C55',
+                border: '1px solid #BC9D7E',
+                fontWeight: 'bold',
+              }}
+            >
+              Join Topic
+            </Button>,
+            <Button
+              style={{
+                backgroundColor: '#705C55',
+                border: '1px solid #BC9D7E',
+                fontWeight: 'bold',
+              }}
+            >
+              Sign Out
+            </Button>,
           ]}
         />
         <Layout style={{ backgroundColor: '#0E3857', height: '90vh' }}>
