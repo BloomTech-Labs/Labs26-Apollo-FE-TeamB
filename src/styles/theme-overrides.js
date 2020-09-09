@@ -6,7 +6,7 @@ module.exports = {
   '@error-color': '#FFFFFF',
   '@font-size-base': '14px',
   '@heading-color': '#BC9D7E',
-  '@text-color': 'black',
+  '@text-color': '#BC9D7E',
   '@text-color-secondary': '#FFFFFF',
   '@disabled-color': 'rgba(0, 0, 0, 0.25)',
   '@border-radius-base': '2px',

@@ -1,21 +1,35 @@
 import React from 'react';
-import { PageHeader, Button } from 'antd';
+import { Layout, PageHeader, Button } from 'antd';
 import '../../../styles/home.less';
+
+const { Content, Sider } = Layout;
 
 function RenderHomePage(props) {
   const { userInfo, authService } = props;
   return (
     <>
-      <PageHeader
-        className="Title"
-        title="Apollo"
-        style={{ backgroundColor: '#191919' }}
-        extra={[
-          <Button key="1">New Topic</Button>,
-          <Button key="1">Join Topic</Button>,
-          <Button key="1">Sign Out</Button>,
-        ]}
-      />
+      <Layout>
+        <PageHeader
+          className="Title"
+          title="Apollo"
+          style={{ backgroundColor: '#191919', height: '10vh' }}
+          extra={[
+            <Button key="1">New Topic</Button>,
+            <Button key="1">Join Topic</Button>,
+            <Button key="1">Sign Out</Button>,
+          ]}
+        />
+        <Layout style={{ backgroundColor: '#0E3857', height: '90vh' }}>
+          <Sider style={{ color: 'white', textAlign: 'center' }}>
+            <h2>Topics</h2>
+            <Button>New Topic</Button>
+          </Sider>
+          <Content></Content>
+          <Sider style={{ color: 'white' }}>
+            <h2>Thread</h2>
+          </Sider>
+        </Layout>
+      </Layout>
     </>
   );
 }
