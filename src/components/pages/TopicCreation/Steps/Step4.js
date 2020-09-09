@@ -6,8 +6,10 @@ const Step4 = props => {
   }
   return (
     <>
-      <h1>Step 4</h1>
-      <p>Stuff goes here</p>
+      <h1>Step {props.currentStep}</h1>
+      {props.currentTopic.memberQuestions.map((q, index) => {
+        return <p key={q.id}>{q.body}</p>;
+      })}
     </>
   );
 };

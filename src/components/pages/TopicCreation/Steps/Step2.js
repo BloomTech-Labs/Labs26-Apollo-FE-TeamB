@@ -6,8 +6,12 @@ const Step2 = props => {
   }
   return (
     <>
-      <h1>Step 2</h1>
+      <h1>Step {props.currentStep}</h1>
       <p>Stuff goes here</p>
+      <p>{props.currentTopic.name}</p>
+      {props.currentTopic.frequency.map((day, index) => {
+        return <p key={'day' + index}>{day}</p>;
+      })}
     </>
   );
 };

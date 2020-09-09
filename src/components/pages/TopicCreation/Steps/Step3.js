@@ -6,8 +6,12 @@ const Step3 = props => {
   }
   return (
     <>
-      <h1>Step 3</h1>
-      <p>Stuff goes here</p>
+      <h1>Step {props.currentStep}</h1>
+      <ul>
+        {props.currentTopic.leaderQuestions.map((q, index) => {
+          return <li key={q.id}>{q.body}</li>;
+        })}
+      </ul>
     </>
   );
 };

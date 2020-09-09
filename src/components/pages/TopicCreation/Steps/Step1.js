@@ -6,8 +6,9 @@ const Step1 = props => {
   }
   return (
     <>
-      <h1>Step 1</h1>
+      <h1>Step {props.currentStep}</h1>
       <p>Stuff goes here</p>
+      <p>{props.currentTopic.contextName}</p>
     </>
   );
 };
