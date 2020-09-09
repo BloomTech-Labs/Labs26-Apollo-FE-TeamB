@@ -1,9 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from 'antd';
+import { PageHeader, Button } from 'antd';
+import '../../../styles/home.less';
 
 function RenderHomePage(props) {
   const { userInfo, authService } = props;
-  return <></>;
+  return (
+    <>
+      <PageHeader
+        className="Title"
+        title="Apollo"
+        style={{ backgroundColor: '#191919' }}
+        extra={[
+          <Button key="1">New Topic</Button>,
+          <Button key="1">Join Topic</Button>,
+          <Button key="1">Sign Out</Button>,
+        ]}
+      />
+    </>
+  );
 }
 export default RenderHomePage;
