@@ -45,7 +45,15 @@ function RenderHomePage(props) {
         <Layout style={{ backgroundColor: '#0E3857', height: '90vh' }}>
           <Sider style={{ color: 'white', textAlign: 'center' }}>
             <h2>Topics</h2>
-            <Button>New Topic</Button>
+            <Button
+              style={{
+                backgroundColor: '#705C55',
+                border: '1px solid #BC9D7E',
+                fontWeight: 'bold',
+              }}
+            >
+              New Topic
+            </Button>
           </Sider>
           <Content></Content>
           <Sider style={{ color: 'white' }}>
