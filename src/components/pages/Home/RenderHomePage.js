@@ -1,6 +1,5 @@
 import React from 'react';
 import { Layout, PageHeader, Button } from 'antd';
-import '../../../styles/home.less';
 
 const { Content, Sider } = Layout;
 
