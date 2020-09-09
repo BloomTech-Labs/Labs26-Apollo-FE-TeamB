@@ -5,12 +5,14 @@ const { Content, Sider } = Layout;
 
 function RenderHomePage(props) {
   const { userInfo, authService } = props;
+  console.log(userInfo);
   return (
     <>
       <Layout>
         <PageHeader
           className="Title"
           title="Apollo"
+          subTitle={`Hello, ${userInfo.name}`}
           style={{
             backgroundColor: '#191919',
             padding: '2rem',
@@ -18,6 +20,7 @@ function RenderHomePage(props) {
           }}
           extra={[
             <Button
+              key="1"
               style={{
                 backgroundColor: '#705C55',
                 border: '1px solid #BC9D7E',
@@ -27,6 +30,7 @@ function RenderHomePage(props) {
               New Topic
             </Button>,
             <Button
+              key="2"
               style={{
                 backgroundColor: '#705C55',
                 border: '1px solid #BC9D7E',
@@ -36,6 +40,7 @@ function RenderHomePage(props) {
               Join Topic
             </Button>,
             <Button
+              key="3"
               style={{
                 backgroundColor: '#705C55',
                 border: '1px solid #BC9D7E',
