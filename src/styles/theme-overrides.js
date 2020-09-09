@@ -7,7 +7,7 @@ module.exports = {
   '@font-size-base': '14px',
   '@heading-color': '#BC9D7E',
   '@text-color': '#BC9D7E',
-  '@text-color-secondary': '#FFFFFF',
+  '@text-color-secondary': '#3EA6D2',
   '@disabled-color': 'rgba(0, 0, 0, 0.25)',
   '@border-radius-base': '2px',
   '@border-color-base': '#d9d9d9',
