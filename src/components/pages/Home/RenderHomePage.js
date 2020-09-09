@@ -11,7 +11,11 @@ function RenderHomePage(props) {
         <PageHeader
           className="Title"
           title="Apollo"
-          style={{ backgroundColor: '#191919', padding: '2rem' }}
+          style={{
+            backgroundColor: '#191919',
+            padding: '2rem',
+            borderBottom: '1px solid #BC9D7E',
+          }}
           extra={[
             <Button
               style={{
