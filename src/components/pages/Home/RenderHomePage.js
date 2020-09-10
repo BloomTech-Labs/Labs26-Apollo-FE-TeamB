@@ -3,7 +3,6 @@ import { Layout, PageHeader, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { TopicCreation } from '../TopicCreation';
-import { Button } from 'antd';
 
 const { Content, Sider } = Layout;
 
