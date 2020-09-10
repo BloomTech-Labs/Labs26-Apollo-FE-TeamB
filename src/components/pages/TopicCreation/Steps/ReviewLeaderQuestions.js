@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Step3 = props => {
+const ReviewLeaderQuestions = props => {
   if (props.currentStep !== 3) {
     return null;
   }
@@ -16,4 +16,4 @@ const Step3 = props => {
   );
 };
 
-export default Step3;
+export default ReviewLeaderQuestions;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Step5 = props => {
+const ReviewFinal = props => {
   if (props.currentStep !== 5) {
     return null;
   }
@@ -25,4 +25,4 @@ const Step5 = props => {
   );
 };
 
-export default Step5;
+export default ReviewFinal;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Step1 = props => {
+const ContextSelection = props => {
   if (props.currentStep !== 1) {
     return null;
   }
@@ -13,4 +13,4 @@ const Step1 = props => {
   );
 };
 
-export default Step1;
+export default ContextSelection;

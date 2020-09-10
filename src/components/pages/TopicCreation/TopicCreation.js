@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
-import { Step1, Step2, Step3, Step4, Step5 } from './Steps/';
+import {
+  ContextSelection,
+  TopicSetup,
+  ReviewLeaderQuestions,
+  ReviewMemberQuestions,
+  ReviewFinal,
+} from './Steps/';
 
 import 'antd/dist/antd.css';
 
@@ -49,7 +55,7 @@ const defaultTopic = {
 };
 
 //how many steps the wizard has
-const lastStep = 5;
+const totalSteps = 5;
 
 const TopicCreation = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -94,7 +100,7 @@ const TopicCreation = () => {
     let newStep = currentStep;
 
     //increment step by one unless at end
-    newStep = newStep >= 4 ? lastStep : newStep + 1;
+    newStep = newStep >= 4 ? totalSteps : newStep + 1;
     setCurrentStep(newStep);
   };
 
@@ -117,13 +123,13 @@ const TopicCreation = () => {
               </Button>
             )}
             {/* Renders Next button if not on last step */}
-            {currentStep < lastStep && (
+            {currentStep < totalSteps && (
               <Button key="next" onClick={handleNext}>
                 Next
               </Button>
             )}
             {/* Renders Submit button if on last step */}
-            {currentStep === lastStep && (
+            {currentStep === totalSteps && (
               <Button key="submit" onClick={handleOk}>
                 Submit
               </Button>
@@ -131,31 +137,31 @@ const TopicCreation = () => {
           </>,
         ]}
       >
-        <Step1
+        <ContextSelection
           key="step1"
           currentStep={currentStep}
           handleChange={handleChange}
           currentTopic={currentTopic}
         />
-        <Step2
+        <TopicSetup
           key="step2"
           currentStep={currentStep}
           handleChange={handleChange}
           currentTopic={currentTopic}
         />
-        <Step3
+        <ReviewLeaderQuestions
           key="step3"
           currentStep={currentStep}
           handleChange={handleChange}
           currentTopic={currentTopic}
         />
-        <Step4
+        <ReviewMemberQuestions
           key="step4"
           currentStep={currentStep}
           handleChange={handleChange}
           currentTopic={currentTopic}
         />
-        <Step5
+        <ReviewFinal
           key="step5"
           currentStep={currentStep}
           handleChange={handleChange}

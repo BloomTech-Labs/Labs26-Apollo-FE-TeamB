@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Step2 = props => {
+const TopicSetup = props => {
   if (props.currentStep !== 2) {
     return null;
   }
@@ -16,4 +16,4 @@ const Step2 = props => {
   );
 };
 
-export default Step2;
+export default TopicSetup;
