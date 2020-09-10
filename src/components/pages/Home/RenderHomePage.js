@@ -13,6 +13,7 @@ function RenderHomePage(props) {
     <>
       <Layout>
         <PageHeader
+          key="pageheader1"
           className="Title"
           title="Apollo"
           subTitle={`Hello, ${userInfo.name}`}
@@ -22,7 +23,7 @@ function RenderHomePage(props) {
             borderBottom: '1px solid #BC9D7E',
           }}
           extra={[
-            <Link to="/newtopic">
+            <Link to="/newtopic" key="newtopiclink1">
               <Button
                 key="1"
                 style={{
@@ -35,7 +36,7 @@ function RenderHomePage(props) {
                 New Topic
               </Button>
             </Link>,
-            <Link to="/jointopic">
+            <Link to="/jointopic" key="jointopiclink1">
               <Button
                 key="2"
                 style={{
@@ -48,7 +49,7 @@ function RenderHomePage(props) {
                 Join Topic
               </Button>
             </Link>,
-            <Link to="/signout">
+            <Link to="/signout" key="signout1">
               <Button
                 key="3"
                 style={{
@@ -61,7 +62,7 @@ function RenderHomePage(props) {
                 Sign Out
               </Button>
             </Link>,
-            <Link to="/signout" style={{ color: '#705C55' }}>
+            <Link to="/signout" style={{ color: '#705C55' }} key="signout2">
               <UserOutlined
                 key="4"
                 style={{
@@ -78,6 +79,7 @@ function RenderHomePage(props) {
             <h2>Topics</h2>
             <Link to="/newtopic">
               <Button
+                key="newtopic"
                 style={{
                   backgroundColor: '#705C55',
                   border: '1px solid #BC9D7E',
@@ -90,6 +92,7 @@ function RenderHomePage(props) {
             </Link>
             <Link to="/jointopic">
               <Button
+                key="jointopic"
                 style={{
                   backgroundColor: '#705C55',
                   border: '1px solid #BC9D7E',
