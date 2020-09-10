@@ -14,9 +14,9 @@ function RenderHomePage(props) {
           title="Apollo"
           subTitle={`Hello, ${userInfo.name}`}
           style={{
-            backgroundColor: '#BC9D7E',
+            backgroundColor: '#191919',
             padding: '2rem',
-            borderBottom: '1px solid #191919',
+            borderBottom: '1px solid #BC9D7E',
           }}
           extra={[
             <Link to="/newtopic">
@@ -26,6 +26,7 @@ function RenderHomePage(props) {
                   backgroundColor: '#705C55',
                   border: '1px solid #BC9D7E',
                   fontWeight: 'bold',
+                  color: '#191919',
                 }}
               >
                 New Topic
@@ -38,6 +39,7 @@ function RenderHomePage(props) {
                   backgroundColor: '#705C55',
                   border: '1px solid #BC9D7E',
                   fontWeight: 'bold',
+                  color: '#191919',
                 }}
               >
                 Join Topic
@@ -50,6 +52,7 @@ function RenderHomePage(props) {
                   backgroundColor: '#705C55',
                   border: '1px solid #BC9D7E',
                   fontWeight: 'bold',
+                  color: '#191919',
                 }}
               >
                 Sign Out
@@ -66,6 +69,7 @@ function RenderHomePage(props) {
                   backgroundColor: '#705C55',
                   border: '1px solid #BC9D7E',
                   fontWeight: 'bold',
+                  color: '#191919',
                 }}
               >
                 New Topic
@@ -77,6 +81,7 @@ function RenderHomePage(props) {
                   backgroundColor: '#705C55',
                   border: '1px solid #BC9D7E',
                   fontWeight: 'bold',
+                  color: '#191919',
                 }}
               >
                 Join Topic
