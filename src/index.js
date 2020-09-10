@@ -52,9 +52,9 @@ function App() {
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
-        <SecureRoute path="/example-list" component={ExampleListPage} />
-        <SecureRoute path="/profile-list" component={ProfileListPage} />
-        <SecureRoute path="/datavis" component={ExampleDataViz} />
+        <SecureRoute path="/newtopic" component={ExampleListPage} />
+        <SecureRoute path="/signout" component={ProfileListPage} />
+        <SecureRoute path="/jointopic" component={ExampleDataViz} />
         <Route component={NotFoundPage} />
       </Switch>
     </Security>
