@@ -49,19 +49,18 @@ function RenderHomePage(props) {
                 Join Topic
               </Button>
             </Link>,
-            <Link to="/signout" key="signout1">
-              <Button
-                key="3"
-                style={{
-                  backgroundColor: '#705C55',
-                  border: '1px solid #BC9D7E',
-                  fontWeight: 'bold',
-                  color: '#191919',
-                }}
-              >
-                Sign Out
-              </Button>
-            </Link>,
+            <Button
+              key="3"
+              onClick={() => authService.logout()}
+              style={{
+                backgroundColor: '#705C55',
+                border: '1px solid #BC9D7E',
+                fontWeight: 'bold',
+                color: '#191919',
+              }}
+            >
+              Sign Out
+            </Button>,
             <Link to="/signout" style={{ color: '#705C55' }} key="signout2">
               <UserOutlined
                 key="4"
