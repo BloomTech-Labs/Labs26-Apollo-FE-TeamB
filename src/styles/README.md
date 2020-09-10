@@ -1,0 +1,5 @@
+In order to make styling changes you can create a new less file here in the  styles folder.
+Please limit the less to one component to make code more manageable.
+The theme variable names can be used in the less files, the variable names don't seem to be usable in inline styles on Ant components. 
+Styles can be overriden by using inline styles on Ant components.
+If any change is made in the theme-override.js, you will need to re-run 'npm start' for changes to render in the dom. Any changes made outside the theme-override.js should render without needing to re-run 'npm start'.
