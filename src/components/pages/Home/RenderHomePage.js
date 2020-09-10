@@ -82,6 +82,7 @@ function RenderHomePage(props) {
                   border: '1px solid #BC9D7E',
                   fontWeight: 'bold',
                   color: '#191919',
+                  hover: '#BC9D7E',
                 }}
               >
                 Join Topic
