@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { TopicCreation } from '../TopicCreation';
 import { Button } from 'antd';
 
 function RenderHomePage(props) {
@@ -12,6 +13,7 @@ function RenderHomePage(props) {
           This is an example of a common example of how we'd like for you to
           approach components.
         </p>
+        <TopicCreation />
         <p>
           <Link to="/profile-list">Profiles Example</Link>
         </p>
