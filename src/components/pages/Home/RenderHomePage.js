@@ -1,6 +1,5 @@
 import React from 'react';
 import { Layout, PageHeader, Button } from 'antd';
-import 'antd/dist/antd.css';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 const { Content, Sider } = Layout;
@@ -61,6 +60,7 @@ function RenderHomePage(props) {
             </Link>,
             <Link to="/signout" style={{ color: '#705C55' }}>
               <UserOutlined
+                key="4"
                 style={{
                   fontSize: '20px',
                   border: '1px solid #BC9D7E',
