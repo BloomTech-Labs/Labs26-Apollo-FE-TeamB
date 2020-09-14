@@ -32,6 +32,10 @@ describe('<HomeContainer /> testing suite', () => {
     );
     let loader = getByText(/...fetching profile/i);
     expect(loader).toBeInTheDocument();
+
+    await waitFor(async () => {
+      await findByText(/sara/i);
+    });
     loader = queryByText(/...fetching profile/i);
     expect(loader).toBeNull();
   });
