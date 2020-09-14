@@ -2,7 +2,6 @@ import React from 'react';
 import { Layout, PageHeader, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import { TopicCreation } from '../TopicCreation';
 
 const { Content, Sider } = Layout;
 
