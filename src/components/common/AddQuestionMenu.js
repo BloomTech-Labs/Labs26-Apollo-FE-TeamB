@@ -1,14 +1,6 @@
 import React from 'react';
 import { Form, Select } from 'antd';
 
-// const place = "Add Context Question"
-// const place1 = "Add Question"
-
-// const dropdownStyle = {
-//   textAlign: "center",
-//   width: "40%"
-// }
-
 const layout = {
   size: 'middle',
   style: {
@@ -17,19 +9,27 @@ const layout = {
   },
 };
 
+// parameters
+// isContext (bool - context questions or team questions)
+// questionList (array - list of questions)
+// stateHandler (fn - state handler function to keep state in parent component)
 const AddQuestionMenu = ({ isContext, questionList, stateHandler }) => {
+  // call state handler when dropdown item selected
   const handleSelect = question => {
     stateHandler(question);
   };
   return (
+    // antd select component
     <Select
       {...layout}
       value={isContext ? 'Add Context Question' : 'Add Question'}
       onSelect={handleSelect}
     >
+      {/* manually added custom option */}
       <Select.Option key={-1} value="Custom">
         Custom
       </Select.Option>
+      {/* map through question list and add them to dropdown */}
       {questionList.map((question, idx) => (
         <Select.Option key={idx} value={question}>
           {question}
