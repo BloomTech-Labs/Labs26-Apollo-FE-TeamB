@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Layout, PageHeader, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-
+import { connect } from 'react-redux';
+import { getUsername } from '../../../state/actions/apolloActions';
 const { Content, Sider } = Layout;
 
 function RenderHomePage(props) {
   const { userInfo, authService } = props;
   console.log(userInfo);
+  useEffect(() => {
+    props.getUsername(userInfo.name);
+  }, []);
   return (
     <>
       <Layout>
@@ -15,7 +19,7 @@ function RenderHomePage(props) {
           key="pageheader1"
           className="Title"
           title="Apollo"
-          subTitle={`Hello, ${userInfo.name}`}
+          subTitle={`Hello, ${props.username}`}
           style={{
             backgroundColor: '#191919',
             padding: '2rem',
@@ -112,4 +116,11 @@ function RenderHomePage(props) {
     </>
   );
 }
-export default RenderHomePage;
+
+const mapStateToProps = state => {
+  return {
+    username: state.username,
+  };
+};
+
+export default connect(mapStateToProps, { getUsername })(RenderHomePage);

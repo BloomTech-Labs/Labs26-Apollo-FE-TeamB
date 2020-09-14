@@ -6,6 +6,7 @@
 export const GET_USERNAME = 'GET_USERNAME';
 
 export const getUsername = username => {
-  return;
-  // dispatch({type: GET_USERNAME, payload: username})
+  return dispatch => {
+    dispatch({ type: GET_USERNAME, payload: username });
+  };
 };
