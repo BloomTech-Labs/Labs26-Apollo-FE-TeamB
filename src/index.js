@@ -4,7 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import { apolloReducer } from './state/reducers/index';
+import { apolloReducer } from './state/reducers/apolloReducer';
 import {
   BrowserRouter as Router,
   Route,
@@ -26,12 +26,16 @@ import { LoadingComponent } from './components/common';
 
 import './styles/index.less';
 
+const store = createStore(apolloReducer, applyMiddleware(thunk, logger));
+
 ReactDOM.render(
-  <Router>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </Router>,
+  <Provider store={store}>
+    <Router>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
 
