@@ -25,7 +25,7 @@ const CreationSuccess = props => {
     <>
       <h1>Topic Created</h1>
       <p>Why not send this to a few people and get some tasty data?</p>
-      <p>
+      <div>
         Join Code:
         <span>
           <p id="joincode">{joincode}</p>
@@ -33,7 +33,7 @@ const CreationSuccess = props => {
             <Button onClick={copyToClipboard}>copy</Button>
           </Tooltip>
         </span>
-      </p>
+      </div>
     </>
   );
 };
