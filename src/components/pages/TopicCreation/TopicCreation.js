@@ -62,7 +62,7 @@ const TopicCreation = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [currentTopic, setCurrentTopic] = useState(defaultTopic);
-  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   //handles opening the modal
   const showModal = () => {
@@ -76,9 +76,19 @@ const TopicCreation = () => {
     setIsVisible(false);
   };
 
-  const handleSubmit = e => {
-    console.log('submitted');
-    handleNext();
+  const handleSubmit = async e => {
+    setLoading(true);
+    // function to await topic submission to complete
+    const submit = () => {
+      return new Promise(resolve => {
+        // this part will be replaced with correct API call
+        setTimeout(() => {
+          resolve(console.log('2sec'));
+        }, 2000);
+      });
+    };
+    await submit();
+    await Promise.resolve(handleNext());
   };
 
   //handles closing the modal
@@ -118,9 +128,8 @@ const TopicCreation = () => {
       <Modal
         title="Create a Topic"
         visible={isVisible}
-        onOk={handleOk}
+        onOk={handleSubmit}
         onCancel={handleCancel}
-        confirmLoading={confirmLoading}
         footer={[
           <>
             {/* Renders Prev button if not on first step */}
@@ -137,7 +146,7 @@ const TopicCreation = () => {
             )}
             {/* Renders Submit button if on last step */}
             {currentStep === totalSteps - 1 && (
-              <Button key="submit" onClick={handleSubmit}>
+              <Button key="submit" onClick={handleSubmit} loading={loading}>
                 Submit
               </Button>
             )}
