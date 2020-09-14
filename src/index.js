@@ -1,5 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
+import { apolloReducer } from './state/reducers/apolloReducer';
 import {
   BrowserRouter as Router,
   Route,
@@ -19,12 +24,18 @@ import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 
+import './styles/index.less';
+
+const store = createStore(apolloReducer, applyMiddleware(thunk, logger));
+
 ReactDOM.render(
-  <Router>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </Router>,
+  <Provider store={store}>
+    <Router>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
 
@@ -50,9 +61,9 @@ function App() {
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
-        <SecureRoute path="/example-list" component={ExampleListPage} />
-        <SecureRoute path="/profile-list" component={ProfileListPage} />
-        <SecureRoute path="/datavis" component={ExampleDataViz} />
+        <SecureRoute path="/newtopic" component={ExampleListPage} />
+        <SecureRoute path="/signout" component={ProfileListPage} />
+        <SecureRoute path="/jointopic" component={ExampleDataViz} />
         <Route component={NotFoundPage} />
       </Switch>
     </Security>
