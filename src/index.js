@@ -16,7 +16,8 @@ import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 import 'antd/dist/antd.less';
 
 import { NotFoundPage } from './components/pages/NotFound';
-import { ExampleListPage } from './components/pages/ExampleList';
+import { TopicCreation } from './components/pages/TopicCreation';
+// import { ExampleListPage } from './components/pages/ExampleList';
 import { ProfileListPage } from './components/pages/ProfileList';
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
@@ -61,7 +62,7 @@ function App() {
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
-        <SecureRoute path="/newtopic" component={ExampleListPage} />
+        <SecureRoute path="/newtopic" component={TopicCreation} />
         <SecureRoute path="/signout" component={ProfileListPage} />
         <SecureRoute path="/jointopic" component={ExampleDataViz} />
         <Route component={NotFoundPage} />
