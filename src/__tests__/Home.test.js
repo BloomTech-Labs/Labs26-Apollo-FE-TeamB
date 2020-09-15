@@ -47,5 +47,7 @@ describe('<HomeContainer /> testing suite', () => {
     });
     loader = queryByText(/...fetching profile/i);
     expect(loader).toBeNull();
+    const title = getByText(/apollo/i);
+    expect(title).toBeInTheDocument();
   });
 });
