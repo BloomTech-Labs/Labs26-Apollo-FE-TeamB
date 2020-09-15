@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Menu } from 'antd';
 
 // pass in context types and state handler from parent component
-const ContextTypeMenu = ({ contextTypes, stateHandler }) => {
+const ContextTypeMenu = ({ currentStep, contextTypes, stateHandler }) => {
   // create contexts object with Menu.Item keys and contextTypes
   const initContexts = {};
   contextTypes.forEach((context, idx) => {
@@ -14,6 +14,9 @@ const ContextTypeMenu = ({ contextTypes, stateHandler }) => {
   const handleClick = menuItem => {
     stateHandler(contexts[menuItem.key]);
   };
+  if (currentStep !== 1) {
+    return null;
+  }
   return (
     // antd Menu component looping through contextTypes and creating a Menu.Item for each type
     <Menu>

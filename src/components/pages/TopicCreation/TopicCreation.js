@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
 import {
-  ContextSelection,
+  ContextTypeMenu,
+  // ContextSelection,
   TopicSetup,
   ReviewLeaderQuestions,
   ReviewMemberQuestions,
@@ -55,6 +56,14 @@ const defaultTopic = {
   frequency: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
 };
 
+const contextTypes = [
+  'product leadership',
+  'delivery management',
+  'project management',
+  'design leadership',
+  'engineering leadership',
+];
+
 //how many steps the wizard has
 const totalSteps = 6;
 
@@ -63,6 +72,17 @@ const TopicCreation = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [currentTopic, setCurrentTopic] = useState(defaultTopic);
   const [loading, setLoading] = useState(false);
+
+  //context type menu
+  // const [selectedContext, setSelectedContext] = useState(null);
+  const handleContext = menuItem => {
+    // console.log(menuItem);
+    // setSelectedContext(menuItem);
+    setCurrentTopic({
+      ...currentTopic,
+      contextName: menuItem,
+    });
+  };
 
   //handles opening the modal
   const showModal = () => {
@@ -158,12 +178,18 @@ const TopicCreation = () => {
           </>,
         ]}
       >
-        <ContextSelection
+        <ContextTypeMenu
+          key="step1"
+          currentStep={currentStep}
+          contextTypes={contextTypes}
+          stateHandler={handleContext}
+        />
+        {/* <ContextSelection
           key="step1"
           currentStep={currentStep}
           handleChange={handleChange}
           currentTopic={currentTopic}
-        />
+        /> */}
         <TopicSetup
           key="step2"
           currentStep={currentStep}
