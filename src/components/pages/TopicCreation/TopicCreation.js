@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button } from 'antd';
+import { Modal, Button, Progress } from 'antd';
 import {
   ContextSelection,
   TopicSetup,
@@ -137,6 +137,7 @@ const TopicCreation = () => {
           </>,
         ]}
       >
+        <Progress percent={(100 / totalSteps) * currentStep} showInfo={false} />
         <ContextSelection
           key="step1"
           currentStep={currentStep}
