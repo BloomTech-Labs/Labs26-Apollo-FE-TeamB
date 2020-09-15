@@ -6,6 +6,7 @@ import {
   ReviewLeaderQuestions,
   ReviewMemberQuestions,
   ReviewFinal,
+  CreationSuccess,
 } from './Steps/';
 
 import 'antd/dist/antd.css';
@@ -55,12 +56,13 @@ const defaultTopic = {
 };
 
 //how many steps the wizard has
-const totalSteps = 5;
+const totalSteps = 6;
 
 const TopicCreation = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [currentTopic, setCurrentTopic] = useState(defaultTopic);
+  const [loading, setLoading] = useState(false);
 
   //handles opening the modal
   const showModal = () => {
@@ -70,9 +72,23 @@ const TopicCreation = () => {
   //handles submitting the modal
   //stubbed out for now
   const handleOk = e => {
-    setIsVisible(false);
-    console.log('submitted');
     setCurrentStep(1);
+    setIsVisible(false);
+  };
+
+  const handleSubmit = async e => {
+    setLoading(true);
+    // function to await topic submission to complete
+    const submit = () => {
+      return new Promise(resolve => {
+        // this part will be replaced with correct API call
+        setTimeout(() => {
+          resolve(console.log('2sec'));
+        }, 2000);
+      });
+    };
+    await submit();
+    await Promise.resolve(handleNext());
   };
 
   //handles closing the modal
@@ -100,7 +116,7 @@ const TopicCreation = () => {
     let newStep = currentStep;
 
     //increment step by one unless at end
-    newStep = newStep >= 4 ? totalSteps : newStep + 1;
+    newStep = newStep >= 5 ? totalSteps : newStep + 1;
     setCurrentStep(newStep);
   };
 
@@ -112,26 +128,31 @@ const TopicCreation = () => {
       <Modal
         title="Create a Topic"
         visible={isVisible}
-        onOk={handleOk}
+        onOk={handleSubmit}
         onCancel={handleCancel}
         footer={[
           <>
             {/* Renders Prev button if not on first step */}
-            {currentStep > 1 && (
+            {currentStep > 1 && currentStep < totalSteps && (
               <Button key="prev" onClick={handlePrev}>
                 Prev
               </Button>
             )}
             {/* Renders Next button if not on last step */}
-            {currentStep < totalSteps && (
+            {currentStep < totalSteps - 1 && (
               <Button key="next" onClick={handleNext}>
                 Next
               </Button>
             )}
             {/* Renders Submit button if on last step */}
-            {currentStep === totalSteps && (
-              <Button key="submit" onClick={handleOk}>
+            {currentStep === totalSteps - 1 && (
+              <Button key="submit" onClick={handleSubmit} loading={loading}>
                 Submit
+              </Button>
+            )}
+            {currentStep === totalSteps && (
+              <Button key="close" onClick={handleOk}>
+                Close
               </Button>
             )}
           </>,
@@ -166,6 +187,11 @@ const TopicCreation = () => {
           key="step5"
           currentStep={currentStep}
           handleChange={handleChange}
+          currentTopic={currentTopic}
+        />
+        <CreationSuccess
+          key="step6"
+          currentStep={currentStep}
           currentTopic={currentTopic}
         />
       </Modal>
