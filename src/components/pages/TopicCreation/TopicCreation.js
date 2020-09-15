@@ -5,8 +5,9 @@ import {
   // ContextSelection,
   FreqAndName,
   // TopicSetup,
-  ReviewLeaderQuestions,
-  ReviewMemberQuestions,
+  QuestionForm,
+  // ReviewLeaderQuestions,
+  // ReviewMemberQuestions,
   ReviewFinal,
   CreationSuccess,
 } from './Steps/';
@@ -24,7 +25,7 @@ const defaultTopic = {
     {
       id: 1,
       type: 'text',
-      body: 'What is the priorty for the week',
+      body: 'What is the priority for the week?',
     },
     {
       id: 2,
@@ -203,18 +204,25 @@ const TopicCreation = () => {
           handleChange={handleChange}
           currentTopic={currentTopic}
         /> */}
-        <ReviewLeaderQuestions
+        <QuestionForm
+          key="step3"
+          currentStep={currentStep}
+          isContext={true}
+          activeQuestions={currentTopic.leaderQuestions}
+          stateHandler={handleCurrentTopicState}
+        />
+        {/* <ReviewLeaderQuestions
           key="step3"
           currentStep={currentStep}
           handleChange={handleChange}
           currentTopic={currentTopic}
-        />
-        <ReviewMemberQuestions
+        /> */}
+        {/* <ReviewMemberQuestions
           key="step4"
           currentStep={currentStep}
           handleChange={handleChange}
           currentTopic={currentTopic}
-        />
+        /> */}
         <ReviewFinal
           key="step5"
           currentStep={currentStep}
