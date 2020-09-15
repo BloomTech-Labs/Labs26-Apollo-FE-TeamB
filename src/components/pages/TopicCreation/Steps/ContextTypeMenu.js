@@ -12,7 +12,7 @@ const ContextTypeMenu = ({ currentStep, contextTypes, stateHandler }) => {
   const [contexts, setContexts] = useState(initContexts);
   // click handler to execute state handler function passed into component
   const handleClick = menuItem => {
-    stateHandler(contexts[menuItem.key]);
+    stateHandler('contextName', contexts[menuItem.key]);
   };
   if (currentStep !== 1) {
     return null;

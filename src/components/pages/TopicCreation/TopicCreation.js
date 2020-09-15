@@ -3,7 +3,8 @@ import { Modal, Button } from 'antd';
 import {
   ContextTypeMenu,
   // ContextSelection,
-  TopicSetup,
+  FreqAndName,
+  // TopicSetup,
   ReviewLeaderQuestions,
   ReviewMemberQuestions,
   ReviewFinal,
@@ -53,9 +54,10 @@ const defaultTopic = {
       body: 'Will you be able to meet the hard deadlines?',
     },
   ],
-  frequency: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+  frequency: '',
 };
 
+//context types
 const contextTypes = [
   'product leadership',
   'delivery management',
@@ -63,6 +65,9 @@ const contextTypes = [
   'design leadership',
   'engineering leadership',
 ];
+
+//frequencies
+const frequencies = ['Daily', 'Weekly', 'Monthly', 'Custom', 'Off'];
 
 //how many steps the wizard has
 const totalSteps = 6;
@@ -73,14 +78,11 @@ const TopicCreation = () => {
   const [currentTopic, setCurrentTopic] = useState(defaultTopic);
   const [loading, setLoading] = useState(false);
 
-  //context type menu
-  // const [selectedContext, setSelectedContext] = useState(null);
-  const handleContext = menuItem => {
-    // console.log(menuItem);
-    // setSelectedContext(menuItem);
+  //handle topic state object change
+  const handleCurrentTopicState = (fieldName, fieldValue) => {
     setCurrentTopic({
       ...currentTopic,
-      contextName: menuItem,
+      [fieldName]: fieldValue,
     });
   };
 
@@ -182,7 +184,7 @@ const TopicCreation = () => {
           key="step1"
           currentStep={currentStep}
           contextTypes={contextTypes}
-          stateHandler={handleContext}
+          stateHandler={handleCurrentTopicState}
         />
         {/* <ContextSelection
           key="step1"
@@ -190,12 +192,17 @@ const TopicCreation = () => {
           handleChange={handleChange}
           currentTopic={currentTopic}
         /> */}
-        <TopicSetup
+        <FreqAndName
+          key="step2"
+          currentStep={currentStep}
+          stateHandler={handleCurrentTopicState}
+        />
+        {/* <TopicSetup
           key="step2"
           currentStep={currentStep}
           handleChange={handleChange}
           currentTopic={currentTopic}
-        />
+        /> */}
         <ReviewLeaderQuestions
           key="step3"
           currentStep={currentStep}

@@ -15,15 +15,17 @@ const layout = {
 };
 
 // pass in state handler from parent component
-const FreqAndName = ({ stateHandler }) => {
+const FreqAndName = ({ currentStep, stateHandler }) => {
   // initialize frequencies variable and form in state
   const frequencies = ['Daily', 'Weekly', 'Monthly', 'Custom', 'Off'];
   const [form] = Form.useForm();
   // form value state handler works with parent so that state lives in parent component
   const handleValueChange = freqNameObj => {
-    stateHandler(freqNameObj);
+    stateHandler(Object.keys(freqNameObj)[0], Object.values(freqNameObj)[0]);
   };
-
+  if (currentStep !== 2) {
+    return null;
+  }
   return (
     // antd form component with layout settings from above
     <Form
@@ -35,7 +37,7 @@ const FreqAndName = ({ stateHandler }) => {
     >
       {/* form input topic name with required rule and a message */}
       <Form.Item
-        name="topicName"
+        name="name"
         label="Name"
         rules={[{ required: true, message: 'Topic Name Required' }]}
       >
