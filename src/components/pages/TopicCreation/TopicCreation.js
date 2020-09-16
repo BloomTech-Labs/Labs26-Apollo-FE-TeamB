@@ -40,17 +40,17 @@ const defaultTopic = {
   ],
   memberQuestions: [
     {
-      id: 4,
+      id: 1,
       type: 'text',
       body: 'Do you have any blockers',
     },
     {
-      id: 5,
+      id: 2,
       type: 'text',
       body: 'What task are you working on?',
     },
     {
-      id: 6,
+      id: 3,
       type: 'text',
       body: 'Will you be able to meet the hard deadlines?',
     },
@@ -204,19 +204,30 @@ const TopicCreation = () => {
           handleChange={handleChange}
           currentTopic={currentTopic}
         /> */}
-        <QuestionForm
-          key="step3"
-          currentStep={currentStep}
-          isContext={true}
-          activeQuestions={currentTopic.leaderQuestions}
-          stateHandler={handleCurrentTopicState}
-        />
+        {currentStep === 3 && (
+          <QuestionForm
+            key="step3"
+            currentStep={currentStep}
+            isContext={true}
+            activeQuestions={currentTopic.leaderQuestions}
+            stateHandler={handleCurrentTopicState}
+          />
+        )}
         {/* <ReviewLeaderQuestions
           key="step3"
           currentStep={currentStep}
           handleChange={handleChange}
           currentTopic={currentTopic}
         /> */}
+        {currentStep === 4 && (
+          <QuestionForm
+            key="step4"
+            currentStep={currentStep}
+            isContext={false}
+            activeQuestions={currentTopic.memberQuestions}
+            stateHandler={handleCurrentTopicState}
+          />
+        )}
         {/* <ReviewMemberQuestions
           key="step4"
           currentStep={currentStep}
