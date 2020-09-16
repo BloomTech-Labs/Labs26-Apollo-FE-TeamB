@@ -42,7 +42,7 @@ const defaultTopic = {
     {
       id: 1,
       type: 'text',
-      body: 'Do you have any blockers',
+      body: 'Do you have any blockers?',
     },
     {
       id: 2,
@@ -181,23 +181,22 @@ const TopicCreation = () => {
           </>,
         ]}
       >
-        <ContextTypeMenu
-          key="step1"
-          currentStep={currentStep}
-          contextTypes={contextTypes}
-          stateHandler={handleCurrentTopicState}
-        />
+        {currentStep === 1 && (
+          <ContextTypeMenu
+            key="step1"
+            contextTypes={contextTypes}
+            stateHandler={handleCurrentTopicState}
+          />
+        )}
         {/* <ContextSelection
           key="step1"
           currentStep={currentStep}
           handleChange={handleChange}
           currentTopic={currentTopic}
         /> */}
-        <FreqAndName
-          key="step2"
-          currentStep={currentStep}
-          stateHandler={handleCurrentTopicState}
-        />
+        {currentStep === 2 && (
+          <FreqAndName key="step2" stateHandler={handleCurrentTopicState} />
+        )}
         {/* <TopicSetup
           key="step2"
           currentStep={currentStep}
@@ -207,7 +206,6 @@ const TopicCreation = () => {
         {currentStep === 3 && (
           <QuestionForm
             key="step3"
-            currentStep={currentStep}
             isContext={true}
             activeQuestions={currentTopic.leaderQuestions}
             stateHandler={handleCurrentTopicState}
@@ -222,7 +220,6 @@ const TopicCreation = () => {
         {currentStep === 4 && (
           <QuestionForm
             key="step4"
-            currentStep={currentStep}
             isContext={false}
             activeQuestions={currentTopic.memberQuestions}
             stateHandler={handleCurrentTopicState}
@@ -234,17 +231,16 @@ const TopicCreation = () => {
           handleChange={handleChange}
           currentTopic={currentTopic}
         /> */}
-        <ReviewFinal
-          key="step5"
-          currentStep={currentStep}
-          handleChange={handleChange}
-          currentTopic={currentTopic}
-        />
-        <CreationSuccess
-          key="step6"
-          currentStep={currentStep}
-          currentTopic={currentTopic}
-        />
+        {currentStep === 5 && (
+          <ReviewFinal
+            key="step5"
+            handleChange={handleChange}
+            currentTopic={currentTopic}
+          />
+        )}
+        {currentStep === 6 && (
+          <CreationSuccess key="step6" currentTopic={currentTopic} />
+        )}
       </Modal>
     </>
   );

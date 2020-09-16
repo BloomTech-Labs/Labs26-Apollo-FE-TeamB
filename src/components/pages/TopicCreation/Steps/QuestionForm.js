@@ -2,12 +2,7 @@ import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { MinusCircleOutlined } from '@ant-design/icons';
 
-const QuestionForm = ({
-  currentStep,
-  isContext,
-  activeQuestions,
-  stateHandler,
-}) => {
+const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
   // local questions state
   // const [questions, setQuestions] = useState(activeQuestions);
   // click handler function for updating questions
@@ -32,9 +27,6 @@ const QuestionForm = ({
       updateQuestions
     );
   };
-  if (currentStep !== 3 && currentStep !== 4) {
-    return null;
-  }
   return (
     // antd form component
     <Form name="question-form" layout="vertical" labelAlign="left">

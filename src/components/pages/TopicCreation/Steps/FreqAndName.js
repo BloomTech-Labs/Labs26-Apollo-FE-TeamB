@@ -15,7 +15,7 @@ const layout = {
 };
 
 // pass in state handler from parent component
-const FreqAndName = ({ currentStep, stateHandler }) => {
+const FreqAndName = ({ stateHandler }) => {
   // initialize frequencies variable and form in state
   const frequencies = ['Daily', 'Weekly', 'Monthly', 'Custom', 'Off'];
   const [form] = Form.useForm();
@@ -23,9 +23,6 @@ const FreqAndName = ({ currentStep, stateHandler }) => {
   const handleValueChange = freqNameObj => {
     stateHandler(Object.keys(freqNameObj)[0], Object.values(freqNameObj)[0]);
   };
-  if (currentStep !== 2) {
-    return null;
-  }
   return (
     // antd form component with layout settings from above
     <Form
