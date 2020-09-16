@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button } from 'antd';
+import { Modal, Button, Progress } from 'antd';
 import {
   ContextSelection,
   TopicSetup,
@@ -126,7 +126,16 @@ const TopicCreation = () => {
         Create Topic
       </Button>
       <Modal
-        title="Create a Topic"
+        title={
+          <>
+            <br></br> {/* Empty line for better UI */}
+            <Progress
+              percent={(100 / totalSteps) * currentStep}
+              showInfo={false}
+            />
+            <h2>Create a Topic</h2>
+          </>
+        }
         visible={isVisible}
         onOk={handleSubmit}
         onCancel={handleCancel}
