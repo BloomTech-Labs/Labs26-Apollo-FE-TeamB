@@ -145,7 +145,16 @@ const TopicCreation = () => {
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
+      <Button
+        type="primary"
+        onClick={showModal}
+        style={{
+          backgroundColor: '#705C55',
+          border: '1px solid #BC9D7E',
+          fontWeight: 'bold',
+          color: '#191919',
+        }}
+      >
         Create Topic
       </Button>
       <Modal
