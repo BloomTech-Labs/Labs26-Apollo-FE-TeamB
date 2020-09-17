@@ -16,11 +16,11 @@ const ContextTypeMenu = ({ contextTypes, stateHandler }) => {
   };
   return (
     // antd Menu component looping through contextTypes and creating a Menu.Item for each type
-    <Menu>
+    <Menu mode="vertical">
       {contextTypes.map((context, idx) => (
         <Menu.Item
           key={idx}
-          style={{ textAlign: 'center', width: '40%', margin: '0 auto' }}
+          style={{ textAlign: 'center' }}
           onClick={handleClick}
         >
           {context}

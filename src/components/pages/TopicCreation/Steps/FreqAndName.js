@@ -2,17 +2,17 @@ import React, { useEffect } from 'react';
 import { Form, Input, Select } from 'antd';
 
 // form layout settings (can be changed if needed or wanted)
-const layout = {
-  labelCol: {
-    span: 8,
-    push: 8,
-  },
-  wrapperCol: {
-    span: 8,
-    offset: 8,
-  },
-  size: 'middle',
-};
+// const layout = {
+//   labelCol: {
+//     span: 8,
+//     push: 8,
+//   },
+//   wrapperCol: {
+//     span: 8,
+//     offset: 8,
+//   },
+//   size: 'middle',
+// };
 
 // pass in state handler from parent component
 const FreqAndName = ({ stateHandler }) => {
@@ -26,7 +26,7 @@ const FreqAndName = ({ stateHandler }) => {
   return (
     // antd form component with layout settings from above
     <Form
-      {...layout}
+      // {...layout}
       layout="vertical"
       form={form}
       name="freqAndName"

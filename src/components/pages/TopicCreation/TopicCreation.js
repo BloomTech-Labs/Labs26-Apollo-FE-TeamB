@@ -173,6 +173,12 @@ const TopicCreation = () => {
         Create Topic
       </Button>
       <Modal
+        centered={true}
+        bodyStyle={{
+          width: '80%',
+          height: '40vh',
+          margin: '0 auto',
+        }}
         title={
           <>
             <br></br> {/* Empty line for better UI */}
@@ -180,7 +186,11 @@ const TopicCreation = () => {
               percent={(100 / totalSteps) * currentStep}
               showInfo={false}
             />
-            <h2>Create a Topic</h2>
+            <h2 style={{ paddingTop: '5%' }}>
+              {currentStep == 1
+                ? 'New Topic'
+                : `${currentTopic.contextName.split(' ')[0]} Topic`}
+            </h2>
           </>
         }
         visible={isVisible}
@@ -228,7 +238,10 @@ const TopicCreation = () => {
           currentTopic={currentTopic}
         /> */}
         {currentStep === 2 && (
-          <FreqAndName key="step2" stateHandler={handleCurrentTopicState} />
+          <>
+            <p>Topic Settings</p>
+            <FreqAndName key="step2" stateHandler={handleCurrentTopicState} />
+          </>
         )}
         {/* <TopicSetup
           key="step2"
@@ -238,6 +251,9 @@ const TopicCreation = () => {
         /> */}
         {currentStep === 3 && (
           <>
+            <p style={{ fontSize: '1.5rem', color: 'black' }}>
+              Context Questions
+            </p>
             <QuestionForm
               key="step3"
               isContext={true}
@@ -260,6 +276,9 @@ const TopicCreation = () => {
         /> */}
         {currentStep === 4 && (
           <>
+            <p style={{ fontSize: '1.5rem', color: 'black' }}>
+              Request Questions
+            </p>
             <QuestionForm
               key="step4"
               isContext={false}

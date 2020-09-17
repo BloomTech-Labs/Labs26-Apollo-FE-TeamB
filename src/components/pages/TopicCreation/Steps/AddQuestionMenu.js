@@ -5,7 +5,7 @@ const layout = {
   size: 'middle',
   style: {
     textAlign: 'center',
-    width: '50%',
+    width: '80%',
   },
 };
 
