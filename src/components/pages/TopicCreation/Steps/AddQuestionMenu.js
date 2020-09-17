@@ -12,11 +12,24 @@ const layout = {
 // parameters
 // isContext (bool - context questions or team questions)
 // questionList (array - list of questions)
+// questionState (active question state)
 // stateHandler (fn - state handler function to keep state in parent component)
-const AddQuestionMenu = ({ isContext, questionList, stateHandler }) => {
+const AddQuestionMenu = ({
+  isContext,
+  defaultQuestionList,
+  questionState,
+  stateHandler,
+}) => {
   // call state handler when dropdown item selected
-  const handleSelect = question => {
-    stateHandler(question);
+  const handleSelect = questionString => {
+    stateHandler(isContext ? 'leaderQuestions' : 'memberQuestions', [
+      ...questionState,
+      {
+        id: questionState[questionState.length - 1] + 1,
+        type: 'text',
+        body: questionString,
+      },
+    ]);
   };
   return (
     // antd select component
@@ -30,9 +43,9 @@ const AddQuestionMenu = ({ isContext, questionList, stateHandler }) => {
         Custom
       </Select.Option>
       {/* map through question list and add them to dropdown */}
-      {questionList.map((question, idx) => (
-        <Select.Option key={idx} value={question}>
-          {question}
+      {defaultQuestionList.map((questionString, idx) => (
+        <Select.Option key={idx} value={questionString}>
+          {questionString}
         </Select.Option>
       ))}
     </Select>

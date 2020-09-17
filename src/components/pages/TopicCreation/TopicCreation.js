@@ -6,6 +6,7 @@ import {
   FreqAndName,
   // TopicSetup,
   QuestionForm,
+  AddQuestionMenu,
   // ReviewLeaderQuestions,
   // ReviewMemberQuestions,
   ReviewFinal,
@@ -60,11 +61,25 @@ const defaultTopic = {
 
 //context types
 const contextTypes = [
-  'product leadership',
-  'delivery management',
-  'project management',
-  'design leadership',
-  'engineering leadership',
+  'Product Leadership',
+  'Delivery Management',
+  'Project Management',
+  'Design Leadership',
+  'Engineering Leadership',
+];
+
+const leaderQuestionList = [
+  'What is the priority for the week?',
+  'What are our hard deadlines?',
+  'Is there any new information the team needs?',
+];
+
+//default member questions
+const memberQuestionList = [
+  'What did you accomplish yesterday?',
+  'What are you working on today?',
+  'Do you have any monsters in your way?',
+  "What's your favorite dessert?",
 ];
 
 //frequencies
@@ -222,12 +237,20 @@ const TopicCreation = () => {
           currentTopic={currentTopic}
         /> */}
         {currentStep === 3 && (
-          <QuestionForm
-            key="step3"
-            isContext={true}
-            activeQuestions={currentTopic.leaderQuestions}
-            stateHandler={handleCurrentTopicState}
-          />
+          <>
+            <QuestionForm
+              key="step3"
+              isContext={true}
+              activeQuestions={currentTopic.leaderQuestions}
+              stateHandler={handleCurrentTopicState}
+            />
+            <AddQuestionMenu
+              isContext={true}
+              defaultQuestionList={leaderQuestionList}
+              questionState={currentTopic.leaderQuestions}
+              stateHandler={handleCurrentTopicState}
+            />
+          </>
         )}
         {/* <ReviewLeaderQuestions
           key="step3"
@@ -236,12 +259,20 @@ const TopicCreation = () => {
           currentTopic={currentTopic}
         /> */}
         {currentStep === 4 && (
-          <QuestionForm
-            key="step4"
-            isContext={false}
-            activeQuestions={currentTopic.memberQuestions}
-            stateHandler={handleCurrentTopicState}
-          />
+          <>
+            <QuestionForm
+              key="step4"
+              isContext={false}
+              activeQuestions={currentTopic.memberQuestions}
+              stateHandler={handleCurrentTopicState}
+            />
+            <AddQuestionMenu
+              isContext={false}
+              defaultQuestionList={memberQuestionList}
+              questionState={currentTopic.memberQuestions}
+              stateHandler={handleCurrentTopicState}
+            />
+          </>
         )}
         {/* <ReviewMemberQuestions
           key="step4"

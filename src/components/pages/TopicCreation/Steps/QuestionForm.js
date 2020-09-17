@@ -51,7 +51,7 @@ const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
         </Form.Item>
       ))}
       {/* button to add a new question */}
-      <Form.Item>
+      {/* <Form.Item>
         <Button
           type="primary"
           onClick={() => {
@@ -70,7 +70,7 @@ const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
         >
           add
         </Button>
-      </Form.Item>
+      </Form.Item> */}
     </Form>
   );
 };
