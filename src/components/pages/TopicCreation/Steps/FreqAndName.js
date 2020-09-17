@@ -1,18 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Form, Input, Select } from 'antd';
-
-// form layout settings (can be changed if needed or wanted)
-// const layout = {
-//   labelCol: {
-//     span: 8,
-//     push: 8,
-//   },
-//   wrapperCol: {
-//     span: 8,
-//     offset: 8,
-//   },
-//   size: 'middle',
-// };
 
 // pass in state handler from parent component
 const FreqAndName = ({ stateHandler }) => {
@@ -24,13 +11,12 @@ const FreqAndName = ({ stateHandler }) => {
     stateHandler(Object.keys(freqNameObj)[0], Object.values(freqNameObj)[0]);
   };
   return (
-    // antd form component with layout settings from above
     <Form
-      // {...layout}
       layout="vertical"
       form={form}
       name="freqAndName"
       onValuesChange={handleValueChange}
+      style={{ textAlign: 'left' }}
     >
       {/* form input topic name with required rule and a message */}
       <Form.Item
@@ -48,13 +34,20 @@ const FreqAndName = ({ stateHandler }) => {
       >
         {/* select menu with frequencies as options */}
         <Select
-          placeholder="Select Frequency"
-          // dropdownStyle={{ fontSize: '10rem' }}
+          placeholder={<p style={{ textAlign: 'left' }}>Select Frequency</p>}
         >
           {frequencies.map((freq, idx) => (
-            <Select.Option key={idx} value={freq}>
-              {freq}
-            </Select.Option>
+            <>
+              <Select.Option
+                key={idx}
+                value={freq}
+                style={{
+                  borderBottom: freq !== 'Off' ? '1px solid grey' : null,
+                }}
+              >
+                <p style={{ textAlign: 'left' }}>{freq}</p>
+              </Select.Option>
+            </>
           ))}
         </Select>
       </Form.Item>

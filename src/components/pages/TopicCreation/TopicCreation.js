@@ -196,7 +196,7 @@ const TopicCreation = () => {
                 paddingLeft: '10%',
               }}
             >
-              {currentStep == 1
+              {currentStep === 1
                 ? 'New Topic'
                 : `${currentTopic.contextName.split(' ')[0]} Topic`}
             </h2>

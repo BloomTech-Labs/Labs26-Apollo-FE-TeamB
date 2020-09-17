@@ -37,6 +37,7 @@ const AddQuestionMenu = ({
       {...layout}
       value={isContext ? 'Add Context Question' : 'Add Question'}
       onSelect={handleSelect}
+      // dropdownMatchSelectWidth={false}
     >
       {/* manually added custom option */}
       <Select.Option key={-1} value="Custom">
