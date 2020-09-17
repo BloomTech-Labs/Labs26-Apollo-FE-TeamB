@@ -14,7 +14,6 @@ const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
     );
   };
   const inputChange = e => {
-    console.log(e.target.value);
     const id = e.target.id;
     const val = e.target.value;
     const updateQuestions = [...activeQuestions];
@@ -58,7 +57,7 @@ const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
             onChange={inputChange}
             maxLength={20}
             size="large"
-            // style={{ width: '80%' }}
+            style={{ textAlign: 'left' }}
           />
           {/* antd minus sign icon with click handler to delete the question it's attached to */}
           {/* <DeleteFilled

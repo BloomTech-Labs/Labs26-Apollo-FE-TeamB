@@ -47,7 +47,10 @@ const FreqAndName = ({ stateHandler }) => {
         rules={[{ required: true, message: 'Please Choose Frequency' }]}
       >
         {/* select menu with frequencies as options */}
-        <Select placeholder="Select Frequency">
+        <Select
+          placeholder="Select Frequency"
+          // dropdownStyle={{ fontSize: '10rem' }}
+        >
           {frequencies.map((freq, idx) => (
             <Select.Option key={idx} value={freq}>
               {freq}

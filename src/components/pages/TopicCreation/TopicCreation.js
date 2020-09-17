@@ -174,9 +174,12 @@ const TopicCreation = () => {
       </Button>
       <Modal
         centered={true}
+        width="40%"
         bodyStyle={{
           width: '80%',
-          height: '40vh',
+          height: '70vh',
+          // paddingBottom: '60%',
+          // height: '40vh',
           margin: '0 auto',
         }}
         title={
@@ -186,7 +189,13 @@ const TopicCreation = () => {
               percent={(100 / totalSteps) * currentStep}
               showInfo={false}
             />
-            <h2 style={{ paddingTop: '5%' }}>
+            <h2
+              style={{
+                textAlign: 'left',
+                paddingTop: '5%',
+                paddingLeft: '10%',
+              }}
+            >
               {currentStep == 1
                 ? 'New Topic'
                 : `${currentTopic.contextName.split(' ')[0]} Topic`}
@@ -225,11 +234,17 @@ const TopicCreation = () => {
         ]}
       >
         {currentStep === 1 && (
-          <ContextTypeMenu
-            key="step1"
-            contextTypes={contextTypes}
-            stateHandler={handleCurrentTopicState}
-          />
+          <>
+            <p style={{ textAlign: 'left' }}>
+              What type of context do you provide to the team?
+            </p>
+            <ContextTypeMenu
+              key="step1"
+              currentContext={currentTopic.contextName}
+              contextTypes={contextTypes}
+              stateHandler={handleCurrentTopicState}
+            />
+          </>
         )}
         {/* <ContextSelection
           key="step1"
@@ -239,7 +254,7 @@ const TopicCreation = () => {
         /> */}
         {currentStep === 2 && (
           <>
-            <p>Topic Settings</p>
+            <p style={{ textAlign: 'left' }}>Topic Settings</p>
             <FreqAndName key="step2" stateHandler={handleCurrentTopicState} />
           </>
         )}
@@ -251,7 +266,9 @@ const TopicCreation = () => {
         /> */}
         {currentStep === 3 && (
           <>
-            <p style={{ fontSize: '1.5rem', color: 'black' }}>
+            <p
+              style={{ fontSize: '1.5rem', color: 'black', textAlign: 'left' }}
+            >
               Context Questions
             </p>
             <QuestionForm
@@ -276,7 +293,9 @@ const TopicCreation = () => {
         /> */}
         {currentStep === 4 && (
           <>
-            <p style={{ fontSize: '1.5rem', color: 'black' }}>
+            <p
+              style={{ fontSize: '1.5rem', color: 'black', textAlign: 'left' }}
+            >
               Request Questions
             </p>
             <QuestionForm
