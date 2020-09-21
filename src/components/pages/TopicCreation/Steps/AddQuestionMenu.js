@@ -1,12 +1,8 @@
 import React from 'react';
-import { Form, Select } from 'antd';
+import { Menu, Select, Dropdown } from 'antd';
 
 const layout = {
   size: 'middle',
-  style: {
-    textAlign: 'center',
-    width: '80%',
-  },
 };
 
 // parameters
@@ -31,22 +27,28 @@ const AddQuestionMenu = ({
       },
     ]);
   };
+
   return (
     // antd select component
     <Select
       {...layout}
-      value={isContext ? 'Add Context Question' : 'Add Question'}
+      value={
+        <p style={{ textAlign: 'left' }}>
+          {isContext ? 'Add Context Question' : 'Add Question'}
+        </p>
+      }
       onSelect={handleSelect}
-      // dropdownMatchSelectWidth={false}
+      dropdownMatchSelectWidth={500}
+      style={{ marginTop: '5%' }}
     >
       {/* manually added custom option */}
       <Select.Option key={-1} value="Custom">
-        Custom
+        <p style={{ textAlign: 'left', margin: '0' }}>Custom</p>
       </Select.Option>
       {/* map through question list and add them to dropdown */}
       {defaultQuestionList.map((questionString, idx) => (
         <Select.Option key={idx} value={questionString}>
-          {questionString}
+          <p style={{ textAlign: 'left', margin: '0' }}>{questionString}</p>
         </Select.Option>
       ))}
     </Select>

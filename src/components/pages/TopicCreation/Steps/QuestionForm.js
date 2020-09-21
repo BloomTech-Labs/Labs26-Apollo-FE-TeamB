@@ -2,10 +2,9 @@ import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { DeleteFilled } from '@ant-design/icons';
 // import { MinusCircleOutlined } from '@ant-design/icons';
+import { FaTrashAlt, FaRegTrashAlt } from 'react-icons/fa';
 
 const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
-  // local questions state
-  // const [questions, setQuestions] = useState(activeQuestions);
   // click handler function for updating questions
   const handleClick = updateQuestions => {
     stateHandler(
@@ -29,7 +28,17 @@ const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
   };
   return (
     // antd form component
-    <Form name="question-form" layout="vertical" labelAlign="left">
+    <Form
+      name="question-form"
+      layout="vertical"
+      labelAlign="left"
+      style={{
+        height: '85%',
+        maxHeight: '60vh',
+        overflow: 'auto',
+        borderBottom: '1px solid grey',
+      }}
+    >
       {/* map through questions and make a form item for each one */}
       {activeQuestions.map((question, index) => (
         <Form.Item key={index}>
@@ -44,7 +53,7 @@ const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
               htmlFor={question.id}
               style={{ textAlign: 'left' }}
             >{`Question ${index + 1}`}</label>
-            <DeleteFilled
+            <FaRegTrashAlt
               style={{ margin: '0 8px' }}
               onClick={() => {
                 handleClick(activeQuestions.filter((testQ, i) => i !== index));
@@ -59,36 +68,8 @@ const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
             size="large"
             style={{ textAlign: 'left' }}
           />
-          {/* antd minus sign icon with click handler to delete the question it's attached to */}
-          {/* <DeleteFilled
-            style={{ margin: '0 8px' }}
-            onClick={() => {
-              handleClick(activeQuestions.filter((testQ, i) => i !== index));
-            }}
-          /> */}
         </Form.Item>
       ))}
-      {/* button to add a new question */}
-      {/* <Form.Item>
-        <Button
-          type="primary"
-          onClick={() => {
-            handleClick([
-              ...activeQuestions,
-              {
-                id:
-                  activeQuestions.length > 0
-                    ? activeQuestions[activeQuestions.length - 1].id + 1
-                    : 1,
-                type: 'text',
-                body: 'New Question',
-              },
-            ]);
-          }}
-        >
-          add
-        </Button>
-      </Form.Item> */}
     </Form>
   );
 };

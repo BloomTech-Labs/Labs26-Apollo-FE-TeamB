@@ -178,8 +178,6 @@ const TopicCreation = () => {
         bodyStyle={{
           width: '80%',
           height: '70vh',
-          // paddingBottom: '60%',
-          // height: '40vh',
           margin: '0 auto',
         }}
         title={
