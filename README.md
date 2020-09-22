@@ -6,7 +6,7 @@ For steps on how to work with this repository [please see here](https://docs.lab
 
 # Apollo Team B
 
-You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste URL here).
+You can find the deployed project at [Apollo](https://b.apollox.dev/).
 
 ## Contributors
 
@@ -39,7 +39,7 @@ You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste
 ### Key Features
 
 - A user can view a dashboard.
-- feature two
+- A user can create a new topic.
 - feature three
 - feature four
 - feature five
@@ -117,3 +117,4 @@ Remember that this project is licensed under the MIT license, and by submitting 
 ## Documentation
 
 See [Backend Documentation](🚫*link to your backend API SWAGGER DOCS here*) for details on the backend of our project.
+See [Frontend Documentation](link to front end readme in /src) for details on the frontend of our project.
