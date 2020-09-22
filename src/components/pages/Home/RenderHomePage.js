@@ -4,6 +4,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUsername } from '../../../state/actions/apolloActions';
+import { TopicCreation } from '../TopicCreation';
 const { Content, Sider } = Layout;
 
 function RenderHomePage(props) {
@@ -26,19 +27,7 @@ function RenderHomePage(props) {
             borderBottom: '1px solid #BC9D7E',
           }}
           extra={[
-            <Link to="/newtopic" key="newtopiclink1">
-              <Button
-                key="1"
-                style={{
-                  backgroundColor: '#705C55',
-                  border: '1px solid #BC9D7E',
-                  fontWeight: 'bold',
-                  color: '#191919',
-                }}
-              >
-                New Topic
-              </Button>
-            </Link>,
+            <TopicCreation key="newtopic1" />,
             <Link to="/jointopic" key="jointopiclink1">
               <Button
                 key="2"
@@ -79,19 +68,7 @@ function RenderHomePage(props) {
         <Layout style={{ backgroundColor: '#0E3857', height: '90vh' }}>
           <Sider style={{ color: 'white', textAlign: 'center' }}>
             <h2>Topics</h2>
-            <Link to="/newtopic">
-              <Button
-                key="newtopic"
-                style={{
-                  backgroundColor: '#705C55',
-                  border: '1px solid #BC9D7E',
-                  fontWeight: 'bold',
-                  color: '#191919',
-                }}
-              >
-                New Topic
-              </Button>
-            </Link>
+            <TopicCreation key="newtopic2" />
             <Link to="/jointopic">
               <Button
                 key="jointopic"

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Progress } from 'antd';
 import {
-  ContextSelection,
-  TopicSetup,
-  ReviewLeaderQuestions,
-  ReviewMemberQuestions,
+  ContextTypeMenu,
+  FreqAndName,
+  QuestionForm,
+  AddQuestionMenu,
   ReviewFinal,
   CreationSuccess,
 } from './Steps/';
@@ -16,13 +16,13 @@ import 'antd/dist/antd.css';
 const defaultTopic = {
   id: 1,
   contextId: 2,
-  contextName: 'Software Manager',
-  name: 'Name of Topic goes here',
+  contextName: '',
+  name: '',
   leaderQuestions: [
     {
       id: 1,
       type: 'text',
-      body: 'What is the priorty for the week',
+      body: 'What is the priority for the week?',
     },
     {
       id: 2,
@@ -37,23 +37,49 @@ const defaultTopic = {
   ],
   memberQuestions: [
     {
-      id: 4,
+      id: 1,
       type: 'text',
-      body: 'Do you have any blockers',
+      body: 'Do you have any blockers?',
     },
     {
-      id: 5,
+      id: 2,
       type: 'text',
       body: 'What task are you working on?',
     },
     {
-      id: 6,
+      id: 3,
       type: 'text',
       body: 'Will you be able to meet the hard deadlines?',
     },
   ],
-  frequency: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+  frequency: '',
 };
+
+//context types
+const contextTypes = [
+  'Product Leadership',
+  'Delivery Management',
+  'Project Management',
+  'Design Leadership',
+  'Engineering Leadership',
+];
+
+const leaderQuestionList = [
+  'What is the priority for the week?',
+  'What are our hard deadlines?',
+  'Is there any new information the team needs?',
+];
+
+//default member questions
+const memberQuestionList = [
+  'What did you accomplish yesterday?',
+  'What are you working on today?',
+  'Do you have any monsters in your way?',
+  "What's your favorite dessert?",
+];
+
+//frequencies
+const frequencies = ['Daily', 'Weekly', 'Monthly', 'Custom', 'Off'];
 
 //how many steps the wizard has
 const totalSteps = 6;
@@ -63,6 +89,45 @@ const TopicCreation = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [currentTopic, setCurrentTopic] = useState(defaultTopic);
   const [loading, setLoading] = useState(false);
+  const [stepValidation, setStepValidation] = useState({
+    1: false,
+    2: false,
+    3: true,
+    4: true,
+    5: false,
+  });
+
+  //handle topic state object change
+  const handleCurrentTopicState = (fieldName, fieldValue) => {
+    // console.log(currentTopic);
+    setCurrentTopic({
+      ...currentTopic,
+      [fieldName]: fieldValue,
+    });
+    handleCurrentValidation();
+  };
+
+  //current step validation handler
+  const handleCurrentValidation = () => {
+    if (currentStep === 1) {
+      if (currentTopic.contextName.length !== 0) {
+        setStepValidation({ ...stepValidation, [currentStep]: true });
+      }
+    } else if (currentStep === 2) {
+      if (currentTopic.name && currentTopic.frequency) {
+        setStepValidation({ ...stepValidation, [currentStep]: true });
+      }
+    } else if (currentStep === 3 || currentStep === 4) {
+      if (
+        !currentTopic.leaderQuestions.length ||
+        !currentTopic.memberQuestions.length
+      ) {
+        setStepValidation({ ...stepValidation, [currentStep]: false });
+      } else if (currentTopic.leaderQuestions || currentTopic.memberQuestions) {
+        setStepValidation({ ...stepValidation, [currentStep]: true });
+      }
+    }
+  };
 
   //handles opening the modal
   const showModal = () => {
@@ -113,19 +178,41 @@ const TopicCreation = () => {
 
   //moves the wizard forward
   const handleNext = () => {
-    let newStep = currentStep;
+    if (stepValidation[currentStep]) {
+      let newStep = currentStep;
 
-    //increment step by one unless at end
-    newStep = newStep >= 5 ? totalSteps : newStep + 1;
-    setCurrentStep(newStep);
+      //increment step by one unless at end
+      newStep = newStep >= 5 ? totalSteps : newStep + 1;
+      setCurrentStep(newStep);
+    }
   };
+
+  useEffect(() => {
+    handleCurrentValidation();
+  }, [currentTopic]);
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
+      <Button
+        type="primary"
+        onClick={showModal}
+        style={{
+          backgroundColor: '#705C55',
+          border: '1px solid #BC9D7E',
+          fontWeight: 'bold',
+          color: '#191919',
+        }}
+      >
         Create Topic
       </Button>
       <Modal
+        centered={true}
+        width="40%"
+        bodyStyle={{
+          width: '80%',
+          height: '70vh',
+          margin: '0 auto',
+        }}
         title={
           <>
             <br></br> {/* Empty line for better UI */}
@@ -133,7 +220,17 @@ const TopicCreation = () => {
               percent={(100 / totalSteps) * currentStep}
               showInfo={false}
             />
-            <h2>Create a Topic</h2>
+            <h2
+              style={{
+                textAlign: 'left',
+                paddingTop: '5%',
+                paddingLeft: '10%',
+              }}
+            >
+              {currentStep === 1
+                ? 'New Topic'
+                : `${currentTopic.contextName.split(' ')[0]} Topic`}
+            </h2>
           </>
         }
         visible={isVisible}
@@ -167,41 +264,81 @@ const TopicCreation = () => {
           </>,
         ]}
       >
-        <ContextSelection
-          key="step1"
-          currentStep={currentStep}
-          handleChange={handleChange}
-          currentTopic={currentTopic}
-        />
-        <TopicSetup
-          key="step2"
-          currentStep={currentStep}
-          handleChange={handleChange}
-          currentTopic={currentTopic}
-        />
-        <ReviewLeaderQuestions
-          key="step3"
-          currentStep={currentStep}
-          handleChange={handleChange}
-          currentTopic={currentTopic}
-        />
-        <ReviewMemberQuestions
-          key="step4"
-          currentStep={currentStep}
-          handleChange={handleChange}
-          currentTopic={currentTopic}
-        />
-        <ReviewFinal
-          key="step5"
-          currentStep={currentStep}
-          handleChange={handleChange}
-          currentTopic={currentTopic}
-        />
-        <CreationSuccess
-          key="step6"
-          currentStep={currentStep}
-          currentTopic={currentTopic}
-        />
+        {currentStep === 1 && (
+          <>
+            <p style={{ textAlign: 'left' }}>
+              What type of context do you provide to the team?
+            </p>
+            <ContextTypeMenu
+              key="step1"
+              currentContext={currentTopic.contextName}
+              contextTypes={contextTypes}
+              stateHandler={handleCurrentTopicState}
+            />
+          </>
+        )}
+        {currentStep === 2 && (
+          <>
+            <p style={{ textAlign: 'left' }}>Topic Settings</p>
+            <FreqAndName
+              key="step2"
+              currentTopic={currentTopic}
+              stateHandler={handleCurrentTopicState}
+            />
+          </>
+        )}
+        {currentStep === 3 && (
+          <>
+            <p
+              style={{ fontSize: '1.5rem', color: 'black', textAlign: 'left' }}
+            >
+              Context Questions
+            </p>
+            <QuestionForm
+              key="step3"
+              isContext={true}
+              activeQuestions={currentTopic.leaderQuestions}
+              stateHandler={handleCurrentTopicState}
+            />
+            <AddQuestionMenu
+              isContext={true}
+              defaultQuestionList={leaderQuestionList}
+              questionState={currentTopic.leaderQuestions}
+              stateHandler={handleCurrentTopicState}
+            />
+          </>
+        )}
+        {currentStep === 4 && (
+          <>
+            <p
+              style={{ fontSize: '1.5rem', color: 'black', textAlign: 'left' }}
+            >
+              Request Questions
+            </p>
+            <QuestionForm
+              key="step4"
+              isContext={false}
+              activeQuestions={currentTopic.memberQuestions}
+              stateHandler={handleCurrentTopicState}
+            />
+            <AddQuestionMenu
+              isContext={false}
+              defaultQuestionList={memberQuestionList}
+              questionState={currentTopic.memberQuestions}
+              stateHandler={handleCurrentTopicState}
+            />
+          </>
+        )}
+        {currentStep === 5 && (
+          <ReviewFinal
+            key="step5"
+            handleChange={handleChange}
+            currentTopic={currentTopic}
+          />
+        )}
+        {currentStep === 6 && (
+          <CreationSuccess key="step6" currentTopic={currentTopic} />
+        )}
       </Modal>
     </>
   );
