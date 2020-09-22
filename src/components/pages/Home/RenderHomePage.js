@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUsername } from '../../../state/actions/apolloActions';
 import { TopicCreation } from '../TopicCreation';
+import { JoinTopic } from '../JoinTopic';
 const { Content, Sider } = Layout;
 
 function RenderHomePage(props) {
@@ -28,19 +29,20 @@ function RenderHomePage(props) {
           }}
           extra={[
             <TopicCreation key="newtopic1" />,
-            <Link to="/jointopic" key="jointopiclink1">
-              <Button
-                key="2"
-                style={{
-                  backgroundColor: '#705C55',
-                  border: '1px solid #BC9D7E',
-                  fontWeight: 'bold',
-                  color: '#191919',
-                }}
-              >
-                Join Topic
-              </Button>
-            </Link>,
+            <JoinTopic key="jointopic1" />,
+            // <Link to="/jointopic" key="jointopiclink1">
+            //   <Button
+            //     key="2"
+            //     style={{
+            //       backgroundColor: '#705C55',
+            //       border: '1px solid #BC9D7E',
+            //       fontWeight: 'bold',
+            //       color: '#191919',
+            //     }}
+            //   >
+            //     Join Topic
+            //   </Button>
+            // </Link>,
             <Button
               key="3"
               onClick={() => authService.logout()}
@@ -69,7 +71,8 @@ function RenderHomePage(props) {
           <Sider style={{ color: 'white', textAlign: 'center' }}>
             <h2>Topics</h2>
             <TopicCreation key="newtopic2" />
-            <Link to="/jointopic">
+            {/* <JoinTopic key="jointopic2" /> */}
+            {/* <Link to="/jointopic">
               <Button
                 key="jointopic"
                 style={{
@@ -82,7 +85,7 @@ function RenderHomePage(props) {
               >
                 Join Topic
               </Button>
-            </Link>
+            </Link> */}
           </Sider>
           <Content></Content>
           <Sider style={{ color: 'white' }}>
