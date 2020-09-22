@@ -8,9 +8,6 @@ const ReviewFinal = props => {
       <p>Name: {props.currentTopic.name}</p>
       <h3>Frequency</h3>
       <p>{props.currentTopic.frequency}</p>
-      {/* {props.currentTopic.frequency.map((day, index) => {
-        return <p key={'rvdays' + index}>{day}</p>;
-      })} */}
       <h3>Leader Questions</h3>
       {props.currentTopic.leaderQuestions.map((q, index) => {
         return <p key={q.id}>{q.body}</p>;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Input, Select } from 'antd';
 
 // pass in state handler from parent component
-const FreqAndName = ({ stateHandler }) => {
+const FreqAndName = ({ currentTopic, stateHandler }) => {
   // initialize frequencies variable and form in state
   const frequencies = ['Daily', 'Weekly', 'Monthly', 'Custom', 'Off'];
   const [form] = Form.useForm();
@@ -24,7 +24,10 @@ const FreqAndName = ({ stateHandler }) => {
         label="Name"
         rules={[{ required: true, message: 'Topic Name Required' }]}
       >
-        <Input />
+        <Input
+          style={{ textAlign: 'left' }}
+          placeholder={currentTopic.name ? currentTopic.name : 'Topic Name'}
+        />
       </Form.Item>
       {/* form input frequency also with required rule and message */}
       <Form.Item
@@ -34,7 +37,14 @@ const FreqAndName = ({ stateHandler }) => {
       >
         {/* select menu with frequencies as options */}
         <Select
-          placeholder={<p style={{ textAlign: 'left' }}>Select Frequency</p>}
+          placeholder={
+            currentTopic.frequency ? (
+              <p style={{ textAlign: 'left' }}>{currentTopic.frequency}</p>
+            ) : (
+              <p style={{ textAlign: 'left' }}>Select Frequency</p>
+            )
+          }
+          // placeholder={<p style={{ textAlign: 'left' }}>Select Frequency</p>}
         >
           {frequencies.map((freq, idx) => (
             <>

@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Progress } from 'antd';
 import {
   ContextTypeMenu,
-  // ContextSelection,
   FreqAndName,
-  // TopicSetup,
   QuestionForm,
   AddQuestionMenu,
-  // ReviewLeaderQuestions,
-  // ReviewMemberQuestions,
   ReviewFinal,
   CreationSuccess,
 } from './Steps/';
@@ -20,8 +16,8 @@ import 'antd/dist/antd.css';
 const defaultTopic = {
   id: 1,
   contextId: 2,
-  contextName: 'Software Manager',
-  name: 'Name of Topic goes here',
+  contextName: '',
+  name: '',
   leaderQuestions: [
     {
       id: 1,
@@ -93,13 +89,44 @@ const TopicCreation = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [currentTopic, setCurrentTopic] = useState(defaultTopic);
   const [loading, setLoading] = useState(false);
+  const [stepValidation, setStepValidation] = useState({
+    1: false,
+    2: false,
+    3: true,
+    4: true,
+    5: false,
+  });
 
   //handle topic state object change
   const handleCurrentTopicState = (fieldName, fieldValue) => {
+    // console.log(currentTopic);
     setCurrentTopic({
       ...currentTopic,
       [fieldName]: fieldValue,
     });
+    handleCurrentValidation();
+  };
+
+  //current step validation handler
+  const handleCurrentValidation = () => {
+    if (currentStep === 1) {
+      if (currentTopic.contextName.length !== 0) {
+        setStepValidation({ ...stepValidation, [currentStep]: true });
+      }
+    } else if (currentStep === 2) {
+      if (currentTopic.name && currentTopic.frequency) {
+        setStepValidation({ ...stepValidation, [currentStep]: true });
+      }
+    } else if (currentStep === 3 || currentStep === 4) {
+      if (
+        !currentTopic.leaderQuestions.length ||
+        !currentTopic.memberQuestions.length
+      ) {
+        setStepValidation({ ...stepValidation, [currentStep]: false });
+      } else if (currentTopic.leaderQuestions || currentTopic.memberQuestions) {
+        setStepValidation({ ...stepValidation, [currentStep]: true });
+      }
+    }
   };
 
   //handles opening the modal
@@ -151,12 +178,18 @@ const TopicCreation = () => {
 
   //moves the wizard forward
   const handleNext = () => {
-    let newStep = currentStep;
+    if (stepValidation[currentStep]) {
+      let newStep = currentStep;
 
-    //increment step by one unless at end
-    newStep = newStep >= 5 ? totalSteps : newStep + 1;
-    setCurrentStep(newStep);
+      //increment step by one unless at end
+      newStep = newStep >= 5 ? totalSteps : newStep + 1;
+      setCurrentStep(newStep);
+    }
   };
+
+  useEffect(() => {
+    handleCurrentValidation();
+  }, [currentTopic]);
 
   return (
     <>
@@ -244,24 +277,16 @@ const TopicCreation = () => {
             />
           </>
         )}
-        {/* <ContextSelection
-          key="step1"
-          currentStep={currentStep}
-          handleChange={handleChange}
-          currentTopic={currentTopic}
-        /> */}
         {currentStep === 2 && (
           <>
             <p style={{ textAlign: 'left' }}>Topic Settings</p>
-            <FreqAndName key="step2" stateHandler={handleCurrentTopicState} />
+            <FreqAndName
+              key="step2"
+              currentTopic={currentTopic}
+              stateHandler={handleCurrentTopicState}
+            />
           </>
         )}
-        {/* <TopicSetup
-          key="step2"
-          currentStep={currentStep}
-          handleChange={handleChange}
-          currentTopic={currentTopic}
-        /> */}
         {currentStep === 3 && (
           <>
             <p
@@ -283,12 +308,6 @@ const TopicCreation = () => {
             />
           </>
         )}
-        {/* <ReviewLeaderQuestions
-          key="step3"
-          currentStep={currentStep}
-          handleChange={handleChange}
-          currentTopic={currentTopic}
-        /> */}
         {currentStep === 4 && (
           <>
             <p
@@ -310,12 +329,6 @@ const TopicCreation = () => {
             />
           </>
         )}
-        {/* <ReviewMemberQuestions
-          key="step4"
-          currentStep={currentStep}
-          handleChange={handleChange}
-          currentTopic={currentTopic}
-        /> */}
         {currentStep === 5 && (
           <ReviewFinal
             key="step5"
