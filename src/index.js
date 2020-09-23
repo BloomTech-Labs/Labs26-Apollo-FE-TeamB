@@ -23,6 +23,8 @@ import { apolloReducer } from './state/reducers/apolloReducer';
 // create the global redux state
 const store = createStore(apolloReducer, applyMiddleware(thunk, logger));
 
+export { store };
+
 ReactDOM.render(
   <Provider store={store}>
     <Router>
