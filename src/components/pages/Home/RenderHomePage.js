@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { getUserTopics } from '../../../api/index';
 import { Layout, PageHeader, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -9,9 +10,11 @@ const { Content, Sider } = Layout;
 
 function RenderHomePage(props) {
   const { userInfo, authService } = props;
-  console.log(userInfo);
+
   useEffect(() => {
     props.getUsername(userInfo.name);
+    console.log(userInfo);
+    getUserTopics();
   }, []);
   return (
     <>

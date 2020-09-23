@@ -1,17 +1,28 @@
 import axios from 'axios';
-
+const liveUrl = 'http://apollo-b-api.herokuapp.com';
+const localtesturl = 'http://localhost:2019';
+const usertopictest = `${localtesturl}/users/users`;
 // we will define a bunch of API calls here.
-const apiUrl = `${process.env.REACT_APP_API_URI}/profiles`;
+const apiUrl = `${process.env.REACT_APP_API_URI}/users/users`;
+// this gets the token Object from localstorage
+const tokenObj = JSON.parse(localStorage.getItem('okta-token-storage'));
+// this sets the bearer token for making api calls that require authorization
+const bearerToken = {
+  headers: { Authorization: 'Bearer ' + tokenObj.accessToken.accessToken },
+};
 
 const sleep = time =>
   new Promise(resolve => {
     setTimeout(resolve, time);
   });
 
-const getExampleData = () => {
+const getUserTopics = () => {
   return axios
-    .get(`https://jsonplaceholder.typicode.com/photos?albumId=1`)
-    .then(response => response.data);
+    .get(usertopictest, bearerToken)
+    .then(response => console.log(response.data[0].ownedtopics))
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 const getAuthHeader = authState => {
@@ -49,4 +60,4 @@ const getProfileData = authState => {
   }
 };
 
-export { sleep, getExampleData, getProfileData, getDSData };
+export { sleep, getUserTopics, getProfileData, getDSData, apiAuthGet };

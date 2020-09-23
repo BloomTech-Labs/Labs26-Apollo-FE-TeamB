@@ -11,7 +11,6 @@ function HomeContainer({ LoadingComponent }) {
 
   useEffect(() => {
     let isSubscribed = true;
-
     memoAuthService
       .getUser()
       .then(info => {
