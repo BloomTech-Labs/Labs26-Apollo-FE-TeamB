@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { connect } from 'react-redux';
+import { getBearerToken } from '../../../state/actions/apolloActions';
 import { useOktaAuth } from '@okta/okta-react';
 import { getUserTopics } from '../../../api/index';
 import RenderHomePage from './RenderHomePage';
 
-function HomeContainer({ LoadingComponent }) {
+function HomeContainer({ LoadingComponent, getBearerToken }) {
   const { authState, authService } = useOktaAuth();
   const [userInfo, setUserInfo] = useState(null);
   // eslint-disable-next-line
@@ -11,8 +13,7 @@ function HomeContainer({ LoadingComponent }) {
 
   useEffect(() => {
     let isSubscribed = true;
-    // console.log(authState)
-    getUserTopics(authState);
+    getBearerToken(authState.accessToken);
     memoAuthService
       .getUser()
       .then(info => {
@@ -41,4 +42,11 @@ function HomeContainer({ LoadingComponent }) {
   );
 }
 
-export default HomeContainer;
+const mapStateToProps = state => {
+  return {
+    ...state,
+    bearerToken: state.bearerToken,
+  };
+};
+
+export default connect(mapStateToProps, { getBearerToken })(HomeContainer);
