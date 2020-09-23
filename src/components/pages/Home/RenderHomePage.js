@@ -15,8 +15,14 @@ function RenderHomePage(props) {
   }, []);
   return (
     <>
-      <Layout style={{ height: '100vh' }}>
-        <Sider style={{ backgroundColor: '#0C5274' }}>
+      <Layout style={{ height: '100vh', backgroundColor: '#BC9D7E' }}>
+        <Sider
+          style={{
+            backgroundColor: '#0C5274',
+            borderTopRightRadius: '2rem',
+            borderBottomRightRadius: '2rem',
+          }}
+        >
           <h2>Topics</h2>
           <TopicCreation></TopicCreation>
           <Link to="/jointopic" key="jointopiclink1">
@@ -63,10 +69,9 @@ function RenderHomePage(props) {
             style={{
               backgroundColor: '#BC9D7E',
               padding: '2rem',
-              borderBottom: '1px solid #191919',
             }}
           ></PageHeader>
-          <Content style={{ backgroundColor: '#3EA6D2' }}>
+          <Content style={{ backgroundColor: '#BC9D7E' }}>
             Content Goes Here.
           </Content>
         </Layout>
