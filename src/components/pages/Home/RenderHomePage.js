@@ -4,6 +4,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUsername } from '../../../state/actions/apolloActions';
+import { getUserTopics } from '../../../api/index';
 import { TopicCreation } from '../TopicCreation';
 const { Content, Sider } = Layout;
 
@@ -13,6 +14,7 @@ function RenderHomePage(props) {
   useEffect(() => {
     props.getUsername(userInfo.name);
     console.log(userInfo);
+    getUserTopics(props.bearerToken);
   }, []);
   return (
     <>
@@ -95,6 +97,7 @@ function RenderHomePage(props) {
 
 const mapStateToProps = state => {
   return {
+    bearerToken: state.bearerToken,
     username: state.username,
   };
 };

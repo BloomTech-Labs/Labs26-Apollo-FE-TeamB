@@ -12,15 +12,19 @@ const initialState = {
 
 export const apolloReducer = (state = initialState, action) => {
   switch (action.type) {
+    // sets the username
     case GET_USERNAME:
       return {
         ...state,
         username: action.payload,
       };
+    // sets the bearer token
     case GET_BEARER_TOKEN:
       return {
         ...state,
-        bearerToken: action.payload,
+        bearerToken: {
+          headers: { Authorization: 'Bearer ' + action.payload },
+        },
       };
     default:
       return state;

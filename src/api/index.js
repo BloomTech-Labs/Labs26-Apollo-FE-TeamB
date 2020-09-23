@@ -11,11 +11,9 @@ const sleep = time =>
   });
 
 // in order for tests to pass token needs to be gathered from authstate
-const getUserTopics = authState => {
+const getUserTopics = token => {
   return axios
-    .get(usertopictest, {
-      headers: { Authorization: 'Bearer ' + authState.accessToken },
-    })
+    .get(usertopictest, token)
     .then(response => console.log(response.data[0].ownedtopics))
     .catch(err => {
       console.log(err);
