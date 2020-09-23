@@ -70,7 +70,7 @@ function RenderHomePage(props) {
                 style={{
                   fontSize: '30px',
                   border: '1px solid #191919',
-                  borderRadius: '5px',
+                  borderRadius: '2rem',
                   padding: '.5rem',
                 }}
               />,
