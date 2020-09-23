@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
-
+import { getUserTopics } from '../../../api/index';
 import RenderHomePage from './RenderHomePage';
 
 function HomeContainer({ LoadingComponent }) {
@@ -11,7 +11,8 @@ function HomeContainer({ LoadingComponent }) {
 
   useEffect(() => {
     let isSubscribed = true;
-
+    // console.log(authState)
+    getUserTopics(authState);
     memoAuthService
       .getUser()
       .then(info => {

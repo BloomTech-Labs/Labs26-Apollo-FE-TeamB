@@ -9,9 +9,10 @@ const { Content, Sider } = Layout;
 
 function RenderHomePage(props) {
   const { userInfo, authService } = props;
-  console.log(userInfo);
+
   useEffect(() => {
     props.getUsername(userInfo.name);
+    console.log(userInfo);
   }, []);
   return (
     <>
