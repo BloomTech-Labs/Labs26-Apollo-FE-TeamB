@@ -21,39 +21,32 @@ function RenderHomePage(props) {
             backgroundColor: '#0C5274',
             borderTopRightRadius: '2rem',
             borderBottomRightRadius: '2rem',
-            display: 'flex',
-            justifyContent: 'space-between',
-            height: '100%',
-            flexFlow: 'column',
           }}
         >
-          <h2>Topics</h2>
-          <TopicCreation></TopicCreation>
-          <Link to="/jointopic" key="jointopiclink1">
-            <Button
-              key="2"
-              style={{
-                backgroundColor: '#705C55',
-                border: '1px solid #BC9D7E',
-                fontWeight: 'bold',
-                color: '#191919',
-              }}
-            >
-              Join Topic
-            </Button>
-          </Link>
-          <Button
-            key="3"
-            onClick={() => authService.logout()}
+          <h2 style={{ color: '#BC9D7E', marginTop: '1rem' }}>Topics</h2>
+          <div
             style={{
-              backgroundColor: '#705C55',
-              border: '1px solid #BC9D7E',
-              fontWeight: 'bold',
-              color: '#191919',
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'space-around',
             }}
           >
-            Sign Out
-          </Button>
+            <TopicCreation></TopicCreation>
+            <Link to="/jointopic" key="jointopiclink1">
+              <Button
+                key="2"
+                style={{
+                  backgroundColor: '#705C55',
+                  border: '1px solid #BC9D7E',
+                  borderRadius: '1rem',
+                  fontWeight: 'bold',
+                  color: '#191919',
+                }}
+              >
+                Join
+              </Button>
+            </Link>
+          </div>
         </Sider>
         <Layout>
           <PageHeader
@@ -65,6 +58,7 @@ function RenderHomePage(props) {
               padding: '2rem',
             }}
             extra={[
+              // this is the user profile icon
               <UserOutlined
                 key="4"
                 style={{
@@ -74,6 +68,19 @@ function RenderHomePage(props) {
                   padding: '.5rem',
                 }}
               />,
+              <Button
+                key="3"
+                onClick={() => authService.logout()}
+                style={{
+                  backgroundColor: '#191919',
+                  border: '1px solid #BC9D7E',
+                  fontWeight: 'bold',
+                  color: '#BC9D7E',
+                  borderRadius: '1rem',
+                }}
+              >
+                Sign Out
+              </Button>,
             ]}
           ></PageHeader>
           <Content style={{ backgroundColor: '#BC9D7E' }}>
