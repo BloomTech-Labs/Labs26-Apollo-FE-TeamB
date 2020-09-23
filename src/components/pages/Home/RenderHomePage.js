@@ -14,7 +14,7 @@ function RenderHomePage(props) {
   useEffect(() => {
     props.getUsername(userInfo.name);
     console.log(userInfo);
-    getUserTopics();
+    // getUserTopics();
   }, []);
   return (
     <>
