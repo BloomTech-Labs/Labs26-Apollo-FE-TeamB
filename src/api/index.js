@@ -11,6 +11,8 @@ const sleep = time =>
   });
 
 // in order for tests to pass token needs to be gathered from authstate
+// token is the bearer token in global state - if the api call needs it, just pass token as last argument and connect bearerToken from global state
+
 const getUserTopics = token => {
   return axios
     .get(usertopictest, token)

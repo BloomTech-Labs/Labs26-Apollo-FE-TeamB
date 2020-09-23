@@ -6,12 +6,14 @@
 export const GET_USERNAME = 'GET_USERNAME';
 export const GET_BEARER_TOKEN = 'GET_BEARER_TOKEN';
 
+// this function sets the username in gloabal state - used in Render Home page
 export const getUsername = username => {
   return dispatch => {
     dispatch({ type: GET_USERNAME, payload: username });
   };
 };
 
+// this function sets the bearer in gloabal state to be used with any api call - used in Render Home page and referenced in api calls that need auth
 export const getBearerToken = token => {
   return dispatch => {
     dispatch({ type: GET_BEARER_TOKEN, payload: token });
