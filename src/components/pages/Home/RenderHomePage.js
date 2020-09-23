@@ -21,6 +21,10 @@ function RenderHomePage(props) {
             backgroundColor: '#0C5274',
             borderTopRightRadius: '2rem',
             borderBottomRightRadius: '2rem',
+            display: 'flex',
+            justifyContent: 'space-between',
+            height: '100%',
+            flexFlow: 'column',
           }}
         >
           <h2>Topics</h2>
@@ -38,16 +42,6 @@ function RenderHomePage(props) {
               Join Topic
             </Button>
           </Link>
-          <Link to="/profile" style={{ color: '#705C55' }} key="signout2">
-            <UserOutlined
-              key="4"
-              style={{
-                fontSize: '20px',
-                border: '1px solid #BC9D7E',
-                borderRadius: '5px',
-              }}
-            />
-          </Link>
           <Button
             key="3"
             onClick={() => authService.logout()}
@@ -64,12 +58,23 @@ function RenderHomePage(props) {
         <Layout>
           <PageHeader
             className="header"
-            title="Apollo"
+            title={<h1>Apollo</h1>}
             subTitle={`Hello, ${props.username}`}
             style={{
               backgroundColor: '#BC9D7E',
               padding: '2rem',
             }}
+            extra={[
+              <UserOutlined
+                key="4"
+                style={{
+                  fontSize: '30px',
+                  border: '1px solid #191919',
+                  borderRadius: '5px',
+                  padding: '.5rem',
+                }}
+              />,
+            ]}
           ></PageHeader>
           <Content style={{ backgroundColor: '#BC9D7E' }}>
             Content Goes Here.
