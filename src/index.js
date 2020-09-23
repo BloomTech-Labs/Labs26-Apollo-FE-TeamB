@@ -1,10 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import logger from 'redux-logger';
-import { apolloReducer } from './state/reducers/apolloReducer';
+
 import {
   BrowserRouter as Router,
   Route,
@@ -27,6 +23,11 @@ import { LoadingComponent } from './components/common';
 
 import './styles/index.less';
 
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
+import { apolloReducer } from './state/reducers/apolloReducer';
 const store = createStore(apolloReducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(

@@ -15,79 +15,77 @@ function RenderHomePage(props) {
   }, []);
   return (
     <>
-      <Layout>
-        <PageHeader
-          key="pageheader1"
-          className="Title"
-          title="Apollo"
-          subTitle={`Hello, ${props.username}`}
+      <Layout style={{ height: '100vh', backgroundColor: '#BC9D7E' }}>
+        <Sider
           style={{
-            backgroundColor: '#191919',
-            padding: '2rem',
-            borderBottom: '1px solid #BC9D7E',
+            backgroundColor: '#0C5274',
+            borderTopRightRadius: '2rem',
+            borderBottomRightRadius: '2rem',
           }}
-          extra={[
-            <TopicCreation key="newtopic1" />,
+        >
+          <h2 style={{ color: '#BC9D7E', marginTop: '1rem' }}>Topics</h2>
+          <div
+            style={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'space-around',
+            }}
+          >
+            <TopicCreation></TopicCreation>
             <Link to="/jointopic" key="jointopiclink1">
               <Button
                 key="2"
                 style={{
                   backgroundColor: '#705C55',
                   border: '1px solid #BC9D7E',
+                  borderRadius: '1rem',
                   fontWeight: 'bold',
                   color: '#191919',
                 }}
               >
-                Join Topic
+                Join
               </Button>
-            </Link>,
-            <Button
-              key="3"
-              onClick={() => authService.logout()}
-              style={{
-                backgroundColor: '#705C55',
-                border: '1px solid #BC9D7E',
-                fontWeight: 'bold',
-                color: '#191919',
-              }}
-            >
-              Sign Out
-            </Button>,
-            <Link to="/signout" style={{ color: '#705C55' }} key="signout2">
+            </Link>
+          </div>
+        </Sider>
+        <Layout>
+          <PageHeader
+            className="header"
+            title={<h1>Apollo</h1>}
+            subTitle={`Hello, ${props.username}`}
+            style={{
+              backgroundColor: '#BC9D7E',
+              padding: '2rem',
+            }}
+            extra={[
+              // this is the user profile icon
               <UserOutlined
                 key="4"
                 style={{
-                  fontSize: '20px',
-                  border: '1px solid #BC9D7E',
-                  borderRadius: '5px',
+                  fontSize: '30px',
+                  border: '1px solid #191919',
+                  borderRadius: '2rem',
+                  padding: '.5rem',
                 }}
-              />
-            </Link>,
-          ]}
-        />
-        <Layout style={{ backgroundColor: '#0E3857', height: '90vh' }}>
-          <Sider style={{ color: 'white', textAlign: 'center' }}>
-            <h2>Topics</h2>
-            <TopicCreation key="newtopic2" />
-            <Link to="/jointopic">
+              />,
               <Button
-                key="jointopic"
+                key="3"
+                onClick={() => authService.logout()}
                 style={{
-                  backgroundColor: '#705C55',
+                  backgroundColor: '#191919',
                   border: '1px solid #BC9D7E',
                   fontWeight: 'bold',
-                  color: '#191919',
-                  hover: '#BC9D7E',
+                  color: '#BC9D7E',
+                  borderRadius: '1rem',
                 }}
               >
-                Join Topic
-              </Button>
-            </Link>
-          </Sider>
-          <Content></Content>
-          <Sider style={{ color: 'white' }}>
-            <h2>Thread</h2>
-          </Sider>
+                Sign Out
+              </Button>,
+            ]}
+          ></PageHeader>
+          <Content style={{ backgroundColor: '#BC9D7E' }}>
+            Content Goes Here.
+          </Content>
         </Layout>
       </Layout>
     </>
