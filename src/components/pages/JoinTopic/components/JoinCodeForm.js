@@ -1,4 +1,4 @@
-import React, { useState, createRef } from 'react';
+import React, { useEffect, useState, createRef } from 'react';
 import { Form, Input, Button } from 'antd';
 
 const JoinCodeForm = () => {
@@ -8,36 +8,49 @@ const JoinCodeForm = () => {
   const ref2 = createRef(null);
   const ref3 = createRef(null);
   const ref4 = createRef(null);
+  const ref5 = createRef(null);
   const [refObj, setRefObj] = useState({
     1: ref1,
     2: ref2,
     3: ref3,
     4: ref4,
+    5: ref5,
   });
-  let x = 1;
+  const [x, setX] = useState(1);
   const onInputChange = e => {
-    // setCode(code + e.target.value);
     if (x < Object.keys(refObj).length) {
+      const refObjCopy = { ...refObj };
+      const refCopy = {
+        ...refObjCopy[x],
+        [refObjCopy[x].current.state.value]: e.target.value,
+      };
+      setRefObj(refObjCopy);
       refObj[x + 1].current.focus();
-      x++;
-    } else if (x === 4) {
-      x = 1;
+      setX(x + 1);
+    } else if (x === 5) {
+      setX(x + 1);
+    } else {
+      setX(1);
     }
   };
 
+  useEffect(() => {
+    const getCodeInput = async ref => {
+      const addCode = await ref.current.state.value;
+      if (addCode) {
+        console.log(addCode);
+        setCode(code + addCode);
+      }
+    };
+    Object.values(refObj).forEach(ref => {
+      getCodeInput(ref);
+    });
+  }, [refObj]);
+
   return (
-    <Form
-      layout="vertical"
-      form={form}
-      name="joinCodeForm"
-      // style={{ width: '80%' }}
-    >
-      <Form.Item
-        name="joinCode"
-        // label='Join Topic'
-      >
-        {[1, 2, 3, 4].map(i => {
-          // const currentRef = createRef(null);
+    <Form layout="vertical" form={form} name="joinCodeForm">
+      <Form.Item name="joinCode">
+        {[1, 2, 3, 4, 5].map(i => {
           let currentRef = null;
           if (i === 1) {
             currentRef = refObj[1];
@@ -47,11 +60,11 @@ const JoinCodeForm = () => {
             currentRef = refObj[3];
           } else if (i === 4) {
             currentRef = refObj[4];
+          } else if (i === 5) {
+            currentRef = refObj[5];
           }
-          console.log(currentRef);
           return (
             <Input
-              // ref={ref`${i}`}
               ref={currentRef}
               key={`codeInput${i}`}
               maxLength={1}
@@ -60,16 +73,6 @@ const JoinCodeForm = () => {
             />
           );
         })}
-        {/* <Input
-          // size='large'
-          style={{
-            fontSize: '3rem',
-            textAlign: 'left',
-            // width: '50%',
-          }}
-          // placeholder='Enter Topic Join Code'
-          placeholder="Topic Code"
-        /> */}
       </Form.Item>
     </Form>
   );
