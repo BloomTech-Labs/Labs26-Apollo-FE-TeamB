@@ -1,11 +1,20 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { getBearerToken } from '../../../state/actions/apolloActions';
+import {
+  getBearerToken,
+  getUsername,
+  getTopics,
+} from '../../../state/actions/apolloActions';
 import { useOktaAuth } from '@okta/okta-react';
 import { getUserTopics } from '../../../api/index';
 import RenderHomePage from './RenderHomePage';
 
-function HomeContainer({ LoadingComponent, getBearerToken }) {
+function HomeContainer({
+  LoadingComponent,
+  getBearerToken,
+  getUsername,
+  getTopics,
+}) {
   const { authState, authService } = useOktaAuth();
   const [userInfo, setUserInfo] = useState(null);
   // eslint-disable-next-line
@@ -21,6 +30,8 @@ function HomeContainer({ LoadingComponent, getBearerToken }) {
         // isSubscribed is a boolean toggle that we're using to clean up our useEffect.
         if (isSubscribed) {
           setUserInfo(info);
+          getUsername(info.name);
+          getUserTopics(getTopics);
         }
       })
       .catch(err => {
@@ -49,4 +60,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getBearerToken })(HomeContainer);
+export default connect(mapStateToProps, {
+  getBearerToken,
+  getUsername,
+  getTopics,
+})(HomeContainer);

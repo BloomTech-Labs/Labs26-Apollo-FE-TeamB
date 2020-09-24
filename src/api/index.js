@@ -14,6 +14,7 @@ const sleep = time =>
 // in order for tests to pass token needs to be gathered from authstate
 // token is the bearer token in global state - if the api call needs it, just pass token as last argument and connect bearerToken from global state
 
+// get the bearer token to apply to all other axios request functions
 const axiosWithAuth = () => {
   const token = store.getState().bearerToken;
   return axios.create({
@@ -24,10 +25,10 @@ const axiosWithAuth = () => {
   });
 };
 
-const getUserTopics = token => {
+const getUserTopics = dispatchFunc => {
   return axiosWithAuth()
     .get(usertopictest)
-    .then(response => console.log(response.data))
+    .then(response => dispatchFunc(response.data))
     .catch(err => {
       console.log(err);
     });

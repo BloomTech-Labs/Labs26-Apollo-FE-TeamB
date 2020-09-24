@@ -9,13 +9,8 @@ import { TopicCreation } from '../TopicCreation';
 const { Content, Sider } = Layout;
 
 function RenderHomePage(props) {
-  const { userInfo, authService } = props;
+  const { authService } = props;
 
-  useEffect(() => {
-    props.getUsername(userInfo.name);
-    console.log(userInfo);
-    getUserTopics(props.bearerToken);
-  }, []);
   return (
     <>
       <Layout style={{ height: '100vh', backgroundColor: '#BC9D7E' }}>
@@ -98,9 +93,9 @@ function RenderHomePage(props) {
 
 const mapStateToProps = state => {
   return {
-    bearerToken: state.bearerToken,
     username: state.username,
+    topics: state.topics,
   };
 };
 
-export default connect(mapStateToProps, { getUsername })(RenderHomePage);
+export default connect(mapStateToProps, {})(RenderHomePage);
