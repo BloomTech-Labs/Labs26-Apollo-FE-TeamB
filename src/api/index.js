@@ -21,7 +21,7 @@ const axiosWithAuth = () => {
     headers: {
       Authorization: 'Bearer ' + token,
     },
-    baseURL: localtesturl,
+    baseURL: liveUrl,
   });
 };
 
