@@ -4,8 +4,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { TopicCreation } from '../TopicCreation';
-
-// nested components for ant components
+import { JoinTopic } from '../JoinTopic';
 const { Content, Sider } = Layout;
 const { Option } = Select;
 
@@ -32,21 +31,8 @@ function RenderHomePage(props) {
               justifyContent: 'space-around',
             }}
           >
-            <TopicCreation></TopicCreation>
-            <Link to="/jointopic" key="jointopiclink1">
-              <Button
-                key="2"
-                style={{
-                  backgroundColor: '#BC9D7E',
-                  border: '1px solid #191919',
-                  borderRadius: '1rem',
-                  fontWeight: 'bold',
-                  color: '#191919',
-                }}
-              >
-                Join
-              </Button>
-            </Link>
+            <TopicCreation />
+            <JoinTopic />
           </div>
           <div
             style={{
