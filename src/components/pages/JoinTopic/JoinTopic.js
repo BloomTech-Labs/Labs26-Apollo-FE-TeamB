@@ -34,6 +34,7 @@ const JoinTopic = () => {
           border: '1px solid #BC9D7E',
           fontWeight: 'bold',
           color: '#191919',
+          borderRadius: '1rem',
         }}
       >
         Join Topic

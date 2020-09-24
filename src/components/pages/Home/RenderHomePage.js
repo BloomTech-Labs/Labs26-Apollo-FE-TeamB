@@ -33,21 +33,8 @@ function RenderHomePage(props) {
               justifyContent: 'space-around',
             }}
           >
-            <TopicCreation></TopicCreation>
-            <Link to="/jointopic" key="jointopiclink1">
-              <Button
-                key="2"
-                style={{
-                  backgroundColor: '#705C55',
-                  border: '1px solid #BC9D7E',
-                  borderRadius: '1rem',
-                  fontWeight: 'bold',
-                  color: '#191919',
-                }}
-              >
-                Join
-              </Button>
-            </Link>
+            <TopicCreation />
+            <JoinTopic />
           </div>
         </Sider>
         <Layout>
