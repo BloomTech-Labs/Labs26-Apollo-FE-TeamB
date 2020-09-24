@@ -6,7 +6,6 @@
 export const GET_USERNAME = 'GET_USERNAME';
 export const GET_BEARER_TOKEN = 'GET_BEARER_TOKEN';
 export const GET_TOPICS = 'GET_TOPICS';
-export const JOIN_TOPIC = 'JOIN_TOPIC';
 
 // this function sets the username in gloabal state - used in Render Home page
 export const getUsername = username => {

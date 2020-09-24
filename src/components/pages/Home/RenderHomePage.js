@@ -45,6 +45,7 @@ function RenderHomePage(props) {
               props.topics.map(topic => {
                 return (
                   <Button
+                    key={topic.topicId}
                     onClick={() => setCurrentTopic(topic)}
                     style={{
                       backgroundColor: '#BC9D7E',
@@ -116,7 +117,11 @@ function RenderHomePage(props) {
               <Select placeholder="Select a Request">
                 {currentTopic &&
                   currentTopic.surveysrequests.map(request => {
-                    return <Option>Request {request.surveyId}</Option>;
+                    return (
+                      <Option key={request.surveyId}>
+                        Request {request.surveyId}
+                      </Option>
+                    );
                   })}
               </Select>
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
