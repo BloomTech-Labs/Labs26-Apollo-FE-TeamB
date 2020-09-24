@@ -147,7 +147,10 @@ const TopicCreation = () => {
         !currentTopic.defaultsurvey.questions.filter(q => !q.leader).length
       ) {
         setStepValidation({ ...stepValidation, [currentStep]: false });
-      } else if (currentTopic.leaderQuestions || currentTopic.memberQuestions) {
+      } else if (
+        currentTopic.defaultsurvey.questions.filter(q => q.leader) ||
+        currentTopic.defaultsurvey.questions.filter(q => !q.leader)
+      ) {
         setStepValidation({ ...stepValidation, [currentStep]: true });
       }
     }
@@ -221,6 +224,14 @@ const TopicCreation = () => {
   };
 
   useEffect(() => {
+    currentTopic.defaultsurvey.questions.sort((a, b) =>
+      !a.leader && b.leader ? 1 : a.leader && !b.leader ? -1 : 0
+    );
+    handleCurrentValidation();
+  }, [currentTopic.defaultsurvey]);
+
+  useEffect(() => {
+    // currentTopic.defaultsurvey.questions.sort((a, b) => (a.leader && !b.leader) ? 1 : (!a.leader && b.leader) ? -1 : 0);
     handleCurrentValidation();
   }, [currentTopic, newContextType]);
 
@@ -331,9 +342,10 @@ const TopicCreation = () => {
             <QuestionForm
               key="step3"
               isContext={true}
-              activeQuestions={currentTopic.defaultsurvey.questions.filter(
-                q => q.leader
-              )}
+              // activeQuestions={currentTopic.defaultsurvey.questions.filter(
+              //   q => q.leader
+              // )}
+              activeQuestions={currentTopic.defaultsurvey.questions}
               stateHandler={handleCurrentTopicState}
             />
             <AddQuestionMenu
@@ -354,9 +366,10 @@ const TopicCreation = () => {
             <QuestionForm
               key="step4"
               isContext={false}
-              activeQuestions={currentTopic.defaultsurvey.questions.filter(
-                q => !q.leader
-              )}
+              // activeQuestions={currentTopic.defaultsurvey.questions.filter(
+              //   q => !q.leader
+              // )}
+              activeQuestions={currentTopic.defaultsurvey.questions}
               stateHandler={handleCurrentTopicState}
             />
             <AddQuestionMenu
