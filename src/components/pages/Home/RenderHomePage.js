@@ -59,6 +59,7 @@ function RenderHomePage(props) {
               props.topics.map(topic => {
                 return (
                   <Button
+                    onClick={() => setCurrentTopic(topic)}
                     style={{
                       backgroundColor: '#BC9D7E',
                       border: '1px solid #191919',
