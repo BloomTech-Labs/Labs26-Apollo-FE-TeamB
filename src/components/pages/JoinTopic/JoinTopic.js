@@ -5,6 +5,7 @@ import 'antd/dist/antd.css';
 
 const JoinTopic = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [code, setCode] = useState('');
   const showModal = () => {
     setIsVisible(true);
   };
@@ -16,6 +17,10 @@ const JoinTopic = () => {
   // const handleSubmit = () => {
   //
   // };
+
+  const handleCodeState = newCode => {
+    setCode(newCode);
+  };
 
   return (
     <>
@@ -69,7 +74,7 @@ const JoinTopic = () => {
         }
         // bodyStyle={{ width: '30%' }}
       >
-        <JoinCodeForm />
+        <JoinCodeForm inputValue={code} stateHandler={handleCodeState} />
       </Modal>
     </>
   );
