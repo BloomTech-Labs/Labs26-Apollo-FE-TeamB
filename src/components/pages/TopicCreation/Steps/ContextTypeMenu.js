@@ -13,9 +13,9 @@ const ContextTypeMenu = ({ currentContext, contextTypes, stateHandler }) => {
   // put contexts in local state
   const [contexts, setContexts] = useState(initContexts);
   // click handler to execute state handler function passed into component
-  // const handleClick = menuItem => {
-  //   stateHandler('contextName', contexts[menuItem.key]);
-  // };
+  const handleClick = menuItem => {
+    stateHandler(contexts[menuItem.key]);
+  };
   return (
     // antd Menu component looping through contextTypes and creating a Menu.Item for each type
     <Menu mode="vertical">
@@ -28,13 +28,13 @@ const ContextTypeMenu = ({ currentContext, contextTypes, stateHandler }) => {
             display: 'flex',
             alignItems: 'center',
           }}
-          // onClick={handleClick}
+          onClick={handleClick}
         >
-          {/* {context === currentContext ? (
+          {context === currentContext ? (
             <FaCircle style={{ fontSize: '1.5rem', paddingRight: '1%' }} />
           ) : (
             <FaRegCircle style={{ fontSize: '1.5rem', paddingRight: '1%' }} />
-          )} */}
+          )}
           {context}
         </Menu.Item>
       ))}
@@ -43,5 +43,3 @@ const ContextTypeMenu = ({ currentContext, contextTypes, stateHandler }) => {
 };
 
 export default ContextTypeMenu;
-// FaCircle
-// FaRegCircle

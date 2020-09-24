@@ -110,6 +110,7 @@ const TopicCreation = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [currentTopic, setCurrentTopic] = useState(defaultTopic);
+  const [newContextType, setNewContextType] = useState(null);
   const [loading, setLoading] = useState(false);
   const [newJoinCode, setNewJoinCode] = useState('');
   const [stepValidation, setStepValidation] = useState({
@@ -127,16 +128,15 @@ const TopicCreation = () => {
       ...currentTopic,
       [fieldName]: fieldValue,
     });
-    handleCurrentValidation();
   };
 
   //current step validation handler
   const handleCurrentValidation = () => {
     if (currentStep === 1) {
-      // if (currentTopic.contextName.length !== 0) {
-      //   setStepValidation({ ...stepValidation, [currentStep]: true });
-      // }
-      setStepValidation({ ...stepValidation, [currentStep]: true });
+      if (newContextType) {
+        setStepValidation({ ...stepValidation, [currentStep]: true });
+      }
+      // setStepValidation({ ...stepValidation, [currentStep]: true });
     } else if (currentStep === 2) {
       if (currentTopic.title && currentTopic.frequency) {
         setStepValidation({ ...stepValidation, [currentStep]: true });
@@ -222,7 +222,7 @@ const TopicCreation = () => {
 
   useEffect(() => {
     handleCurrentValidation();
-  }, [currentTopic]);
+  }, [currentTopic, newContextType]);
 
   return (
     <>
@@ -261,10 +261,9 @@ const TopicCreation = () => {
                 paddingLeft: '10%',
               }}
             >
-              New Topic
-              {/* {currentStep === 1
+              {currentStep === 1
                 ? 'New Topic'
-                : `${currentTopic.contextName.split(' ')[0]} Topic`} */}
+                : `${newContextType.split(' ')[0]} Topic`}
             </h2>
           </>
         }
@@ -306,9 +305,9 @@ const TopicCreation = () => {
             </p>
             <ContextTypeMenu
               key="step1"
-              currentContext={currentTopic.contextName}
+              currentContext={newContextType}
               contextTypes={contextTypes}
-              stateHandler={handleCurrentTopicState}
+              stateHandler={setNewContextType}
             />
           </>
         )}
