@@ -21,9 +21,7 @@ import logger from 'redux-logger';
 import { apolloReducer } from './state/reducers/apolloReducer';
 
 // create the global redux state
-const store = createStore(apolloReducer, applyMiddleware(thunk, logger));
-
-export { store };
+export const store = createStore(apolloReducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
   <Provider store={store}>

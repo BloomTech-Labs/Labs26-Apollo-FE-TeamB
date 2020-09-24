@@ -1,21 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Layout, PageHeader, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getUsername } from '../../../state/actions/apolloActions';
-import { getUserTopics } from '../../../api/index';
 import { TopicCreation } from '../TopicCreation';
 import { JoinTopic } from '../JoinTopic';
 const { Content, Sider } = Layout;
 
 function RenderHomePage(props) {
-  const { userInfo, authService } = props;
-
-  useEffect(() => {
-    props.getUsername(userInfo.name);
-    getUserTopics();
-  }, []);
+  const { authService } = props;
+  const [currentTopic, setCurrentTopic] = useState(
+    props.topics ? props.topics[0] : null
+  );
   return (
     <>
       <Layout style={{ height: '100vh', backgroundColor: '#BC9D7E' }}>
@@ -36,6 +32,31 @@ function RenderHomePage(props) {
           >
             <TopicCreation />
             <JoinTopic />
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              flexFlow: 'column',
+              alignItems: 'center',
+            }}
+          >
+            {props.topics &&
+              props.topics.map(topic => {
+                return (
+                  <Button
+                    style={{
+                      backgroundColor: '#BC9D7E',
+                      border: '1px solid #191919',
+                      borderRadius: '1rem',
+                      fontWeight: 'bold',
+                      color: '#191919',
+                      margin: '1rem',
+                    }}
+                  >
+                    {topic.title}
+                  </Button>
+                );
+              })}
           </div>
         </Sider>
         <Layout>
@@ -74,7 +95,7 @@ function RenderHomePage(props) {
             ]}
           ></PageHeader>
           <Content style={{ backgroundColor: '#BC9D7E' }}>
-            Content Goes Here.
+            <h2>{currentTopic && currentTopic.title}</h2>
           </Content>
         </Layout>
       </Layout>
@@ -84,9 +105,9 @@ function RenderHomePage(props) {
 
 const mapStateToProps = state => {
   return {
-    bearerToken: state.bearerToken,
     username: state.username,
+    topics: state.topics,
   };
 };
 
-export default connect(mapStateToProps, { getUsername })(RenderHomePage);
+export default connect(mapStateToProps, {})(RenderHomePage);
