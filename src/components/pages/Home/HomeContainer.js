@@ -23,6 +23,7 @@ function HomeContainer({
   useEffect(() => {
     let isSubscribed = true;
     getBearerToken(authState.accessToken);
+    getUserTopics(getTopics);
     memoAuthService
       .getUser()
       .then(info => {
@@ -31,7 +32,6 @@ function HomeContainer({
         if (isSubscribed) {
           setUserInfo(info);
           getUsername(info.name);
-          getUserTopics(getTopics);
         }
       })
       .catch(err => {

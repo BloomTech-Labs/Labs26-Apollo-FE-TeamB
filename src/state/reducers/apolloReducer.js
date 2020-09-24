@@ -10,7 +10,7 @@ import {
 const initialState = {
   bearerToken: '',
   username: '',
-  titles: [],
+  topics: [],
 };
 
 export const apolloReducer = (state = initialState, action) => {
