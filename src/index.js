@@ -14,14 +14,8 @@ import { HomePage } from './components/pages/Home';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import './styles/index.less';
-import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import logger from 'redux-logger';
-import { apolloReducer } from './state/reducers/apolloReducer';
-
-// create the global redux state
-export const store = createStore(apolloReducer, applyMiddleware(thunk, logger));
+import store from './state/store';
 
 ReactDOM.render(
   <Provider store={store}>

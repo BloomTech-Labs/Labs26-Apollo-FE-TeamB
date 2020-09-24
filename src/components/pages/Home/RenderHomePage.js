@@ -114,9 +114,10 @@ function RenderHomePage(props) {
                 {currentTopic && currentTopic.title}
               </h2>
               <Select placeholder="Select a Request">
-                {currentTopic.surveysrequests.map(request => {
-                  return <Option>Request {request.surveyId}</Option>;
-                })}
+                {currentTopic &&
+                  currentTopic.surveysrequests.map(request => {
+                    return <Option>Request {request.surveyId}</Option>;
+                  })}
               </Select>
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
               <p style={{ textAlign: 'left' }}>Leader Questions go here</p>
