@@ -13,7 +13,8 @@ function RenderHomePage(props) {
 
   useEffect(() => {
     props.getUsername(userInfo.name);
-    getUserTopics();
+    console.log(userInfo);
+    getUserTopics(props.bearerToken);
   }, []);
   return (
     <>
