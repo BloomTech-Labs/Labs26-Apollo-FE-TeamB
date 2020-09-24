@@ -45,7 +45,31 @@ function RenderHomePage(props) {
               </Button>
             </Link>
           </div>
-          <div></div>
+          <div
+            style={{
+              display: 'flex',
+              flexFlow: 'column',
+              alignItems: 'center',
+            }}
+          >
+            {props.topics &&
+              props.topics.map(topic => {
+                return (
+                  <Button
+                    style={{
+                      backgroundColor: '#BC9D7E',
+                      border: '1px solid #191919',
+                      borderRadius: '1rem',
+                      fontWeight: 'bold',
+                      color: '#191919',
+                      margin: '1rem',
+                    }}
+                  >
+                    {topic.title}
+                  </Button>
+                );
+              })}
+          </div>
         </Sider>
         <Layout>
           <PageHeader
