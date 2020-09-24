@@ -1,17 +1,25 @@
 import axios from 'axios';
-
+const liveUrl = 'http://apollo-b-api.herokuapp.com';
+const localtesturl = 'http://localhost:2019';
+const usertopictest = `${localtesturl}/users/users`;
 // we will define a bunch of API calls here.
-const apiUrl = `${process.env.REACT_APP_API_URI}/profiles`;
+const apiUrl = `${process.env.REACT_APP_API_URI}/users/users`;
 
 const sleep = time =>
   new Promise(resolve => {
     setTimeout(resolve, time);
   });
 
-const getExampleData = () => {
+// in order for tests to pass token needs to be gathered from authstate
+const getUserTopics = authState => {
   return axios
-    .get(`https://jsonplaceholder.typicode.com/photos?albumId=1`)
-    .then(response => response.data);
+    .get(usertopictest, {
+      headers: { Authorization: 'Bearer ' + authState.accessToken },
+    })
+    .then(response => console.log(response.data[0].ownedtopics))
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 const getAuthHeader = authState => {
@@ -49,4 +57,4 @@ const getProfileData = authState => {
   }
 };
 
-export { sleep, getExampleData, getProfileData, getDSData };
+export { sleep, getUserTopics, getProfileData, getDSData, apiAuthGet };

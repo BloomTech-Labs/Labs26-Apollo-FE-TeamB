@@ -201,9 +201,10 @@ const TopicCreation = () => {
           border: '1px solid #BC9D7E',
           fontWeight: 'bold',
           color: '#191919',
+          borderRadius: '1rem',
         }}
       >
-        Create Topic
+        Create
       </Button>
       <Modal
         centered={true}
