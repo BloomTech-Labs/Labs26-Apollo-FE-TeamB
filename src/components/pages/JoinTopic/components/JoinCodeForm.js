@@ -9,7 +9,7 @@ const JoinCodeForm = ({ inputValue, stateHandler }) => {
   return (
     <Form layout="vertical" name="joinCodeForm">
       <Input
-        maxLength={8}
+        maxLength={9}
         style={{
           fontSize: '2.5rem',
           textAlign: 'left',

@@ -34,6 +34,17 @@ const getUserTopics = () => {
     });
 };
 
+const userJoinTopic = joinCode => {
+  return axiosWithAuth()
+    .post(`/topics/${joinCode}/join`)
+    .then(response => {
+      console.log(response);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
 const getAuthHeader = authState => {
   if (!authState.isAuthenticated) {
     throw new Error('Not authenticated');
@@ -69,4 +80,11 @@ const getProfileData = authState => {
   }
 };
 
-export { sleep, getUserTopics, getProfileData, getDSData, apiAuthGet };
+export {
+  sleep,
+  getUserTopics,
+  userJoinTopic,
+  getProfileData,
+  getDSData,
+  apiAuthGet,
+};

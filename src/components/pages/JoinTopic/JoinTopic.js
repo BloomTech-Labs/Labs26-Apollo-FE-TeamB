@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
 import { JoinCodeForm } from './components';
+import { userJoinTopic } from '../../../api/index';
 import 'antd/dist/antd.css';
 
 const JoinTopic = () => {
@@ -16,9 +17,13 @@ const JoinTopic = () => {
   };
 
   const handleSubmit = () => {
-    console.log(`joined topic with code ${code}`);
-    setIsVisible(false);
-    setCode('');
+    if (code.length < 9) {
+      alert('Join Code Must be 9 Characters');
+    } else {
+      userJoinTopic(code); // lRQlkNGkg
+      setIsVisible(false);
+      setCode('');
+    }
   };
 
   const handleCodeState = newCode => {
