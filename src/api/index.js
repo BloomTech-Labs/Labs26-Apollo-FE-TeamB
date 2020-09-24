@@ -36,8 +36,9 @@ const getUserTopics = dispatchFunc => {
 };
 
 const userJoinTopic = joinCode => {
+  console.log(joinCode);
   return axiosWithAuth()
-    .post(`/topics/${joinCode}/join`)
+    .post(`/topics/topic/${joinCode}/join`)
     .then(response => {
       console.log(response);
     })

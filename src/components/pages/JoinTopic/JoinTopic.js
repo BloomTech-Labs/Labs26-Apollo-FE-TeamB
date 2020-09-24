@@ -22,7 +22,7 @@ const JoinTopic = () => {
     } else {
       userJoinTopic(code); // lRQlkNGkg
       setIsVisible(false);
-      setCode('');
+      setCode();
     }
   };
 
