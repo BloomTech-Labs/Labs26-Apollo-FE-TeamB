@@ -14,9 +14,11 @@ const JoinTopic = () => {
     setIsVisible(false);
   };
 
-  // const handleSubmit = () => {
-  //
-  // };
+  const handleSubmit = () => {
+    console.log(`joined topic with code ${code}`);
+    setIsVisible(false);
+    setCode('');
+  };
 
   const handleCodeState = newCode => {
     setCode(newCode);
@@ -45,16 +47,13 @@ const JoinTopic = () => {
             style={{
               textAlign: 'left',
               paddingTop: '5%',
-              // paddingLeft: '10%',
             }}
           >
             Join Topic
           </h2>
         }
         footer={
-          // <div style={{ textAlign: 'left' }}></div>
           <div
-            // style={{ textAlign: 'left' }}
             style={{
               display: 'flex',
               justifyContent: 'space-between',
@@ -67,12 +66,16 @@ const JoinTopic = () => {
             >
               Cancel
             </Button>
-            <Button key="submitCode" type="primary" style={{ width: '40%' }}>
+            <Button
+              key="submitCode"
+              onClick={handleSubmit}
+              type="primary"
+              style={{ width: '40%' }}
+            >
               Submit
             </Button>
           </div>
         }
-        // bodyStyle={{ width: '30%' }}
       >
         <JoinCodeForm inputValue={code} stateHandler={handleCodeState} />
       </Modal>
