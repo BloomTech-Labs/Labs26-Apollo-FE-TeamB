@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { store } from '../state/store';
 const liveUrl = 'http://apollo-b-api.herokuapp.com';
 const localtesturl = 'http://localhost:2019';
-const usertopictest = `${localtesturl}/users/users`;
+const usertopictest = `/topics/topics`;
 // we will define a bunch of API calls here.
-const apiUrl = `${process.env.REACT_APP_API_URI}/users/users`;
+const apiUrl = `${process.env.REACT_APP_API_URI}`;
 
 const sleep = time =>
   new Promise(resolve => {
@@ -11,12 +12,35 @@ const sleep = time =>
   });
 
 // in order for tests to pass token needs to be gathered from authstate
-const getUserTopics = authState => {
-  return axios
-    .get(usertopictest, {
-      headers: { Authorization: 'Bearer ' + authState.accessToken },
+// token is the bearer token in global state - if the api call needs it, just pass token as last argument and connect bearerToken from global state
+
+// get the bearer token to apply to all other axios request functions
+const axiosWithAuth = () => {
+  const token = store.getState().bearerToken;
+  return axios.create({
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+    baseURL: localtesturl,
+  });
+};
+
+// request for a list of topics
+const getUserTopics = dispatchFunc => {
+  return axiosWithAuth()
+    .get(usertopictest)
+    .then(response => dispatchFunc(response.data))
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+const userJoinTopic = joinCode => {
+  return axiosWithAuth()
+    .post(`/topics/${joinCode}/join`)
+    .then(response => {
+      console.log(response);
     })
-    .then(response => console.log(response.data[0].ownedtopics))
     .catch(err => {
       console.log(err);
     });
@@ -57,4 +81,11 @@ const getProfileData = authState => {
   }
 };
 
-export { sleep, getUserTopics, getProfileData, getDSData, apiAuthGet };
+export {
+  sleep,
+  getUserTopics,
+  userJoinTopic,
+  getProfileData,
+  getDSData,
+  apiAuthGet,
+};

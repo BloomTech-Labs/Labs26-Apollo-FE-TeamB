@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import {
   BrowserRouter as Router,
   Route,
@@ -8,34 +7,20 @@ import {
   Switch,
 } from 'react-router-dom';
 import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
-
 import 'antd/dist/antd.less';
-
 import { NotFoundPage } from './components/pages/NotFound';
-import { TopicCreation } from './components/pages/TopicCreation';
-// import { ExampleListPage } from './components/pages/ExampleList';
-import { ProfileListPage } from './components/pages/ProfileList';
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
-import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
-
 import './styles/index.less';
-
-import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import logger from 'redux-logger';
-import { apolloReducer } from './state/reducers/apolloReducer';
-const store = createStore(apolloReducer, applyMiddleware(thunk, logger));
+import store from './state/store';
 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <App />
     </Router>
   </Provider>,
   document.getElementById('root')
@@ -63,9 +48,6 @@ function App() {
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
-        <SecureRoute path="/newtopic" component={TopicCreation} />
-        <SecureRoute path="/signout" component={ProfileListPage} />
-        <SecureRoute path="/jointopic" component={ExampleDataViz} />
         <Route component={NotFoundPage} />
       </Switch>
     </Security>
