@@ -40,7 +40,7 @@ const createNewTopic = newTopicData => {
     .post(createNew, newTopicData)
     .then(response => {
       // console.log(response);
-      return response.data;
+      return response.data.joincode;
     })
     .catch(err => {
       console.log(err);

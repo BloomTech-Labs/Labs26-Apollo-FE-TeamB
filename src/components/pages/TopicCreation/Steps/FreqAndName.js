@@ -4,7 +4,7 @@ import { Form, Input, Select } from 'antd';
 // pass in state handler from parent component
 const FreqAndName = ({ currentTopic, stateHandler }) => {
   // initialize frequencies variable and form in state
-  const frequencies = ['Daily', 'Weekly', 'Monthly', 'Custom', 'Off'];
+  const frequencies = ['DAILY', 'WEEKLY', 'MONTHLY'];
   const [form] = Form.useForm();
   // form value state handler works with parent so that state lives in parent component
   const handleValueChange = freqNameObj => {
@@ -18,15 +18,15 @@ const FreqAndName = ({ currentTopic, stateHandler }) => {
       onValuesChange={handleValueChange}
       style={{ textAlign: 'left' }}
     >
-      {/* form input topic name with required rule and a message */}
+      {/* form input topic title with required rule and a message */}
       <Form.Item
-        name="name"
-        label="Name"
+        name="title"
+        label="Title"
         rules={[{ required: true, message: 'Topic Name Required' }]}
       >
         <Input
           style={{ textAlign: 'left' }}
-          placeholder={currentTopic.name ? currentTopic.name : 'Topic Name'}
+          placeholder={currentTopic.title ? currentTopic.title : 'Topic Name'}
         />
       </Form.Item>
       {/* form input frequency also with required rule and message */}

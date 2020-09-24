@@ -6,25 +6,21 @@ import { FaTrashAlt, FaRegTrashAlt } from 'react-icons/fa';
 
 const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
   // click handler function for updating questions
-  const handleClick = updateQuestions => {
-    stateHandler(
-      isContext ? 'leaderQuestions' : 'memberQuestions',
-      updateQuestions
+  const handleClick = questionId => {
+    // console.log(e.target);
+    // const questionId = e.target.getAttribute('for');
+    const updateQuestions = [...activeQuestions].filter(
+      (q, idx) => idx === questionId
     );
+    // const updateQuestions = activeQuestions.filter((q, idx) => idx !== questionId);
+    stateHandler('defaultsurvey', { questions: updateQuestions });
   };
   const inputChange = e => {
-    const id = e.target.id;
+    const questionId = e.target.getAttribute('for');
     const val = e.target.value;
     const updateQuestions = [...activeQuestions];
-    const newQuestion = {
-      ...updateQuestions[id - 1],
-      body: val,
-    };
-    updateQuestions[id - 1] = newQuestion;
-    stateHandler(
-      isContext ? 'leaderQuestions' : 'memberQuestions',
-      updateQuestions
-    );
+    updateQuestions[questionId].body = val;
+    stateHandler('defaultsurvey', { questions: updateQuestions });
   };
   return (
     // antd form component
@@ -49,22 +45,18 @@ const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
               paddingBottom: '2%',
             }}
           >
-            <label
-              htmlFor={question.id}
-              style={{ textAlign: 'left' }}
-            >{`Question ${index + 1}`}</label>
+            <label style={{ textAlign: 'left' }}>{`Question ${index +
+              1}`}</label>
             <FaRegTrashAlt
               style={{ margin: '0 8px' }}
-              onClick={() => {
-                handleClick(activeQuestions.filter((testQ, i) => i !== index));
-              }}
+              onClick={() => handleClick(index)}
             />
           </div>
           <Input
-            id={question.id}
+            htmlFor={index}
+            key={index}
             value={question.body}
             onChange={inputChange}
-            maxLength={20}
             size="large"
             style={{ textAlign: 'left' }}
           />

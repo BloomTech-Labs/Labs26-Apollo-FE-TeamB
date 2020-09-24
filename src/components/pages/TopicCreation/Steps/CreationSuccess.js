@@ -3,12 +3,12 @@ import { Button, Tooltip } from 'antd';
 
 const CreationSuccess = props => {
   const [tooltip, setTooltip] = useState('Copy to Clipboard'); // tooltip text
-  const [joincode, setJoincode] = useState('6xT4D'); // dummy code for now, this is from topic in redux
+  // const [joincode, setJoincode] = useState('6xT4D'); // dummy code for now, this is from topic in redux
 
   // function to copy join code to clipboard
   const copyToClipboard = () => {
     let textArea = document.createElement('textarea');
-    textArea.value = joincode;
+    textArea.value = props.newJoinCode;
     document.body.appendChild(textArea);
     textArea.focus();
     textArea.select();
@@ -25,7 +25,7 @@ const CreationSuccess = props => {
       <div>
         Join Code:
         <span>
-          <p id="joincode">{joincode}</p>
+          <p id="joincode">{props.newJoinCode}</p>
           <Tooltip title={`${tooltip}`}>
             <Button onClick={copyToClipboard}>copy</Button>
           </Tooltip>

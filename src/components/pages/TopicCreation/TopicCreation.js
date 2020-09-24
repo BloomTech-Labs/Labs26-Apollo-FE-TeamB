@@ -15,46 +15,68 @@ import 'antd/dist/antd.css';
 //This data simulates making an api call to retrieve the Context information for a given Topic preset.
 //This object will drive the form fields
 const defaultTopic = {
-  id: 1,
-  contextId: 2,
-  contextName: '',
-  name: '',
-  leaderQuestions: [
-    {
-      id: 1,
-      type: 'text',
-      body: 'What is the priority for the week?',
-    },
-    {
-      id: 2,
-      type: 'text',
-      body: 'What are our hard deadlines?',
-    },
-    {
-      id: 3,
-      type: 'text',
-      body: 'Is there any new information the team needs?',
-    },
-  ],
-  memberQuestions: [
-    {
-      id: 1,
-      type: 'text',
-      body: 'Do you have any blockers?',
-    },
-    {
-      id: 2,
-      type: 'text',
-      body: 'What task are you working on?',
-    },
-    {
-      id: 3,
-      type: 'text',
-      body: 'Will you be able to meet the hard deadlines?',
-    },
-  ],
+  title: '',
   frequency: '',
+  defaultsurvey: {
+    questions: [
+      {
+        body: 'Do you have any blockers?',
+        type: 'TEXT',
+        leader: true,
+      },
+      {
+        body: 'What is the teams priority?',
+        type: 'TEXT',
+        leader: true,
+      },
+      {
+        body: 'How is your weekend?',
+        type: 'TEXT',
+        leader: false,
+      },
+    ],
+  },
 };
+
+// id: 1,
+// contextId: 2,
+// contextName: '',
+// name: '',
+// leaderQuestions: [
+//   {
+//     id: 1,
+//     type: 'text',
+//     body: 'What is the priority for the week?',
+//   },
+//   {
+//     id: 2,
+//     type: 'text',
+//     body: 'What are our hard deadlines?',
+//   },
+//   {
+//     id: 3,
+//     type: 'text',
+//     body: 'Is there any new information the team needs?',
+//   },
+// ],
+// memberQuestions: [
+//   {
+//     id: 1,
+//     type: 'text',
+//     body: 'Do you have any blockers?',
+//   },
+//   {
+//     id: 2,
+//     type: 'text',
+//     body: 'What task are you working on?',
+//   },
+//   {
+//     id: 3,
+//     type: 'text',
+//     body: 'Will you be able to meet the hard deadlines?',
+//   },
+// ],
+// frequency: '',
 
 //context types
 const contextTypes = [
@@ -80,41 +102,16 @@ const memberQuestionList = [
 ];
 
 //frequencies
-const frequencies = ['Daily', 'Weekly', 'Monthly', 'Custom', 'Off'];
 
 //how many steps the wizard has
 const totalSteps = 6;
-
-// test
-const x = {
-  title: 'My New Topic',
-  frequency: 'WEEKLY',
-  defaultsurvey: {
-    questions: [
-      {
-        body: 'Do you have any blockers?',
-        type: 'TEXT',
-        leader: true,
-      },
-      {
-        body: 'What is the teams priority?',
-        type: 'TEXT',
-        leader: true,
-      },
-      {
-        body: 'How is your weekend?',
-        type: 'TEXT',
-        leader: false,
-      },
-    ],
-  },
-};
 
 const TopicCreation = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [currentTopic, setCurrentTopic] = useState(defaultTopic);
   const [loading, setLoading] = useState(false);
+  const [newJoinCode, setNewJoinCode] = useState('');
   const [stepValidation, setStepValidation] = useState({
     1: false,
     2: false,
@@ -136,17 +133,18 @@ const TopicCreation = () => {
   //current step validation handler
   const handleCurrentValidation = () => {
     if (currentStep === 1) {
-      if (currentTopic.contextName.length !== 0) {
-        setStepValidation({ ...stepValidation, [currentStep]: true });
-      }
+      // if (currentTopic.contextName.length !== 0) {
+      //   setStepValidation({ ...stepValidation, [currentStep]: true });
+      // }
+      setStepValidation({ ...stepValidation, [currentStep]: true });
     } else if (currentStep === 2) {
-      if (currentTopic.name && currentTopic.frequency) {
+      if (currentTopic.title && currentTopic.frequency) {
         setStepValidation({ ...stepValidation, [currentStep]: true });
       }
     } else if (currentStep === 3 || currentStep === 4) {
       if (
-        !currentTopic.leaderQuestions.length ||
-        !currentTopic.memberQuestions.length
+        !currentTopic.defaultsurvey.questions.filter(q => q.leader).length ||
+        !currentTopic.defaultsurvey.questions.filter(q => !q.leader).length
       ) {
         setStepValidation({ ...stepValidation, [currentStep]: false });
       } else if (currentTopic.leaderQuestions || currentTopic.memberQuestions) {
@@ -168,21 +166,23 @@ const TopicCreation = () => {
   };
 
   const handleSubmit = async e => {
-    // createNewTopic();
     setLoading(true);
     // function to await topic submission to complete
     // let a = createNewTopic(x);
-    console.log(createNewTopic(x));
+    // console.log(createNewTopic(x));
+    Promise.resolve(createNewTopic(currentTopic)).then(result =>
+      setNewJoinCode(result)
+    );
     // handleNext();
     setCurrentStep(6);
     setLoading(false);
     // const submit = () => {
     //   return new Promise(resolve => {
     //     // this part will be replaced with correct API call
-    //     // createNewTopic(x);
-    //     setTimeout(() => {
-    //       resolve(console.log('2sec'));
-    //     }, 2000);
+    //     resolve(createNewTopic(x));
+    //     // setTimeout(() => {
+    //     //   resolve(console.log('2sec'));
+    //     // }, 2000);
     //   });
     // };
     // await submit();
@@ -261,9 +261,10 @@ const TopicCreation = () => {
                 paddingLeft: '10%',
               }}
             >
-              {currentStep === 1
+              New Topic
+              {/* {currentStep === 1
                 ? 'New Topic'
-                : `${currentTopic.contextName.split(' ')[0]} Topic`}
+                : `${currentTopic.contextName.split(' ')[0]} Topic`} */}
             </h2>
           </>
         }
@@ -331,13 +332,15 @@ const TopicCreation = () => {
             <QuestionForm
               key="step3"
               isContext={true}
-              activeQuestions={currentTopic.leaderQuestions}
+              activeQuestions={currentTopic.defaultsurvey.questions.filter(
+                q => q.leader
+              )}
               stateHandler={handleCurrentTopicState}
             />
             <AddQuestionMenu
               isContext={true}
               defaultQuestionList={leaderQuestionList}
-              questionState={currentTopic.leaderQuestions}
+              questionState={currentTopic.defaultsurvey.questions}
               stateHandler={handleCurrentTopicState}
             />
           </>
@@ -352,13 +355,15 @@ const TopicCreation = () => {
             <QuestionForm
               key="step4"
               isContext={false}
-              activeQuestions={currentTopic.memberQuestions}
+              activeQuestions={currentTopic.defaultsurvey.questions.filter(
+                q => !q.leader
+              )}
               stateHandler={handleCurrentTopicState}
             />
             <AddQuestionMenu
               isContext={false}
               defaultQuestionList={memberQuestionList}
-              questionState={currentTopic.memberQuestions}
+              questionState={currentTopic.defaultsurvey.questions}
               stateHandler={handleCurrentTopicState}
             />
           </>
@@ -371,7 +376,11 @@ const TopicCreation = () => {
           />
         )}
         {currentStep === 6 && (
-          <CreationSuccess key="step6" currentTopic={currentTopic} />
+          <CreationSuccess
+            key="step6"
+            currentTopic={currentTopic}
+            newJoinCode={newJoinCode}
+          />
         )}
       </Modal>
     </>
