@@ -39,8 +39,8 @@ function RenderHomePage(props) {
               <Button
                 key="2"
                 style={{
-                  backgroundColor: '#705C55',
-                  border: '1px solid #BC9D7E',
+                  backgroundColor: '#BC9D7E',
+                  border: '1px solid #191919',
                   borderRadius: '1rem',
                   fontWeight: 'bold',
                   color: '#191919',
