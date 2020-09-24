@@ -3,14 +3,9 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
+import store from '../state/store';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import logger from 'redux-logger';
-import { apolloReducer } from '../state/reducers/apolloReducer';
-
-const store = createStore(apolloReducer, applyMiddleware(thunk, logger));
+import { screen } from '@testing-library/react';
 
 describe('<RenderHomePage /> test suite', () => {
   test('it handles a loading state', () => {
@@ -20,16 +15,9 @@ describe('<RenderHomePage /> test suite', () => {
     const { getByText } = render(
       <Provider store={store}>
         <Router>
-          <RenderHomePage
-            userInfo={{ name: 'Sara' }}
-            authService={authService}
-          />
+          <RenderHomePage authService={authService} />
         </Router>
       </Provider>
     );
-    const button = getByText(/Sign Out/i);
-    userEvent.click(button);
-    expect(authService.logout).toHaveBeenCalledTimes(1);
-    expect(getByText(/hello, sara/i).innerHTML).toBe('Hello, Sara');
   });
 });
