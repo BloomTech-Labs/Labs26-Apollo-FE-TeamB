@@ -12,6 +12,7 @@ const JoinTopic = () => {
 
   const handleCancel = () => {
     setIsVisible(false);
+    setCode('');
   };
 
   const handleSubmit = () => {
