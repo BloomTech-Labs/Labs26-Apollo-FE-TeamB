@@ -5,6 +5,7 @@ import {
   GET_USERNAME,
   GET_BEARER_TOKEN,
   GET_TOPICS,
+  JOIN_TOPIC,
 } from '../actions/apolloActions';
 
 const initialState = {
@@ -31,6 +32,11 @@ export const apolloReducer = (state = initialState, action) => {
       return {
         ...state,
         topics: action.payload,
+      };
+    case JOIN_TOPIC:
+      return {
+        ...state,
+        topics: [...state.topics, action.payload],
       };
     default:
       return state;
