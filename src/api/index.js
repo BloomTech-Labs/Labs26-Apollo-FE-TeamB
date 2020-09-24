@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { store } from '../index';
 const liveUrl = 'http://apollo-b-api.herokuapp.com';
 const localtesturl = 'http://localhost:2019';
-const usertopictest = `${localtesturl}/users/users`;
+const usertopictest = `/topics/topics`;
 // we will define a bunch of API calls here.
-const apiUrl = `${process.env.REACT_APP_API_URI}/users/users`;
+const apiUrl = `${process.env.REACT_APP_API_URI}`;
 
 const sleep = time =>
   new Promise(resolve => {
@@ -13,10 +14,20 @@ const sleep = time =>
 // in order for tests to pass token needs to be gathered from authstate
 // token is the bearer token in global state - if the api call needs it, just pass token as last argument and connect bearerToken from global state
 
+const axiosWithAuth = () => {
+  const token = store.getState().bearerToken;
+  return axios.create({
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+    baseURL: localtesturl,
+  });
+};
+
 const getUserTopics = token => {
-  return axios
-    .get(usertopictest, token)
-    .then(response => console.log(response.data[0].ownedtopics))
+  return axiosWithAuth()
+    .get(usertopictest)
+    .then(response => console.log(response.data))
     .catch(err => {
       console.log(err);
     });

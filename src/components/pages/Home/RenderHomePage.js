@@ -50,6 +50,7 @@ function RenderHomePage(props) {
               </Button>
             </Link>
           </div>
+          <div></div>
         </Sider>
         <Layout>
           <PageHeader

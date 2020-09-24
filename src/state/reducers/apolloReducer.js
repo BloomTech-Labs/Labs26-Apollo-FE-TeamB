@@ -22,9 +22,7 @@ export const apolloReducer = (state = initialState, action) => {
     case GET_BEARER_TOKEN:
       return {
         ...state,
-        bearerToken: {
-          headers: { Authorization: 'Bearer ' + action.payload },
-        },
+        bearerToken: action.payload,
       };
     default:
       return state;
