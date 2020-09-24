@@ -8,6 +8,7 @@ import {
   ReviewFinal,
   CreationSuccess,
 } from './Steps/';
+import { createNewTopic } from '../../../api/index';
 
 import 'antd/dist/antd.css';
 
@@ -84,6 +85,31 @@ const frequencies = ['Daily', 'Weekly', 'Monthly', 'Custom', 'Off'];
 //how many steps the wizard has
 const totalSteps = 6;
 
+// test
+const x = {
+  title: 'My New Topic',
+  frequency: 'WEEKLY',
+  defaultsurvey: {
+    questions: [
+      {
+        body: 'Do you have any blockers?',
+        type: 'TEXT',
+        leader: true,
+      },
+      {
+        body: 'What is the teams priority?',
+        type: 'TEXT',
+        leader: true,
+      },
+      {
+        body: 'How is your weekend?',
+        type: 'TEXT',
+        leader: false,
+      },
+    ],
+  },
+};
+
 const TopicCreation = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
@@ -142,18 +168,25 @@ const TopicCreation = () => {
   };
 
   const handleSubmit = async e => {
+    // createNewTopic();
     setLoading(true);
     // function to await topic submission to complete
-    const submit = () => {
-      return new Promise(resolve => {
-        // this part will be replaced with correct API call
-        setTimeout(() => {
-          resolve(console.log('2sec'));
-        }, 2000);
-      });
-    };
-    await submit();
-    await Promise.resolve(handleNext());
+    // let a = createNewTopic(x);
+    console.log(createNewTopic(x));
+    // handleNext();
+    setCurrentStep(6);
+    setLoading(false);
+    // const submit = () => {
+    //   return new Promise(resolve => {
+    //     // this part will be replaced with correct API call
+    //     // createNewTopic(x);
+    //     setTimeout(() => {
+    //       resolve(console.log('2sec'));
+    //     }, 2000);
+    //   });
+    // };
+    // await submit();
+    // await Promise.resolve(handleNext());
   };
 
   //handles closing the modal

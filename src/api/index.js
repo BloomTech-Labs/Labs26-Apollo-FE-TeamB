@@ -3,6 +3,7 @@ import { store } from '../index';
 const liveUrl = 'http://apollo-b-api.herokuapp.com';
 const localtesturl = 'http://localhost:2019';
 const usertopictest = `/users/users`;
+const createNew = `/topics/new`;
 // we will define a bunch of API calls here.
 const apiUrl = `${process.env.REACT_APP_API_URI}/users/users`;
 
@@ -29,6 +30,18 @@ const getUserTopics = () => {
   return axiosWithAuth()
     .get(usertopictest)
     .then(response => console.log(response.data[0].ownedtopics))
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+const createNewTopic = newTopicData => {
+  return axiosWithAuth()
+    .post(createNew, newTopicData)
+    .then(response => {
+      // console.log(response);
+      return response.data;
+    })
     .catch(err => {
       console.log(err);
     });
@@ -83,6 +96,7 @@ const getProfileData = authState => {
 export {
   sleep,
   getUserTopics,
+  createNewTopic,
   userJoinTopic,
   getProfileData,
   getDSData,
