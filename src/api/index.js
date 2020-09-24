@@ -25,6 +25,7 @@ const axiosWithAuth = () => {
   });
 };
 
+// request for a list of topics
 const getUserTopics = dispatchFunc => {
   return axiosWithAuth()
     .get(usertopictest)

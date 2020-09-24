@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { Layout, PageHeader, Button } from 'antd';
+import { Layout, PageHeader, Button, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { TopicCreation } from '../TopicCreation';
+
+// nested components for ant components
 const { Content, Sider } = Layout;
+const { Option } = Select;
 
 function RenderHomePage(props) {
   const { authService } = props;
@@ -71,7 +74,7 @@ function RenderHomePage(props) {
               })}
           </div>
         </Sider>
-        <Layout>
+        <Layout style={{ backgroundColor: '#BC9D7E' }}>
           <PageHeader
             className="header"
             title={<h1>Apollo</h1>}
@@ -106,9 +109,33 @@ function RenderHomePage(props) {
               </Button>,
             ]}
           ></PageHeader>
-          <Content style={{ backgroundColor: '#BC9D7E' }}>
-            <h2>{currentTopic && currentTopic.title}</h2>
-          </Content>
+          <Layout
+            style={{
+              display: 'flex',
+              flexFlow: 'row',
+              backgroundColor: '#BC9D7E',
+            }}
+          >
+            <Content
+              style={{
+                backgroundColor: '#BC9D7E',
+                textAlign: 'left',
+                marginLeft: '2rem',
+              }}
+            >
+              <h2 style={{ textAlign: 'left' }}>
+                {currentTopic && currentTopic.title}
+              </h2>
+              <Select placeholder="Select a Request">
+                {currentTopic.surveysrequests.map(request => {
+                  return <Option>Request {request.surveyId}</Option>;
+                })}
+              </Select>
+              <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
+              <p style={{ textAlign: 'left' }}>Leader Questions go here</p>
+            </Content>
+            <Content>Team Member answers go here.</Content>
+          </Layout>
         </Layout>
       </Layout>
     </>
