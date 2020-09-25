@@ -5,12 +5,14 @@ import {
   GET_USERNAME,
   GET_BEARER_TOKEN,
   GET_TOPICS,
+  GET_ALL_CONTEXTS,
 } from '../actions/apolloActions';
 
 const initialState = {
   bearerToken: '',
   username: '',
   topics: [],
+  contexts: [],
 };
 
 export const apolloReducer = (state = initialState, action) => {
@@ -31,6 +33,11 @@ export const apolloReducer = (state = initialState, action) => {
       return {
         ...state,
         topics: action.payload,
+      };
+    case GET_ALL_CONTEXTS:
+      return {
+        ...state,
+        contexts: action.payload,
       };
     default:
       return state;
