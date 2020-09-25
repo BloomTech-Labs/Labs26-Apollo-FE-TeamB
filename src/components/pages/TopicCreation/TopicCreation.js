@@ -8,7 +8,7 @@ import {
   ReviewFinal,
   CreationSuccess,
 } from './Steps/';
-
+import { getContexts } from '../../../api/index';
 import 'antd/dist/antd.css';
 
 //This data simulates making an api call to retrieve the Context information for a given Topic preset.
@@ -188,6 +188,7 @@ const TopicCreation = () => {
   };
 
   useEffect(() => {
+    getContexts();
     handleCurrentValidation();
   }, [currentTopic]);
 

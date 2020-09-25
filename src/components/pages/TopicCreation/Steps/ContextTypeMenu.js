@@ -16,6 +16,7 @@ const ContextTypeMenu = ({ currentContext, contextTypes, stateHandler }) => {
   const handleClick = menuItem => {
     stateHandler('contextName', contexts[menuItem.key]);
   };
+
   return (
     // antd Menu component looping through contextTypes and creating a Menu.Item for each type
     <Menu mode="vertical">
