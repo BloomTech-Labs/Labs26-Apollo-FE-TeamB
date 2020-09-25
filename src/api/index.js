@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { store } from '../state/store';
+// the live api
 const liveUrl = 'http://apollo-b-api.herokuapp.com';
+// for testing locally
 const localtesturl = 'http://localhost:2019';
-const usertopictest = `/topics/topics`;
+const usertopics = `/topics/topics`;
 // we will define a bunch of API calls here.
 const apiUrl = `${process.env.REACT_APP_API_URI}`;
 
@@ -25,16 +27,17 @@ const axiosWithAuth = () => {
   });
 };
 
-// request for a list of topics
+// request for a list of topics for the current user
 const getUserTopics = dispatchFunc => {
   return axiosWithAuth()
-    .get(usertopictest)
+    .get(usertopics)
     .then(response => dispatchFunc(response.data))
     .catch(err => {
       console.log(err);
     });
 };
 
+// user joins a topic accepts the join code for the unique url endpoint
 const userJoinTopic = joinCode => {
   console.log(joinCode);
   return axiosWithAuth()
@@ -44,6 +47,18 @@ const userJoinTopic = joinCode => {
     })
     .catch(err => {
       console.log(err);
+    });
+};
+
+// get the list of contexts when starting the create new topic wizard
+const getContexts = () => {
+  return axiosWithAuth()
+    .get('/contexts/contexts')
+    .then(response => {
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error);
     });
 };
 
@@ -86,6 +101,7 @@ export {
   sleep,
   getUserTopics,
   userJoinTopic,
+  getContexts,
   getProfileData,
   getDSData,
   apiAuthGet,
