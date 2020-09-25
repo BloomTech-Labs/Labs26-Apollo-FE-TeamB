@@ -38,46 +38,6 @@ const defaultTopic = {
   },
 };
 
-// id: 1,
-// contextId: 2,
-// contextName: '',
-// name: '',
-// leaderQuestions: [
-//   {
-//     id: 1,
-//     type: 'text',
-//     body: 'What is the priority for the week?',
-//   },
-//   {
-//     id: 2,
-//     type: 'text',
-//     body: 'What are our hard deadlines?',
-//   },
-//   {
-//     id: 3,
-//     type: 'text',
-//     body: 'Is there any new information the team needs?',
-//   },
-// ],
-// memberQuestions: [
-//   {
-//     id: 1,
-//     type: 'text',
-//     body: 'Do you have any blockers?',
-//   },
-//   {
-//     id: 2,
-//     type: 'text',
-//     body: 'What task are you working on?',
-//   },
-//   {
-//     id: 3,
-//     type: 'text',
-//     body: 'Will you be able to meet the hard deadlines?',
-//   },
-// ],
-// frequency: '',
-
 //context types
 const contextTypes = [
   'Product Leadership',
@@ -100,8 +60,6 @@ const memberQuestionList = [
   'Do you have any monsters in your way?',
   "What's your favorite dessert?",
 ];
-
-//frequencies
 
 //how many steps the wizard has
 const totalSteps = 6;
@@ -170,26 +128,11 @@ const TopicCreation = () => {
 
   const handleSubmit = async e => {
     setLoading(true);
-    // function to await topic submission to complete
-    // let a = createNewTopic(x);
-    // console.log(createNewTopic(x));
-    Promise.resolve(createNewTopic(currentTopic)).then(result =>
+    await Promise.resolve(createNewTopic(currentTopic)).then(result =>
       setNewJoinCode(result)
     );
-    // handleNext();
     setCurrentStep(6);
     setLoading(false);
-    // const submit = () => {
-    //   return new Promise(resolve => {
-    //     // this part will be replaced with correct API call
-    //     resolve(createNewTopic(x));
-    //     // setTimeout(() => {
-    //     //   resolve(console.log('2sec'));
-    //     // }, 2000);
-    //   });
-    // };
-    // await submit();
-    // await Promise.resolve(handleNext());
   };
 
   //handles closing the modal
@@ -231,7 +174,6 @@ const TopicCreation = () => {
   }, [currentTopic.defaultsurvey]);
 
   useEffect(() => {
-    // currentTopic.defaultsurvey.questions.sort((a, b) => (a.leader && !b.leader) ? 1 : (!a.leader && b.leader) ? -1 : 0);
     handleCurrentValidation();
   }, [currentTopic, newContextType]);
 
@@ -342,9 +284,6 @@ const TopicCreation = () => {
             <QuestionForm
               key="step3"
               isContext={true}
-              // activeQuestions={currentTopic.defaultsurvey.questions.filter(
-              //   q => q.leader
-              // )}
               activeQuestions={currentTopic.defaultsurvey.questions}
               stateHandler={handleCurrentTopicState}
             />
@@ -366,9 +305,6 @@ const TopicCreation = () => {
             <QuestionForm
               key="step4"
               isContext={false}
-              // activeQuestions={currentTopic.defaultsurvey.questions.filter(
-              //   q => !q.leader
-              // )}
               activeQuestions={currentTopic.defaultsurvey.questions}
               stateHandler={handleCurrentTopicState}
             />
@@ -381,11 +317,18 @@ const TopicCreation = () => {
           </>
         )}
         {currentStep === 5 && (
-          <ReviewFinal
-            key="step5"
-            handleChange={handleChange}
-            currentTopic={currentTopic}
-          />
+          <>
+            <p
+              style={{ fontSize: '1.5rem', color: 'black', textAlign: 'left' }}
+            >
+              Review
+            </p>
+            <ReviewFinal
+              key="step5"
+              handleChange={handleChange}
+              currentTopic={currentTopic}
+            />
+          </>
         )}
         {currentStep === 6 && (
           <CreationSuccess

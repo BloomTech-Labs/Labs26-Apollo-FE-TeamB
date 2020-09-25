@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Tooltip } from 'antd';
+import { Result, Button, Tooltip } from 'antd';
 
 const CreationSuccess = props => {
   const [tooltip, setTooltip] = useState('Copy to Clipboard'); // tooltip text
-  // const [joincode, setJoincode] = useState('6xT4D'); // dummy code for now, this is from topic in redux
 
   // function to copy join code to clipboard
   const copyToClipboard = () => {
@@ -19,19 +18,19 @@ const CreationSuccess = props => {
   };
 
   return (
-    <>
-      <h1>Topic Created</h1>
-      <p>Why not send this to a few people and get some tasty data?</p>
-      <div>
-        Join Code:
-        <span>
-          <p id="joincode">{props.newJoinCode}</p>
+    <Result
+      status="success"
+      title="Topic Created"
+      subTitle={`Join Code - ${props.newJoinCode}`}
+      extra={[
+        <>
+          <p>Share this with your teammates so they can join your new topic!</p>
           <Tooltip title={`${tooltip}`}>
-            <Button onClick={copyToClipboard}>copy</Button>
+            <Button onClick={copyToClipboard}>Copy Join Code</Button>
           </Tooltip>
-        </span>
-      </div>
-    </>
+        </>,
+      ]}
+    />
   );
 };
 

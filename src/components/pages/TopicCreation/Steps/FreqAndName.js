@@ -4,7 +4,16 @@ import { Form, Input, Select } from 'antd';
 // pass in state handler from parent component
 const FreqAndName = ({ currentTopic, stateHandler }) => {
   // initialize frequencies variable and form in state
-  const frequencies = ['DAILY', 'WEEKLY', 'MONTHLY'];
+  const frequencies = [
+    'DAILY',
+    'WEEKLY',
+    'MONTHLY',
+    'MONDAY',
+    'TUESDAY',
+    'WEDNESDAY',
+    'THURSDAY',
+    'FRIDAY',
+  ];
   const [form] = Form.useForm();
   // form value state handler works with parent so that state lives in parent component
   const handleValueChange = freqNameObj => {
@@ -52,7 +61,10 @@ const FreqAndName = ({ currentTopic, stateHandler }) => {
                 key={idx}
                 value={freq}
                 style={{
-                  borderBottom: freq !== 'Off' ? '1px solid grey' : null,
+                  borderBottom:
+                    freq !== 'Off' && freq !== 'FRIDAY'
+                      ? '1px solid grey'
+                      : null,
                 }}
               >
                 <p style={{ textAlign: 'left' }}>{freq}</p>
