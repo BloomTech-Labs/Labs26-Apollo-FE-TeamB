@@ -8,7 +8,7 @@ import {
   ReviewFinal,
   CreationSuccess,
 } from './Steps/';
-import { createNewTopic } from '../../../api/index';
+import { createNewTopic, getContexts } from '../../../api/index';
 
 import 'antd/dist/antd.css';
 
@@ -194,6 +194,7 @@ const TopicCreation = () => {
   }, [currentTopic.defaultsurvey]);
 
   useEffect(() => {
+    getContexts();
     handleCurrentValidation();
   }, [currentTopic, newContextType]);
 

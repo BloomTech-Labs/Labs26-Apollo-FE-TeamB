@@ -125,7 +125,7 @@ function RenderHomePage(props) {
                   })}
               </Select>
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
-              <p style={{ textAlign: 'left' }}>Leader Questions go here</p>
+              <p style={{ textAlign: 'left' }}>Context Questions go here.</p>
             </Content>
             <Content>Team Member answers go here.</Content>
           </Layout>
