@@ -21,7 +21,7 @@ export const getBearerToken = token => {
   };
 };
 
-//
+// this gets topics on initial login and when a user joins a topic
 export const getTopics = topicslist => {
   return dispatch => {
     dispatch({ type: GET_TOPICS, payload: topicslist });
