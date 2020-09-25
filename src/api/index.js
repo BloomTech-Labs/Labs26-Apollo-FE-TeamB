@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { store } from '../index';
+import { store } from '../state/store';
 const liveUrl = 'http://apollo-b-api.herokuapp.com';
 const localtesturl = 'http://localhost:2019';
 const usertopictest = `/users/users`;
@@ -26,6 +26,7 @@ const axiosWithAuth = () => {
   });
 };
 
+// request for a list of topics
 const getUserTopics = dispatchFunc => {
   return axiosWithAuth()
     .get(usertopictest)

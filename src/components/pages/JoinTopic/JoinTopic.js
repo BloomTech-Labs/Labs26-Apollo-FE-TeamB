@@ -36,8 +36,8 @@ const JoinTopic = () => {
         type="primary"
         onClick={showModal}
         style={{
-          backgroundColor: '#705C55',
-          border: '1px solid #BC9D7E',
+          backgroundColor: '#BC9D7E',
+          border: '1px solid #191919',
           fontWeight: 'bold',
           color: '#191919',
           borderRadius: '1rem',
