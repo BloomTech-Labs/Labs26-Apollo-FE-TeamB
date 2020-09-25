@@ -35,7 +35,7 @@ const FreqAndName = ({ currentTopic, stateHandler }) => {
       >
         <Input
           style={{ textAlign: 'left' }}
-          placeholder={currentTopic.title ? currentTopic.title : 'Topic Name'}
+          placeholder={currentTopic.title ? currentTopic.title : 'Topic Title'}
         />
       </Form.Item>
       {/* form input frequency also with required rule and message */}

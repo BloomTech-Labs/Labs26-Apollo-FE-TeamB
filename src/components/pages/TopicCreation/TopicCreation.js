@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Modal, Button, Progress, message } from 'antd';
 import {
   ContextTypeMenu,
@@ -8,6 +9,7 @@ import {
   ReviewFinal,
   CreationSuccess,
 } from './Steps/';
+import { getAllContexts } from '../../../state/actions/apolloActions';
 import { createNewTopic, getContexts } from '../../../api/index';
 
 import 'antd/dist/antd.css';
@@ -38,15 +40,6 @@ const defaultTopic = {
   },
 };
 
-//context types
-const contextTypes = [
-  'Product Leadership',
-  'Delivery Management',
-  'Project Management',
-  'Design Leadership',
-  'Engineering Leadership',
-];
-
 const leaderQuestionList = [
   'What is the priority for the week?',
   'What are our hard deadlines?',
@@ -64,7 +57,7 @@ const memberQuestionList = [
 //how many steps the wizard has
 const totalSteps = 6;
 
-const TopicCreation = () => {
+const TopicCreation = ({ contexts, getAllContexts }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [currentTopic, setCurrentTopic] = useState(defaultTopic);
@@ -194,7 +187,7 @@ const TopicCreation = () => {
   }, [currentTopic.defaultsurvey]);
 
   useEffect(() => {
-    getContexts();
+    getContexts(getAllContexts);
     handleCurrentValidation();
   }, [currentTopic, newContextType]);
 
@@ -280,7 +273,13 @@ const TopicCreation = () => {
             <ContextTypeMenu
               key="step1"
               currentContext={newContextType}
-              contextTypes={contextTypes}
+              contextTypes={contexts.map(c => {
+                const words = c.description.split(' ');
+                const capitalWords = words.map(
+                  w => w.charAt(0).toUpperCase() + w.slice(1)
+                );
+                return `${capitalWords[0]} ${capitalWords[1]}`;
+              })}
               stateHandler={setNewContextType}
             />
           </>
@@ -363,4 +362,13 @@ const TopicCreation = () => {
   );
 };
 
-export default TopicCreation;
+const mapStateToProps = state => {
+  return {
+    ...state,
+    contexts: state.contexts,
+  };
+};
+
+export default connect(mapStateToProps, {
+  getAllContexts,
+})(TopicCreation);

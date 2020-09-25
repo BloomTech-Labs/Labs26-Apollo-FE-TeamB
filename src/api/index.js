@@ -42,7 +42,6 @@ const createNewTopic = newTopicData => {
   return axiosWithAuth()
     .post(createNew, newTopicData)
     .then(response => {
-      // console.log(response);
       return response.data.joincode;
     })
     .catch(err => {
@@ -63,11 +62,11 @@ const userJoinTopic = joinCode => {
 };
 
 // get the list of contexts when starting the create new topic wizard
-const getContexts = () => {
+const getContexts = dispatchFunc => {
   return axiosWithAuth()
     .get('/contexts/contexts')
     .then(response => {
-      console.log(response);
+      return dispatchFunc(response.data);
     })
     .catch(error => {
       console.log(error);

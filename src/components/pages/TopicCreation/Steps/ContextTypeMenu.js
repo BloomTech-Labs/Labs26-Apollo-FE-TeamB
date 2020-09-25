@@ -32,9 +32,15 @@ const ContextTypeMenu = ({ currentContext, contextTypes, stateHandler }) => {
           onClick={handleClick}
         >
           {context === currentContext ? (
-            <FaCircle style={{ fontSize: '1.5rem', paddingRight: '1%' }} />
+            <FaCircle
+              key="filledCircle"
+              style={{ fontSize: '1.5rem', paddingRight: '1%' }}
+            />
           ) : (
-            <FaRegCircle style={{ fontSize: '1.5rem', paddingRight: '1%' }} />
+            <FaRegCircle
+              key="emptyCircle"
+              style={{ fontSize: '1.5rem', paddingRight: '1%' }}
+            />
           )}
           {context}
         </Menu.Item>
