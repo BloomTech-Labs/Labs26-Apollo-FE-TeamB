@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Modal, Button } from 'antd';
 import { JoinCodeForm } from './components';
-import { userJoinTopic } from '../../../api/index';
+import { userJoinTopic, getUserTopics } from '../../../api/index';
+import { getTopics } from '../../../state/actions/apolloActions';
 import 'antd/dist/antd.css';
 
-const JoinTopic = () => {
+const JoinTopic = props => {
   const [isVisible, setIsVisible] = useState(false);
   const [code, setCode] = useState('');
   const showModal = () => {
@@ -21,6 +23,7 @@ const JoinTopic = () => {
       alert('Join Code Must be 9 Characters');
     } else {
       userJoinTopic(code); // lRQlkNGkg
+      getUserTopics(props.getTopics);
       setIsVisible(false);
       setCode('');
     }
@@ -90,4 +93,10 @@ const JoinTopic = () => {
   );
 };
 
-export default JoinTopic;
+const mapStateToProps = state => {
+  return {
+    ...state,
+  };
+};
+
+export default connect(mapStateToProps, { getTopics })(JoinTopic);
