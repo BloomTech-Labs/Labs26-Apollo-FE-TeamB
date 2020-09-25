@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Progress } from 'antd';
+import { Modal, Button, Progress, message } from 'antd';
 import {
   ContextTypeMenu,
   FreqAndName,
@@ -163,6 +163,26 @@ const TopicCreation = () => {
       //increment step by one unless at end
       newStep = newStep >= 5 ? totalSteps : newStep + 1;
       setCurrentStep(newStep);
+    } else {
+      message.config({
+        maxCount: 1,
+        className: 'modal-validation',
+      });
+      message.error({
+        content:
+          currentStep === 1
+            ? `Context Type Required`
+            : currentStep === 2
+            ? `Topic Title and Frequency Required`
+            : currentStep === 3 || currentStep === 4
+            ? `Must Have at Least 1 Question`
+            : `Error Creating Topic`,
+        duration: 2,
+        style: {
+          marginTop: '40%',
+          fontSize: '1.4rem',
+        },
+      });
     }
   };
 
