@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { store } from '../state/store';
 // the live api
-const liveUrl = 'http://apollo-b-api.herokuapp.com';
+const liveUrl = 'https://apollo-b-api.herokuapp.com';
 // for testing locally
 const localtesturl = 'http://localhost:2019';
 const usertopics = `/topics/topics`;
@@ -24,8 +24,7 @@ const axiosWithAuth = () => {
     headers: {
       Authorization: 'Bearer ' + token,
     },
-    // baseURL: liveUrl,
-    baseURL: localtesturl,
+    baseURL: liveUrl,
   });
 };
 
