@@ -14,7 +14,7 @@ const JoinCodeForm = ({ inputValue, stateHandler }) => {
           fontSize: '2.5rem',
           textAlign: 'left',
         }}
-        placeholder="Topic Code"
+        placeholder="Join Code"
         value={inputValue ? inputValue : null}
         onChange={onInputChange}
       />

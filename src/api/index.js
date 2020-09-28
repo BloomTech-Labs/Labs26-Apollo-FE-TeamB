@@ -53,9 +53,12 @@ const createNewTopic = newTopicData => {
 const userJoinTopic = (joinCode, fn) => {
   return axiosWithAuth()
     .post(`/topics/topic/${joinCode}`)
-    .then(r => getUserTopics(fn))
+    .then(r => {
+      getUserTopics(fn);
+      return 'success';
+    })
     .catch(err => {
-      console.log(err);
+      return 'error';
     });
 };
 

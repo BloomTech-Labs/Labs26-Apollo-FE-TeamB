@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Button } from 'antd';
+import { Modal, Button, message } from 'antd';
 import { JoinCodeForm } from './components';
 import { userJoinTopic, getUserTopics } from '../../../api/index';
 import { getTopics } from '../../../state/actions/apolloActions';
@@ -18,13 +18,31 @@ const JoinTopic = props => {
     setCode('');
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async e => {
     if (code.length < 9) {
-      alert('Join Code Must be 9 Characters');
+      message.warning({
+        content: 'Join Code Must be 9 Characters',
+        duration: 2,
+      });
     } else {
-      userJoinTopic(code, props.getTopics);
-      setIsVisible(false);
-      setCode('');
+      await Promise.resolve(userJoinTopic(code, props.getTopics)).then(
+        result => {
+          if (result === 'error') {
+            message.error({
+              content: 'Topic Not Found',
+              duration: 3,
+            });
+            setCode('');
+          } else if (result === 'success') {
+            message.success({
+              content: 'Joined Successfully',
+              duration: 2,
+            });
+            setIsVisible(false);
+            setCode('');
+          }
+        }
+      );
     }
   };
 
