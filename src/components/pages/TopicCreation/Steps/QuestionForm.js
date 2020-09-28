@@ -5,26 +5,35 @@ import { DeleteFilled } from '@ant-design/icons';
 import { FaTrashAlt, FaRegTrashAlt } from 'react-icons/fa';
 
 const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
+  const initShownQuestions = isContext
+    ? activeQuestions.filter(q => q.leader)
+    : activeQuestions.filter(q => !q.leader);
   // click handler function for updating questions
-  const handleClick = updateQuestions => {
-    stateHandler(
-      isContext ? 'leaderQuestions' : 'memberQuestions',
-      updateQuestions
+  const handleClick = e => {
+    const questionId = parseInt(e.target.getAttribute('for'));
+    const updateQuestions = activeQuestions
+      .filter(q => (isContext ? q.leader : !q.leader))
+      .filter((q, idx) => idx !== questionId);
+    const noChangeQuestions = activeQuestions.filter(q =>
+      isContext ? !q.leader : q.leader
     );
+    stateHandler('defaultsurvey', {
+      questions: [...noChangeQuestions, ...updateQuestions],
+    });
   };
   const inputChange = e => {
-    const id = e.target.id;
+    const questionId = parseInt(e.target.getAttribute('for'));
     const val = e.target.value;
-    const updateQuestions = [...activeQuestions];
-    const newQuestion = {
-      ...updateQuestions[id - 1],
-      body: val,
-    };
-    updateQuestions[id - 1] = newQuestion;
-    stateHandler(
-      isContext ? 'leaderQuestions' : 'memberQuestions',
-      updateQuestions
+    const updateQuestions = activeQuestions.filter(q =>
+      isContext ? q.leader : !q.leader
     );
+    const noChangeQuestions = activeQuestions.filter(q =>
+      isContext ? !q.leader : q.leader
+    );
+    updateQuestions[questionId].body = val;
+    stateHandler('defaultsurvey', {
+      questions: [...noChangeQuestions, ...updateQuestions],
+    });
   };
   return (
     // antd form component
@@ -36,11 +45,12 @@ const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
         height: '85%',
         maxHeight: '60vh',
         overflow: 'auto',
+        overflowX: 'hidden',
         borderBottom: '1px solid grey',
       }}
     >
       {/* map through questions and make a form item for each one */}
-      {activeQuestions.map((question, index) => (
+      {initShownQuestions.map((question, index) => (
         <Form.Item key={index}>
           <div
             style={{
@@ -49,22 +59,24 @@ const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
               paddingBottom: '2%',
             }}
           >
-            <label
-              htmlFor={question.id}
-              style={{ textAlign: 'left' }}
-            >{`Question ${index + 1}`}</label>
-            <FaRegTrashAlt
-              style={{ margin: '0 8px' }}
-              onClick={() => {
-                handleClick(activeQuestions.filter((testQ, i) => i !== index));
-              }}
+            <label style={{ textAlign: 'left' }}>
+              {`Question ${index + 1}`}
+            </label>
+            <Button
+              htmlFor={index}
+              icon={
+                <FaRegTrashAlt
+                  style={{ margin: '0 8px', pointerEvents: 'none' }}
+                />
+              }
+              onClick={handleClick}
             />
           </div>
           <Input
-            id={question.id}
+            htmlFor={index}
+            key={index}
             value={question.body}
             onChange={inputChange}
-            maxLength={20}
             size="large"
             style={{ textAlign: 'left' }}
           />

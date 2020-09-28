@@ -6,6 +6,7 @@
 export const GET_USERNAME = 'GET_USERNAME';
 export const GET_BEARER_TOKEN = 'GET_BEARER_TOKEN';
 export const GET_TOPICS = 'GET_TOPICS';
+export const GET_ALL_CONTEXTS = 'GET_ALL_CONTEXTS';
 
 // this function sets the username in gloabal state - used in Render Home page
 export const getUsername = username => {
@@ -21,9 +22,15 @@ export const getBearerToken = token => {
   };
 };
 
-//
+// this gets topics on initial login and when a user joins a topic
 export const getTopics = topicslist => {
   return dispatch => {
     dispatch({ type: GET_TOPICS, payload: topicslist });
+  };
+};
+
+export const getAllContexts = contexts => {
+  return dispatch => {
+    dispatch({ type: GET_ALL_CONTEXTS, payload: contexts });
   };
 };

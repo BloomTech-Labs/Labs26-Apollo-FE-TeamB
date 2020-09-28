@@ -23,7 +23,6 @@ function HomeContainer({
   useEffect(() => {
     let isSubscribed = true;
     getBearerToken(authState.accessToken);
-    getUserTopics(getTopics);
     memoAuthService
       .getUser()
       .then(info => {
@@ -41,6 +40,9 @@ function HomeContainer({
     return () => (isSubscribed = false);
   }, [memoAuthService]);
 
+  useEffect(() => {
+    getUserTopics(getTopics);
+  }, []);
   return (
     <>
       {authState.isAuthenticated && !userInfo && (
@@ -56,7 +58,7 @@ function HomeContainer({
 const mapStateToProps = state => {
   return {
     ...state,
-    bearerToken: state.bearerToken,
+    topics: state.topics,
   };
 };
 

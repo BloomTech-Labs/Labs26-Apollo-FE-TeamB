@@ -18,14 +18,9 @@ const AddQuestionMenu = ({
 }) => {
   // call state handler when dropdown item selected
   const handleSelect = questionString => {
-    stateHandler(isContext ? 'leaderQuestions' : 'memberQuestions', [
-      ...questionState,
-      {
-        id: questionState[questionState.length - 1] + 1,
-        type: 'text',
-        body: questionString,
-      },
-    ]);
+    const questions = [...questionState];
+    questions.push({ body: questionString, type: 'TEXT', leader: isContext });
+    stateHandler('defaultsurvey', { questions: questions });
   };
 
   return (

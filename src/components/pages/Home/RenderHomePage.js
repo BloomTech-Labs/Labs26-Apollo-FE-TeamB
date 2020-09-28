@@ -45,6 +45,7 @@ function RenderHomePage(props) {
               props.topics.map(topic => {
                 return (
                   <Button
+                    key={topic.topicId}
                     onClick={() => setCurrentTopic(topic)}
                     style={{
                       backgroundColor: '#BC9D7E',
@@ -116,11 +117,15 @@ function RenderHomePage(props) {
               <Select placeholder="Select a Request">
                 {currentTopic &&
                   currentTopic.surveysrequests.map(request => {
-                    return <Option>Request {request.surveyId}</Option>;
+                    return (
+                      <Option key={request.surveyId}>
+                        Request {request.surveyId}
+                      </Option>
+                    );
                   })}
               </Select>
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
-              <p style={{ textAlign: 'left' }}>Leader Questions go here</p>
+              <p style={{ textAlign: 'left' }}>Context Questions go here.</p>
             </Content>
             <Content>Team Member answers go here.</Content>
           </Layout>
