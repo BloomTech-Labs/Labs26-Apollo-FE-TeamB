@@ -22,8 +22,7 @@ const JoinTopic = props => {
     if (code.length < 9) {
       alert('Join Code Must be 9 Characters');
     } else {
-      userJoinTopic(code); // lRQlkNGkg
-      getUserTopics(props.getTopics);
+      userJoinTopic(code, props.getTopics);
       setIsVisible(false);
       setCode('');
     }

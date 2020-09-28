@@ -24,7 +24,8 @@ const axiosWithAuth = () => {
     headers: {
       Authorization: 'Bearer ' + token,
     },
-    baseURL: liveUrl,
+    // baseURL: liveUrl,
+    baseURL: localtesturl,
   });
 };
 
@@ -49,13 +50,10 @@ const createNewTopic = newTopicData => {
     });
 };
 
-const userJoinTopic = joinCode => {
-  console.log(joinCode);
+const userJoinTopic = (joinCode, fn) => {
   return axiosWithAuth()
-    .post(`/topics/topic/${joinCode}/join`)
-    .then(response => {
-      console.log(response);
-    })
+    .post(`/topics/topic/${joinCode}`)
+    .then(r => getUserTopics(fn))
     .catch(err => {
       console.log(err);
     });
