@@ -38,11 +38,11 @@ function HomeContainer({
         return setUserInfo(null);
       });
     return () => (isSubscribed = false);
-  }, [memoAuthService]);
+  }, [memoAuthService, authState.accessToken, getUsername, getBearerToken]);
 
   useEffect(() => {
     getUserTopics(getTopics);
-  }, []);
+  }, [getTopics]);
   return (
     <>
       {authState.isAuthenticated && !userInfo && (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button, Progress, message } from 'antd';
 import {
@@ -82,7 +82,7 @@ const TopicCreation = ({ contexts, getAllContexts }) => {
   };
 
   //current step validation handler
-  const handleCurrentValidation = () => {
+  const handleCurrentValidation = useCallback(() => {
     if (currentStep === 1) {
       if (newContextType) {
         setStepValidation({ ...stepValidation, [currentStep]: true });
@@ -105,7 +105,14 @@ const TopicCreation = ({ contexts, getAllContexts }) => {
         setStepValidation({ ...stepValidation, [currentStep]: true });
       }
     }
-  };
+  }, [
+    currentStep,
+    currentTopic.defaultsurvey.questions,
+    currentTopic.frequency,
+    currentTopic.title,
+    newContextType,
+    stepValidation,
+  ]);
 
   //handles opening the modal
   const showModal = () => {
@@ -184,12 +191,12 @@ const TopicCreation = ({ contexts, getAllContexts }) => {
       !a.leader && b.leader ? 1 : a.leader && !b.leader ? -1 : 0
     );
     handleCurrentValidation();
-  }, [currentTopic.defaultsurvey]);
+  }, [currentTopic.defaultsurvey, handleCurrentValidation]);
 
   useEffect(() => {
     getContexts(getAllContexts);
     handleCurrentValidation();
-  }, [currentTopic, newContextType]);
+  }, [currentTopic, newContextType, getAllContexts, handleCurrentValidation]);
 
   return (
     <>
@@ -297,6 +304,7 @@ const TopicCreation = ({ contexts, getAllContexts }) => {
         {currentStep === 3 && (
           <>
             <p
+              key="step3"
               style={{ fontSize: '1.5rem', color: 'black', textAlign: 'left' }}
             >
               Context Questions
@@ -308,6 +316,7 @@ const TopicCreation = ({ contexts, getAllContexts }) => {
               stateHandler={handleCurrentTopicState}
             />
             <AddQuestionMenu
+              key="step3"
               isContext={true}
               defaultQuestionList={leaderQuestionList}
               questionState={currentTopic.defaultsurvey.questions}
@@ -318,6 +327,7 @@ const TopicCreation = ({ contexts, getAllContexts }) => {
         {currentStep === 4 && (
           <>
             <p
+              key="step4"
               style={{ fontSize: '1.5rem', color: 'black', textAlign: 'left' }}
             >
               Request Questions
@@ -329,6 +339,7 @@ const TopicCreation = ({ contexts, getAllContexts }) => {
               stateHandler={handleCurrentTopicState}
             />
             <AddQuestionMenu
+              key="step4"
               isContext={false}
               defaultQuestionList={memberQuestionList}
               questionState={currentTopic.defaultsurvey.questions}
@@ -339,6 +350,7 @@ const TopicCreation = ({ contexts, getAllContexts }) => {
         {currentStep === 5 && (
           <>
             <p
+              key="step5"
               style={{ fontSize: '1.5rem', color: 'black', textAlign: 'left' }}
             >
               Review

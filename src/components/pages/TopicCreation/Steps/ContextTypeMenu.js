@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Menu } from 'antd';
 // import { BorderOutlined } from '@ant-design/icons';
 import { FaCircle, FaRegCircle } from 'react-icons/fa';
@@ -11,7 +11,7 @@ const ContextTypeMenu = ({ currentContext, contextTypes, stateHandler }) => {
     initContexts[idx] = context;
   });
   // put contexts in local state
-  const [contexts, setContexts] = useState(initContexts);
+  const contexts = initContexts;
   // click handler to execute state handler function passed into component
   const handleClick = menuItem => {
     stateHandler(contexts[menuItem.key]);

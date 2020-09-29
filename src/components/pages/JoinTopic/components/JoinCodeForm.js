@@ -1,5 +1,5 @@
-import React, { useEffect, useState, createRef } from 'react';
-import { Form, Input, Button } from 'antd';
+import React from 'react';
+import { Form, Input } from 'antd';
 
 const JoinCodeForm = ({ inputValue, stateHandler }) => {
   const onInputChange = e => {
