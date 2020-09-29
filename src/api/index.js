@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { store } from '../state/store';
 // the live api
-const liveUrl = 'http://apollo-b-api.herokuapp.com';
+const liveUrl = 'https://apollo-b-api.herokuapp.com';
 // for testing locally
 const localtesturl = 'http://localhost:2019';
 const usertopics = `/topics/topics`;
@@ -49,15 +49,15 @@ const createNewTopic = newTopicData => {
     });
 };
 
-const userJoinTopic = joinCode => {
-  console.log(joinCode);
+const userJoinTopic = (joinCode, fn) => {
   return axiosWithAuth()
-    .post(`/topics/topic/${joinCode}/join`)
-    .then(response => {
-      console.log(response);
+    .post(`/topics/topic/${joinCode}`)
+    .then(r => {
+      getUserTopics(fn);
+      return 'success';
     })
     .catch(err => {
-      console.log(err);
+      return 'error';
     });
 };
 
