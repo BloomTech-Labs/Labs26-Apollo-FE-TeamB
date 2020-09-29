@@ -4,14 +4,16 @@ import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { TopicCreation } from '../TopicCreation';
 import { JoinTopic } from '../JoinTopic';
+
 const { Content, Sider } = Layout;
 const { Option } = Select;
 
 function RenderHomePage(props) {
   const { authService } = props;
   const [currentTopic, setCurrentTopic] = useState(
-    props.topics ? props.topics[0] : null
+    props.topics ? props.topics[0] : 'No Topics to Show'
   );
+  console.log(currentTopic);
   return (
     <>
       <Layout style={{ height: '100vh', backgroundColor: '#BC9D7E' }}>
@@ -114,7 +116,7 @@ function RenderHomePage(props) {
                 {currentTopic && currentTopic.title}
               </h2>
               <Select placeholder="Select a Request">
-                {currentTopic &&
+                {currentTopic.surveysrequests &&
                   currentTopic.surveysrequests.map(request => {
                     return (
                       <Option key={request.surveyId}>
