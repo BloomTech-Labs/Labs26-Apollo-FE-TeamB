@@ -72,6 +72,15 @@ const TopicCreation = ({ contexts, getAllContexts }) => {
     5: false,
   });
 
+  //Initalize the topic based on a context
+  const contextToTopic = context => {
+    setNewContextType(context);
+    setCurrentTopic({
+      ...currentTopic,
+      defaultsurvey: { questions: context.survey.questions },
+    });
+  };
+
   //handle topic state object change
   const handleCurrentTopicState = (fieldName, fieldValue) => {
     // console.log(currentTopic);
@@ -136,7 +145,6 @@ const TopicCreation = ({ contexts, getAllContexts }) => {
   //form changeHandler
   const handleChange = e => {
     const { name, value } = e.target;
-    console.log(name, value);
   };
 
   //moves the wizard backwards
@@ -230,7 +238,7 @@ const TopicCreation = ({ contexts, getAllContexts }) => {
             >
               {currentStep === 1
                 ? 'New Topic'
-                : `${newContextType.split(' ')[0]} Topic`}
+                : `${newContextType.description.split(' ')[0]} Topic`}
             </h2>
           </>
         }
@@ -283,7 +291,7 @@ const TopicCreation = ({ contexts, getAllContexts }) => {
                   description: `${capitalWords[0]} ${capitalWords[1]}`,
                 };
               })}
-              stateHandler={setNewContextType}
+              stateHandler={contextToTopic}
             />
           </>
         )}
