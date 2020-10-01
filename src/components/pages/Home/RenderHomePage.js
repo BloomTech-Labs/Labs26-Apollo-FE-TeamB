@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SendButton, RespondButton } from '../Surveys/index';
 import { Layout, PageHeader, Button, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -124,6 +125,11 @@ function RenderHomePage(props) {
                     );
                   })}
               </Select>
+              {currentTopic.owner.username == props.username ? (
+                <SendButton />
+              ) : (
+                <RespondButton />
+              )}
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
               <p style={{ textAlign: 'left' }}>Context Questions go here.</p>
             </Content>
