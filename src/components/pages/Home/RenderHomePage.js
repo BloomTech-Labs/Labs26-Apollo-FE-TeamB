@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SendButton, RespondButton } from '../Surveys/index';
 import { Layout, PageHeader, Button, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
@@ -11,9 +11,14 @@ const { Option } = Select;
 
 function RenderHomePage(props) {
   const { authService } = props;
-  const [currentTopic, setCurrentTopic] = useState(
-    props.topics ? props.topics[0] : null
-  );
+  const [currentTopic, setCurrentTopic] = useState(null);
+
+  useEffect(() => {
+    if (props.topics.length > 0) {
+      setCurrentTopic(props.topics[0]);
+    }
+  }, [props.topics]);
+
   return (
     <>
       <Layout style={{ height: '100vh', backgroundColor: '#BC9D7E' }}>
