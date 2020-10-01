@@ -1,22 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Menu } from 'antd';
-// import { BorderOutlined } from '@ant-design/icons';
 import { FaCircle, FaRegCircle } from 'react-icons/fa';
 
 // pass in context types and state handler from parent component
 const ContextTypeMenu = ({ currentContext, contextTypes, stateHandler }) => {
-  // create contexts object with Menu.Item keys and contextTypes
-  const initContexts = {};
-  contextTypes.forEach((context, idx) => {
-    initContexts[idx] = context;
-  });
-  // put contexts in local state
-  const [contexts, setContexts] = useState(initContexts);
   // click handler to execute state handler function passed into component
   const handleClick = menuItem => {
-    stateHandler(contexts[menuItem.key]);
+    stateHandler(contextTypes[menuItem.key]);
   };
-  debugger;
+
   return (
     // antd Menu component looping through contextTypes and creating a Menu.Item for each type
     <Menu mode="vertical">
@@ -31,7 +23,9 @@ const ContextTypeMenu = ({ currentContext, contextTypes, stateHandler }) => {
           }}
           onClick={handleClick}
         >
-          {context.description === currentContext ? (
+          {/* We only want to fill in the circle if user has selected a context*/}
+          {currentContext &&
+          context.description === currentContext.description ? (
             <FaCircle
               key="filledCircle"
               style={{ fontSize: '1.5rem', paddingRight: '1%' }}
