@@ -22,6 +22,7 @@ function RenderHomePage(props) {
             backgroundColor: '#0C5274',
             borderTopRightRadius: '2rem',
             borderBottomRightRadius: '2rem',
+            overflow: 'scroll',
           }}
         >
           <h2 style={{ color: '#BC9D7E', marginTop: '1rem' }}>Topics</h2>
@@ -125,7 +126,8 @@ function RenderHomePage(props) {
                     );
                   })}
               </Select>
-              {currentTopic && currentTopic.owner.username == props.username ? (
+              {currentTopic &&
+              currentTopic.owner.username == props.userInfo.email ? (
                 <SendButton />
               ) : (
                 <RespondButton />
