@@ -2,7 +2,7 @@
 // This allows for the simplification of flow when importing reducers into your actions throughout your app.
 
 import {
-  GET_USERNAME,
+  GET_USER_INFO,
   GET_BEARER_TOKEN,
   GET_TOPICS,
   GET_ALL_CONTEXTS,
@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   bearerToken: '',
-  username: '',
+  userInfo: {},
   topics: [],
   contexts: [],
 };
@@ -18,10 +18,10 @@ const initialState = {
 export const apolloReducer = (state = initialState, action) => {
   switch (action.type) {
     // sets the username
-    case GET_USERNAME:
+    case GET_USER_INFO:
       return {
         ...state,
-        username: action.payload,
+        userInfo: action.payload,
       };
     // sets the bearer token
     case GET_BEARER_TOKEN:

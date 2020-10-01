@@ -3,15 +3,15 @@
 // Actions should be focused to a single purpose.
 // You can have multiple action creators per file if it makes sense to the purpose those action creators are serving.
 // Declare action TYPES at the top of the file
-export const GET_USERNAME = 'GET_USERNAME';
+export const GET_USER_INFO = 'GET_USER_INFO';
 export const GET_BEARER_TOKEN = 'GET_BEARER_TOKEN';
 export const GET_TOPICS = 'GET_TOPICS';
 export const GET_ALL_CONTEXTS = 'GET_ALL_CONTEXTS';
 
 // this function sets the username in gloabal state - used in Render Home page
-export const getUsername = username => {
+export const getUserInfo = userinfo => {
   return dispatch => {
-    dispatch({ type: GET_USERNAME, payload: username });
+    dispatch({ type: GET_USER_INFO, payload: userinfo });
   };
 };
 

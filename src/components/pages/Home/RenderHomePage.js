@@ -67,7 +67,7 @@ function RenderHomePage(props) {
           <PageHeader
             className="header"
             title={<h1>Apollo</h1>}
-            subTitle={`Hello, ${props.username}`}
+            subTitle={`Hello, ${props.userInfo.name}`}
             style={{
               backgroundColor: '#BC9D7E',
               padding: '2rem',
@@ -125,15 +125,17 @@ function RenderHomePage(props) {
                     );
                   })}
               </Select>
-              {currentTopic.owner.username == props.username ? (
+              {currentTopic && currentTopic.owner.username == props.username ? (
                 <SendButton />
               ) : (
                 <RespondButton />
               )}
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
-              <p style={{ textAlign: 'left' }}>Context Questions go here.</p>
+              <p style={{ textAlign: 'left' }}>
+                Context Questions and answers go here.
+              </p>
             </Content>
-            <Content>Team Member answers go here.</Content>
+            <Content>Team Member questions and answers go here.</Content>
           </Layout>
         </Layout>
       </Layout>
@@ -143,7 +145,7 @@ function RenderHomePage(props) {
 
 const mapStateToProps = state => {
   return {
-    username: state.username,
+    userInfo: state.userInfo,
     topics: state.topics,
   };
 };
