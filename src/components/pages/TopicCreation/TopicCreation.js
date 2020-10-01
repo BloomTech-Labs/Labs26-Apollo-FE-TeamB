@@ -278,7 +278,10 @@ const TopicCreation = ({ contexts, getAllContexts }) => {
                 const capitalWords = words.map(
                   w => w.charAt(0).toUpperCase() + w.slice(1)
                 );
-                return `${capitalWords[0]} ${capitalWords[1]}`;
+                return {
+                  ...c,
+                  description: `${capitalWords[0]} ${capitalWords[1]}`,
+                };
               })}
               stateHandler={setNewContextType}
             />

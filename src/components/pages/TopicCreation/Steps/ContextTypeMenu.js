@@ -16,7 +16,7 @@ const ContextTypeMenu = ({ currentContext, contextTypes, stateHandler }) => {
   const handleClick = menuItem => {
     stateHandler(contexts[menuItem.key]);
   };
-
+  debugger;
   return (
     // antd Menu component looping through contextTypes and creating a Menu.Item for each type
     <Menu mode="vertical">
@@ -31,7 +31,7 @@ const ContextTypeMenu = ({ currentContext, contextTypes, stateHandler }) => {
           }}
           onClick={handleClick}
         >
-          {context === currentContext ? (
+          {context.description === currentContext ? (
             <FaCircle
               key="filledCircle"
               style={{ fontSize: '1.5rem', paddingRight: '1%' }}
@@ -42,7 +42,7 @@ const ContextTypeMenu = ({ currentContext, contextTypes, stateHandler }) => {
               style={{ fontSize: '1.5rem', paddingRight: '1%' }}
             />
           )}
-          {context}
+          {context.description}
         </Menu.Item>
       ))}
     </Menu>
