@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Modal } from 'antd';
+import { Button, Input, Modal } from 'antd';
+import Form from 'antd/lib/form/Form';
 function Send() {
   const [isVisible, setIsVisible] = useState(false);
   const cancelModal = () => {
@@ -20,7 +21,12 @@ function Send() {
         title="Send RequestWizard"
         visible={isVisible}
         onCancel={cancelModal}
-      ></Modal>
+      >
+        <h3>Do you want to change your default questions?</h3>
+        <Form>
+          <Input></Input>
+        </Form>
+      </Modal>
     </div>
   );
 }
