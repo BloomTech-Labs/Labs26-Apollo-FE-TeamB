@@ -10,7 +10,7 @@ function Send(props) {
   };
 
   return (
-    <div>
+    <>
       <Button
         onClick={() => {
           setIsVisible(true);
@@ -20,7 +20,7 @@ function Send(props) {
         Send New Request
       </Button>
       <Modal
-        title="Send RequestWizard"
+        title="Send New Request"
         visible={isVisible}
         onCancel={cancelModal}
       >
@@ -30,7 +30,7 @@ function Send(props) {
             return <p>{question.body}</p>;
           })}
       </Modal>
-    </div>
+    </>
   );
 }
 
