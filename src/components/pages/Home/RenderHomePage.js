@@ -13,12 +13,6 @@ const { Option } = Select;
 function RenderHomePage(props) {
   const { authService } = props;
 
-  useEffect(() => {
-    if (props.topics.length > 0) {
-      getCurrentTopic(props.topics[0]);
-    }
-  }, [props.topics]);
-
   return (
     <>
       <Layout style={{ height: '100vh', backgroundColor: '#BC9D7E' }}>

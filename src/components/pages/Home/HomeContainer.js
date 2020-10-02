@@ -4,6 +4,7 @@ import {
   getBearerToken,
   getUserInfo,
   getTopics,
+  getCurrentTopic,
 } from '../../../state/actions/apolloActions';
 import { useOktaAuth } from '@okta/okta-react';
 import { getUserTopics } from '../../../api/index';
@@ -42,6 +43,7 @@ function HomeContainer({
   useEffect(() => {
     getUserTopics(getTopics);
   }, []);
+
   return (
     <>
       {authState.isAuthenticated && !userInfo && (
@@ -58,6 +60,7 @@ const mapStateToProps = state => {
   return {
     ...state,
     userInfo: state.userInfo,
+    topics: state.topics,
   };
 };
 

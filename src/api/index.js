@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { store } from '../state/store';
+
 // the live api
 const liveUrl = 'https://apollo-b-api.herokuapp.com';
 // for testing locally
@@ -32,7 +33,9 @@ const axiosWithAuth = () => {
 const getUserTopics = dispatchFunc => {
   return axiosWithAuth()
     .get(usertopics)
-    .then(response => dispatchFunc(response.data))
+    .then(response => {
+      dispatchFunc(response.data);
+    })
     .catch(err => {
       console.log(err);
     });

@@ -32,10 +32,19 @@ export const apolloReducer = (state = initialState, action) => {
         bearerToken: action.payload,
       };
     case GET_TOPICS:
-      return {
-        ...state,
-        topics: action.payload,
-      };
+      if (action.payload.length > 0) {
+        return {
+          ...state,
+          topics: action.payload,
+          currentTopic: action.payload[0],
+        };
+      } else {
+        return {
+          ...state,
+          topics: action.payload,
+        };
+      }
+
     case GET_ALL_CONTEXTS:
       return {
         ...state,
