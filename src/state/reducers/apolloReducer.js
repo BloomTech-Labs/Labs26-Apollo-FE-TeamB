@@ -33,10 +33,21 @@ export const apolloReducer = (state = initialState, action) => {
       };
     case GET_TOPICS:
       if (action.payload.length > 0) {
+        let mostrecentdate = action.payload[0].lastModifiedDate;
+        console.log(mostrecentdate);
+        let mostrecenttopic = action.payload[0];
+        action.payload.map(topic => {
+          if (topic.lastModifiedDate > mostrecentdate) {
+            mostrecentdate = topic.lastModifiedDate;
+            console.log(mostrecentdate);
+            mostrecenttopic = topic;
+          }
+        });
+
         return {
           ...state,
           topics: action.payload,
-          currentTopic: action.payload[0],
+          currentTopic: mostrecenttopic,
         };
       } else {
         return {
