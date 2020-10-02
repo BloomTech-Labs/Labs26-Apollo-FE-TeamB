@@ -1,8 +1,28 @@
-import React from 'react';
-import { Button } from 'antd';
-
+import React, { useState } from 'react';
+import { Button, Modal } from 'antd';
 function Send() {
-  return <Button style={{ marginLeft: '1rem' }}>Send New Request</Button>;
+  const [isVisible, setIsVisible] = useState(false);
+  const cancelModal = () => {
+    setIsVisible(false);
+  };
+
+  return (
+    <div>
+      <Button
+        onClick={() => {
+          setIsVisible(true);
+        }}
+        style={{ marginLeft: '1rem' }}
+      >
+        Send New Request
+      </Button>
+      <Modal
+        title="Send RequestWizard"
+        visible={isVisible}
+        onCancel={cancelModal}
+      ></Modal>
+    </div>
+  );
 }
 
 export default Send;
