@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Button, Input, Modal } from 'antd';
-import Form from 'antd/lib/form/Form';
-
+import { FaRegTrashAlt } from 'react-icons/fa';
 function Send(props) {
   const [isVisible, setIsVisible] = useState(false);
   const cancelModal = () => {
@@ -27,7 +26,25 @@ function Send(props) {
         <h3>Do you want to change your default questions?</h3>
         {props.currentTopic.defaultsurvey.questions &&
           props.currentTopic.defaultsurvey.questions.map(question => {
-            return <p>{question.body}</p>;
+            return (
+              <div
+                style={{
+                  display: 'flex',
+                  flexFlow: 'row',
+                  justifyContent: 'space-around',
+                  textAlign: 'center',
+                }}
+              >
+                <p>{question.body}</p>
+                <Button
+                  icon={
+                    <FaRegTrashAlt
+                      style={{ margin: '0 8px', pointerEvents: 'none' }}
+                    />
+                  }
+                />
+              </div>
+            );
           })}
       </Modal>
     </>
