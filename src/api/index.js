@@ -73,6 +73,16 @@ const getContexts = dispatchFunc => {
     });
 };
 
+// get a topic by topic id, to set the currentTopic to
+const getTopicById = (dispatchFunc, topicid) => {
+  return axiosWithAuth()
+    .get(`/topics/topic/${topicid}`)
+    .then(response => {
+      return dispatchFunc(response.data);
+    })
+    .catch(error => console.log(error));
+};
+
 const getAuthHeader = authState => {
   if (!authState.isAuthenticated) {
     throw new Error('Not authenticated');
@@ -114,6 +124,7 @@ export {
   createNewTopic,
   userJoinTopic,
   getContexts,
+  getTopicById,
   getProfileData,
   getDSData,
   apiAuthGet,

@@ -36,7 +36,7 @@ export const getAllContexts = contexts => {
   };
 };
 
-const setCurrentTopic = topic => {
+export const getCurrentTopic = topic => {
   return dispatch => {
     dispatch({ type: SET_CURRENT_TOPIC, payload: topic });
   };
