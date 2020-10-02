@@ -11,7 +11,7 @@ const { Content, Sider } = Layout;
 const { Option } = Select;
 
 function RenderHomePage(props) {
-  const { authService } = props;
+  const { authService, currentTopic } = props;
 
   return (
     <>
@@ -128,8 +128,8 @@ function RenderHomePage(props) {
                     );
                   })}
               </Select>
-              {props.currentTopic &&
-              props.currentTopic.owner == props.userInfo.email ? (
+              {props.currentTopic.owner &&
+              props.currentTopic.owner.username === props.userInfo.email ? (
                 <SendButton />
               ) : (
                 <RespondButton />
