@@ -7,6 +7,7 @@ export const GET_USER_INFO = 'GET_USER_INFO';
 export const GET_BEARER_TOKEN = 'GET_BEARER_TOKEN';
 export const GET_TOPICS = 'GET_TOPICS';
 export const GET_ALL_CONTEXTS = 'GET_ALL_CONTEXTS';
+export const SET_CURRENT_TOPIC = 'SET_CURRENT_TOPIC';
 
 // this function sets the username in gloabal state - used in Render Home page
 export const getUserInfo = userinfo => {
@@ -32,5 +33,11 @@ export const getTopics = topicslist => {
 export const getAllContexts = contexts => {
   return dispatch => {
     dispatch({ type: GET_ALL_CONTEXTS, payload: contexts });
+  };
+};
+
+const setCurrentTopic = topic => {
+  return dispatch => {
+    dispatch({ type: SET_CURRENT_TOPIC, payload: topic });
   };
 };

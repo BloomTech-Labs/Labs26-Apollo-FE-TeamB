@@ -6,6 +6,7 @@ import {
   GET_BEARER_TOKEN,
   GET_TOPICS,
   GET_ALL_CONTEXTS,
+  SET_CURRENT_TOPIC,
 } from '../actions/apolloActions';
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   userInfo: {},
   topics: [],
   contexts: [],
+  currentTopic: {},
 };
 
 export const apolloReducer = (state = initialState, action) => {
@@ -38,6 +40,11 @@ export const apolloReducer = (state = initialState, action) => {
       return {
         ...state,
         contexts: action.payload,
+      };
+    case SET_CURRENT_TOPIC:
+      return {
+        ...state,
+        currentTopic: action.payload,
       };
     default:
       return state;

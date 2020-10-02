@@ -154,6 +154,7 @@ const mapStateToProps = state => {
   return {
     userInfo: state.userInfo,
     topics: state.topics,
+    currentTopic: state.currentTopic,
   };
 };
 
