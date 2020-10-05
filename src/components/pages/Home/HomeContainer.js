@@ -46,10 +46,10 @@ function HomeContainer({
 
   return (
     <>
-      {authState.isAuthenticated && !userInfo && (
+      {authState.isAuthenticated && Object.entries(userInfo).length === 0 && (
         <LoadingComponent message="Fetching user profile..." />
       )}
-      {authState.isAuthenticated && userInfo && (
+      {authState.isAuthenticated && Object.entries(userInfo).length > 0 && (
         <RenderHomePage userInfo={userInfo} authService={authService} />
       )}
     </>
