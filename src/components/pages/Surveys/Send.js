@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Button, Input, Modal } from 'antd';
+import { Button, Modal, Progress, Select } from 'antd';
 import { FaRegTrashAlt } from 'react-icons/fa';
+
+const { Option } = Select;
+
 function Send(props) {
   const [isVisible, setIsVisible] = useState(false);
   const [questionsToSend, setQuestionsToSend] = useState([]);
@@ -12,9 +15,30 @@ function Send(props) {
 
   const deleteQuestion = questionToDelete => {
     const questions = questionsToSend.filter(question => {
-      return question.questionId != questionToDelete.questionId;
+      return question != questionToDelete;
     });
     return setQuestionsToSend(questions);
+  };
+
+  const newQuestions = [
+    'New Leader Question 1',
+    'New Leader Question 2',
+    'New Leader Question 3',
+    'New Member Question 1',
+    'New Member Question 2',
+    'New Member Question 3',
+  ];
+
+  const addNewQuestion = question => {
+    console.log(question);
+    const newQuestion = {
+      questionId: '',
+      body: question,
+    };
+    console.log(newQuestion);
+    const newQuestions = [...questionsToSend, newQuestion];
+    console.log(newQuestions);
+    return setQuestionsToSend(newQuestions);
   };
 
   useEffect(() => {
@@ -36,10 +60,10 @@ function Send(props) {
         visible={isVisible}
         onCancel={cancelModal}
         footer={[
-          <Button>Cancel</Button>,
-          <Button>Previous</Button>,
-          <Button>Next</Button>,
-          <Button>Send Request</Button>,
+          <Button key={0}>Cancel</Button>,
+          <Button key={1}>Previous</Button>,
+          <Button key={2}>Next</Button>,
+          <Button key={3}>Send Request</Button>,
         ]}
       >
         <h3>Do you want to change your default questions?</h3>
@@ -67,6 +91,19 @@ function Send(props) {
               </div>
             );
           })}
+        <Select defaultValue="New Question" onChange={addNewQuestion}>
+          {newQuestions.map((question, index) => {
+            return (
+              <Option
+                key={index}
+                onClick={() => addNewQuestion(question)}
+                value={question}
+              >
+                {question}
+              </Option>
+            );
+          })}
+        </Select>
       </Modal>
     </>
   );
