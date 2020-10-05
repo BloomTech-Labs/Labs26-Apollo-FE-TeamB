@@ -5,6 +5,7 @@ import { FaRegTrashAlt } from 'react-icons/fa';
 function Send(props) {
   const [isVisible, setIsVisible] = useState(false);
   const [questionsToSend, setQuestionsToSend] = useState([]);
+  const [currentStep, setCurrentStep] = useState(1);
   const cancelModal = () => {
     setIsVisible(false);
   };
@@ -34,6 +35,12 @@ function Send(props) {
         title="Send New Request"
         visible={isVisible}
         onCancel={cancelModal}
+        footer={[
+          <Button>Cancel</Button>,
+          <Button>Previous</Button>,
+          <Button>Next</Button>,
+          <Button>Send Request</Button>,
+        ]}
       >
         <h3>Do you want to change your default questions?</h3>
         {questionsToSend &&
