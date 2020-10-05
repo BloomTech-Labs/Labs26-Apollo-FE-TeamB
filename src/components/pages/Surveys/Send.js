@@ -8,6 +8,10 @@ function Send(props) {
     setIsVisible(false);
   };
 
+  const deleteQuestion = question => {
+    console.log(question);
+  };
+
   return (
     <>
       <Button
@@ -37,6 +41,7 @@ function Send(props) {
               >
                 <p>{question.body}</p>
                 <Button
+                  onClick={() => deleteQuestion(question)}
                   icon={
                     <FaRegTrashAlt
                       style={{ margin: '0 8px', pointerEvents: 'none' }}
