@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Button, Input, Modal } from 'antd';
 import { FaRegTrashAlt } from 'react-icons/fa';
 function Send(props) {
   const [isVisible, setIsVisible] = useState(false);
+  const [questionsToSend, setQuestionsToSend] = useState([]);
   const cancelModal = () => {
     setIsVisible(false);
   };
 
-  const deleteQuestion = question => {
-    console.log(question);
+  const deleteQuestion = questionToDelete => {
+    const questions = questionsToSend.filter(question => {
+      return question.questionId != questionToDelete.questionId;
+    });
+    return setQuestionsToSend(questions);
   };
+
+  useEffect(() => {
+    setQuestionsToSend(props.currentTopic.defaultsurvey.questions);
+  }, []);
 
   return (
     <>
@@ -28,10 +36,11 @@ function Send(props) {
         onCancel={cancelModal}
       >
         <h3>Do you want to change your default questions?</h3>
-        {props.currentTopic.defaultsurvey.questions &&
-          props.currentTopic.defaultsurvey.questions.map(question => {
+        {questionsToSend &&
+          questionsToSend.map(question => {
             return (
               <div
+                key={question.questionId}
                 style={{
                   display: 'flex',
                   flexFlow: 'row',
