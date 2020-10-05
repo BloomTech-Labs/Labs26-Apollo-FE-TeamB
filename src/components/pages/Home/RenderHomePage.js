@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { TopicCreation } from '../TopicCreation';
 import { JoinTopic } from '../JoinTopic';
+import { ResponseList } from '../Responses';
 const { Content, Sider } = Layout;
 const { Option } = Select;
 
@@ -127,7 +128,14 @@ function RenderHomePage(props) {
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
               <p style={{ textAlign: 'left' }}>Context Questions go here.</p>
             </Content>
-            <Content>Team Member answers go here.</Content>
+            <Content>
+              {currentTopic && (
+                <ResponseList
+                  users={currentTopic.users}
+                  survey={currentTopic.surveysrequests[0]}
+                />
+              )}
+            </Content>
           </Layout>
         </Layout>
       </Layout>
