@@ -36,6 +36,7 @@ export const getAllContexts = contexts => {
   };
 };
 
+// action to take the topic from get topic by id call and add to state
 export const getCurrentTopic = topic => {
   return dispatch => {
     dispatch({ type: SET_CURRENT_TOPIC, payload: topic });

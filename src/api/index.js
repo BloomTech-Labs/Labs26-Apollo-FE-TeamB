@@ -87,11 +87,13 @@ const getTopicById = (dispatchFunc, topicid) => {
 };
 
 // send a request to submit a new survey for a topic
-const postNewRequest = (topicId, questionslist) => {
+const postNewRequest = (topicId, questionslist, dispatchFunc) => {
   return axiosWithAuth()
     .post(`/surveys/topic/${topicId}`, questionslist)
     .then(response => {
-      console.log(response);
+      console.log(response.data);
+      // refresh the current Topic
+      getTopicById(dispatchFunc, topicId);
     })
     .catch(error => {
       console.log(error);

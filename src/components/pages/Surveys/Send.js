@@ -6,6 +6,7 @@ import ChooseMembers from './Wizard/ChooseMembers';
 import AnswerContexts from './Wizard/AnswerContexts';
 import ReviewRequest from './Wizard/ReviewRequest';
 import { postNewRequest } from '../../../api/index';
+import { getCurrentTopic } from '../../../state/actions/apolloActions';
 
 const { TextArea } = Input;
 
@@ -72,7 +73,12 @@ function Send(props) {
 
   const submitNewRequest = () => {
     console.log('sent');
-    postNewRequest(props.currentTopic.topicId, questionsToSend);
+    postNewRequest(
+      props.currentTopic.topicId,
+      questionsToSend,
+      props.getCurrentTopic
+    );
+    setIsVisible(false);
   };
 
   return (
@@ -152,4 +158,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {})(Send);
+export default connect(mapStateToProps, { getCurrentTopic })(Send);
