@@ -4,6 +4,7 @@ import { Button, Modal, Progress, Input } from 'antd';
 import ChooseContexts from './Wizard/ChooseContexts';
 import ChooseMembers from './Wizard/ChooseMembers';
 import AnswerContexts from './Wizard/AnswerContexts';
+import ReviewRequest from './Wizard/ReviewRequest';
 
 const { TextArea } = Input;
 
@@ -45,10 +46,6 @@ function Send(props) {
     }
   });
 
-  const captureAnswers = e => {
-    console.log(e.target.value);
-  };
-
   const submitNewRequest = () => {
     console.log('sent');
   };
@@ -67,14 +64,22 @@ function Send(props) {
         visible={isVisible}
         onCancel={cancelModal}
         footer={[
-          <Button key={0}>Cancel</Button>,
-          <Button key={1} onClick={prev}>
-            Previous
-          </Button>,
-          <Button key={2} onClick={next}>
-            Next
-          </Button>,
-          <Button key={3}>Send Request</Button>,
+          // <Button key={0}>Cancel</Button>,
+          <>
+            {progress >= 40 && (
+              <Button key={1} onClick={prev}>
+                Previous
+              </Button>
+            )}
+          </>,
+          <>
+            {progress <= 60 && (
+              <Button key={2} onClick={next}>
+                Next
+              </Button>
+            )}
+          </>,
+          <>{progress == 80 && <Button key={3}>Send Request</Button>}</>,
         ]}
       >
         {progress == 20 && (
@@ -93,7 +98,12 @@ function Send(props) {
         )}
         {progress == 60 && <AnswerContexts questionsToSend={questionsToSend} />}
 
-        {progress == 80 && <h3>Review</h3>}
+        {progress == 80 && (
+          <ReviewRequest
+            questionsToSend={questionsToSend}
+            setProgress={setProgress}
+          />
+        )}
       </Modal>
     </>
   );
