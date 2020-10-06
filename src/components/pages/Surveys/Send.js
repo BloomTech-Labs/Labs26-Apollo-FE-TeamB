@@ -5,6 +5,7 @@ import ChooseContexts from './Wizard/ChooseContexts';
 import ChooseMembers from './Wizard/ChooseMembers';
 import AnswerContexts from './Wizard/AnswerContexts';
 import ReviewRequest from './Wizard/ReviewRequest';
+import { postNewRequest } from '../../../api/index';
 
 const { TextArea } = Input;
 
@@ -39,6 +40,7 @@ function Send(props) {
     if (progress <= 40) {
       return setProgress(addProgress);
     } else {
+      // check to see if all questions have been answered
       let emptyfields = 0;
       contextAnswers.map(object => {
         if (JSON.stringify(object) === '{}') {
@@ -46,16 +48,13 @@ function Send(props) {
         }
       });
       if (emptyfields > 0) {
-        console.log('not enough answers');
         emptyfields = 0;
         message.warning('Please answer all Context Questions!');
       } else {
-        console.log('this is happening');
         const memberQuestions = questionsToSend.filter(question => {
           return !question.leader;
         });
         const newQuestions = contextAnswers.concat(memberQuestions);
-        console.log(newQuestions);
         setQuestionsToSend(newQuestions);
         setProgress(progress + 20);
       }
@@ -73,6 +72,7 @@ function Send(props) {
 
   const submitNewRequest = () => {
     console.log('sent');
+    postNewRequest(props.currentTopic.topicId, questionsToSend);
   };
 
   return (
@@ -104,7 +104,13 @@ function Send(props) {
               </Button>
             )}
           </>,
-          <>{progress == 80 && <Button key={3}>Send Request</Button>}</>,
+          <>
+            {progress == 80 && (
+              <Button key={3} onClick={submitNewRequest}>
+                Send Request
+              </Button>
+            )}
+          </>,
         ]}
       >
         {progress == 20 && (

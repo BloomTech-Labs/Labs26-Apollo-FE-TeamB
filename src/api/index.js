@@ -140,6 +140,7 @@ export {
   userJoinTopic,
   getContexts,
   getTopicById,
+  postNewRequest,
   getProfileData,
   getDSData,
   apiAuthGet,
