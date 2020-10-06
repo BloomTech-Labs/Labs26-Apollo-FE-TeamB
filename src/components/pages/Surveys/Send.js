@@ -17,14 +17,15 @@ function Send(props) {
   const [sent, setSent] = useState(false);
   // set localstate for progress
   const [progress, setProgress] = useState(20);
-  // set state to disable button if not all context questions answered
-  const [disableNext, setDisableNext] = useState(false);
   // set state for modal visibility
   const [isVisible, setIsVisible] = useState(false);
   // set state for the current list of questions to send, initially set to the default questions for the topic
-  const [questionsToSend, setQuestionsToSend] = useState(
-    props.currentTopic.defaultsurvey.questions
-  );
+  const [questionsToSend, setQuestionsToSend] = useState([]);
+
+  useEffect(() => {
+    setQuestionsToSend(props.currentTopic.defaultsurvey.questions);
+  }, [props.currentTopic]);
+
   // set local state for a list of the answers to context questions
   const contextAnswers = [];
   // function to close Modal
@@ -69,9 +70,7 @@ function Send(props) {
   // func to go back one step in wizard
   const prev = () => {
     const subtractprogress = progress - 20;
-    if (progress == 60) {
-      setDisableNext(false);
-    }
+
     return setProgress(subtractprogress);
   };
 
@@ -82,6 +81,8 @@ function Send(props) {
       props.addNewSurvey
     );
     setIsVisible(false);
+    setQuestionsToSend([]);
+    setProgress(20);
   };
 
   useEffect(() => {
