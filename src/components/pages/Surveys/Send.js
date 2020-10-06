@@ -205,7 +205,7 @@ function Send(props) {
         {questionsToSend.map((question, index) => {
           return (
             question.leader && (
-              <div>
+              <div key={index}>
                 <p>{question.body}</p>
                 <TextArea
                   onChange={e => captureAnswers(e)}
