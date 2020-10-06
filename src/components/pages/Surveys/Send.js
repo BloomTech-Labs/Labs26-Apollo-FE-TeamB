@@ -6,11 +6,15 @@ import ChooseMembers from './Wizard/ChooseMembers';
 import AnswerContexts from './Wizard/AnswerContexts';
 import ReviewRequest from './Wizard/ReviewRequest';
 import { postNewRequest } from '../../../api/index';
-import { getCurrentTopic } from '../../../state/actions/apolloActions';
+import {
+  getCurrentTopic,
+  addNewSurvey,
+} from '../../../state/actions/apolloActions';
 
 const { TextArea } = Input;
 
 function Send(props) {
+  const [sent, setSent] = useState(false);
   // set localstate for progress
   const [progress, setProgress] = useState(20);
   // set state to disable button if not all context questions answered
@@ -75,21 +79,39 @@ function Send(props) {
     postNewRequest(
       props.currentTopic.topicId,
       questionsToSend,
-      props.getCurrentTopic
+      props.addNewSurvey
     );
     setIsVisible(false);
   };
 
+  useEffect(() => {
+    setSent(false);
+    const d = new Date();
+    const today = d.getDate();
+    props.currentTopic.surveysrequests.map(request => {
+      if (new Date(request.createdDate).getDate() == today) {
+        setSent(true);
+      }
+    });
+  }, [props.currentTopic]);
+
   return (
     <>
-      <Button
-        onClick={() => {
-          setIsVisible(true);
-        }}
-        style={{ marginLeft: '1rem' }}
-      >
-        Send New Request
-      </Button>
+      {!sent && (
+        <Button
+          onClick={() => {
+            setIsVisible(true);
+          }}
+          style={{ marginLeft: '1rem' }}
+        >
+          Send New Request
+        </Button>
+      )}
+      {sent && (
+        <Button style={{ marginLeft: '1rem' }} disabled="true">
+          Sent
+        </Button>
+      )}
       <Modal
         title={['Send New Request', <Progress percent={progress}></Progress>]}
         visible={isVisible}
@@ -157,4 +179,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getCurrentTopic })(Send);
+export default connect(mapStateToProps, { getCurrentTopic, addNewSurvey })(
+  Send
+);

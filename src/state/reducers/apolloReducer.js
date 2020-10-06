@@ -7,6 +7,7 @@ import {
   GET_TOPICS,
   GET_ALL_CONTEXTS,
   SET_CURRENT_TOPIC,
+  ADD_NEW_SURVEY,
 } from '../actions/apolloActions';
 
 const initialState = {
@@ -63,6 +64,18 @@ export const apolloReducer = (state = initialState, action) => {
       return {
         ...state,
         currentTopic: action.payload,
+      };
+
+    case ADD_NEW_SURVEY:
+      return {
+        ...state,
+        currentTopic: {
+          ...state.currentTopic,
+          surveysrequests: [
+            ...state.currentTopic.surveysrequests,
+            action.payload,
+          ],
+        },
       };
     default:
       return state;

@@ -7,12 +7,16 @@ function AnswerContexts({ questionsToSend, contextAnswers }) {
   const [form] = Form.useForm();
 
   // get the answer and set it to the questions answer
-  const captureAnswers = (e, currentquestion, position) => {
+  const captureAnswers = (e, currentquestion) => {
     const findQuestion = questionsToSend.filter(question => {
       return currentquestion.body === question.body;
     });
     findQuestion[0].answer = e.target.value;
-    contextAnswers[position] = findQuestion[0];
+    contextAnswers.map((obj, index) => {
+      if (JSON.stringify(obj) === '{}') {
+        contextAnswers[index] = findQuestion[0];
+      }
+    });
   };
 
   return (
@@ -37,7 +41,7 @@ function AnswerContexts({ questionsToSend, contextAnswers }) {
                 ]}
               >
                 <TextArea
-                  onChange={e => captureAnswers(e, question, index)}
+                  onChange={e => captureAnswers(e, question)}
                   autoSize={{ minRows: 4, maxRows: 4 }}
                 />
               </Form.Item>

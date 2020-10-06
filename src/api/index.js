@@ -93,7 +93,7 @@ const postNewRequest = (topicId, questionslist, dispatchFunc) => {
     .then(response => {
       console.log(response.data);
       // refresh the current Topic
-      getTopicById(dispatchFunc, topicId);
+      dispatchFunc(response.data);
     })
     .catch(error => {
       console.log(error);
