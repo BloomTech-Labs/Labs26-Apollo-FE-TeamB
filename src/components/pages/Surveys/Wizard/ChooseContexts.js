@@ -32,11 +32,11 @@ function ChooseContexts({
     <>
       <h3>Do you want to change your default Context questions?</h3>
       {questionsToSend &&
-        questionsToSend.map(question => {
+        questionsToSend.map((question, index) => {
           return (
             question.leader && (
               <div
-                key={question.questionId}
+                key={index}
                 style={{
                   display: 'flex',
                   flexFlow: 'row',

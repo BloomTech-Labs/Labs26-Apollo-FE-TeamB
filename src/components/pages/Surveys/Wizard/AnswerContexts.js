@@ -6,13 +6,11 @@ const { TextArea } = Input;
 function AnswerContexts({ questionsToSend, contextAnswers }) {
   // get the answer and set it to the questions answer
   const captureAnswers = (e, currentquestion, position) => {
-    console.log(e.target.value);
     const findQuestion = questionsToSend.filter(question => {
       return currentquestion.body === question.body;
     });
     findQuestion[0].answer = e.target.value;
     contextAnswers[position] = findQuestion[0];
-    console.log(contextAnswers);
   };
   return (
     <Form>
@@ -20,7 +18,6 @@ function AnswerContexts({ questionsToSend, contextAnswers }) {
       {questionsToSend.map((question, index) => {
         if (question.leader) {
           contextAnswers.push({});
-          console.log(contextAnswers);
         }
 
         return (

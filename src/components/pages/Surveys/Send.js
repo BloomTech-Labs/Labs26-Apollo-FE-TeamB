@@ -33,12 +33,21 @@ function Send(props) {
   // function to move to next step in wizard
   const next = () => {
     const addprogress = progress + 20;
-
+    if (progress == 60) {
+      console.log(contextAnswers);
+      const memberQuestions = questionsToSend.filter(question => {
+        return !question.leader;
+      });
+      const newQuestions = contextAnswers.concat(memberQuestions);
+      console.log(newQuestions);
+      setQuestionsToSend(newQuestions);
+    }
     return setProgress(addprogress);
   };
   // func to go back one step in wizard
   const prev = () => {
     const subtractprogress = progress - 20;
+
     return setProgress(subtractprogress);
   };
 
@@ -61,7 +70,6 @@ function Send(props) {
         visible={isVisible}
         onCancel={cancelModal}
         footer={[
-          // <Button key={0}>Cancel</Button>,
           <>
             {progress >= 40 && (
               <Button key={1} onClick={prev}>
