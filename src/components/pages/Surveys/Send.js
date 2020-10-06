@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Button, Modal, Progress, Select, Input } from 'antd';
-import { FaRegTrashAlt } from 'react-icons/fa';
+import { Button, Modal, Progress, Input } from 'antd';
 import ChooseContexts from './Wizard/ChooseContexts';
+import ChooseMembers from './Wizard/ChooseMembers';
+import AnswerContexts from './Wizard/AnswerContexts';
 
-const { Option } = Select;
 const { TextArea } = Input;
 
 function Send(props) {
   const [progress, setProgress] = useState(20);
   const [isVisible, setIsVisible] = useState(false);
   const [questionsToSend, setQuestionsToSend] = useState([]);
-  const [currentStep, setCurrentStep] = useState(1);
+
   const [contextAnswers, setContextAnswers] = useState([]);
   const cancelModal = () => {
     setIsVisible(false);
@@ -22,23 +22,6 @@ function Send(props) {
       return question != questionToDelete;
     });
     return setQuestionsToSend(questions);
-  };
-
-  const newMemberQuestions = [
-    'New Member Question 1',
-    'New Member Question 2',
-    'New Member Question 3',
-  ];
-
-  const addNewMemberQuestion = question => {
-    console.log(question);
-    const newQuestion = {
-      questionId: '',
-      body: question,
-      leader: false,
-    };
-    const newQuestions = [...questionsToSend, newQuestion];
-    return setQuestionsToSend(newQuestions);
   };
 
   useEffect(() => {
@@ -94,112 +77,23 @@ function Send(props) {
           <Button key={3}>Send Request</Button>,
         ]}
       >
-        <ChooseContexts
-          questionsToSend={questionsToSend}
-          setQuestionsToSend={setQuestionsToSend}
-          deleteQuestion={deleteQuestion}
-        />
-        {/* <h3>Do you want to change your default Context questions?</h3>
-        {questionsToSend &&
-          questionsToSend.map(question => {
-            return (
-              question.leader && (
-                <div
-                  key={question.questionId}
-                  style={{
-                    display: 'flex',
-                    flexFlow: 'row',
-                    justifyContent: 'space-around',
-                    textAlign: 'center',
-                  }}
-                >
-                  <p>{question.body}</p>
-                  <Button
-                    onClick={() => deleteQuestion(question)}
-                    icon={
-                      <FaRegTrashAlt
-                        style={{ margin: '0 8px', pointerEvents: 'none' }}
-                      />
-                    }
-                  />
-                </div>
-              )
-            );
-          })}
-        <Select
-          defaultValue="New Context Question"
-          onChange={addNewContextQuestion}
-        >
-          {newContextQuestions.map((question, index) => {
-            return (
-              <Option
-                key={index}
-                onClick={() => addNewContextQuestion(question)}
-                value={question}
-              >
-                {question}
-              </Option>
-            );
-          })}
-        </Select> */}
-        <h3>Do you want to change your default Member questions?</h3>
-        {questionsToSend &&
-          questionsToSend.map(question => {
-            return (
-              !question.leader && (
-                <div
-                  key={question.questionId}
-                  style={{
-                    display: 'flex',
-                    flexFlow: 'row',
-                    justifyContent: 'space-around',
-                    textAlign: 'center',
-                  }}
-                >
-                  <p>{question.body}</p>
-                  <Button
-                    onClick={() => deleteQuestion(question)}
-                    icon={
-                      <FaRegTrashAlt
-                        style={{ margin: '0 8px', pointerEvents: 'none' }}
-                      />
-                    }
-                  />
-                </div>
-              )
-            );
-          })}
-        <Select
-          defaultValue="New Member Question"
-          onChange={addNewMemberQuestion}
-        >
-          {newMemberQuestions.map((question, index) => {
-            return (
-              <Option
-                key={index}
-                onClick={() => addNewMemberQuestion(question)}
-                value={question}
-              >
-                {question}
-              </Option>
-            );
-          })}
-        </Select>
-        <h3>Answer Context Questions.</h3>
-        {questionsToSend.map((question, index) => {
-          return (
-            question.leader && (
-              <div key={index}>
-                <p>{question.body}</p>
-                <TextArea
-                  onChange={e => captureAnswers(e)}
-                  autoSize={{ minRows: 4, maxRows: 4 }}
-                />
-              </div>
-            )
-          );
-        })}
-        <h3>Review</h3>
+        {progress == 20 && (
+          <ChooseContexts
+            questionsToSend={questionsToSend}
+            setQuestionsToSend={setQuestionsToSend}
+            deleteQuestion={deleteQuestion}
+          />
+        )}
+        {progress == 40 && (
+          <ChooseMembers
+            questionsToSend={questionsToSend}
+            setQuestionsToSend={setQuestionsToSend}
+            deleteQuestion={deleteQuestion}
+          />
+        )}
+        {progress == 60 && <AnswerContexts questionsToSend={questionsToSend} />}
+
+        {progress == 80 && <h3>Review</h3>}
       </Modal>
     </>
   );
