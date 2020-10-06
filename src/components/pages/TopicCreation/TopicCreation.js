@@ -9,7 +9,10 @@ import {
   ReviewFinal,
   CreationSuccess,
 } from './Steps/';
-import { getAllContexts } from '../../../state/actions/apolloActions';
+import {
+  getTopics,
+  getAllContexts,
+} from '../../../state/actions/apolloActions';
 import { createNewTopic, getContexts } from '../../../api/index';
 
 import 'antd/dist/antd.css';
@@ -57,7 +60,7 @@ const memberQuestionList = [
 //how many steps the wizard has
 const totalSteps = 6;
 
-const TopicCreation = ({ contexts, getAllContexts }) => {
+const TopicCreation = ({ getTopics, contexts, getAllContexts }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [currentTopic, setCurrentTopic] = useState(defaultTopic);
@@ -130,8 +133,10 @@ const TopicCreation = ({ contexts, getAllContexts }) => {
 
   const handleSubmit = async e => {
     setLoading(true);
-    await Promise.resolve(createNewTopic(currentTopic)).then(result =>
-      setNewJoinCode(result)
+    await Promise.resolve(createNewTopic(currentTopic, getTopics)).then(
+      result => {
+        setNewJoinCode(result);
+      }
     );
     setCurrentStep(6);
     setLoading(false);
@@ -381,5 +386,6 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
+  getTopics,
   getAllContexts,
 })(TopicCreation);

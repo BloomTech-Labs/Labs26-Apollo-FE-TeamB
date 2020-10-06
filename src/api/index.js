@@ -38,10 +38,11 @@ const getUserTopics = dispatchFunc => {
     });
 };
 
-const createNewTopic = newTopicData => {
+const createNewTopic = (newTopicData, fn) => {
   return axiosWithAuth()
     .post(createNew, newTopicData)
     .then(response => {
+      getUserTopics(fn);
       return response.data.joincode;
     })
     .catch(err => {
