@@ -70,8 +70,8 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts }) => {
   const [stepValidation, setStepValidation] = useState({
     1: false,
     2: false,
-    3: true,
-    4: true,
+    3: false,
+    4: false,
     5: false,
   });
 
@@ -104,16 +104,16 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts }) => {
       if (currentTopic.title && currentTopic.frequency) {
         setStepValidation({ ...stepValidation, [currentStep]: true });
       }
-    } else if (currentStep === 3 || currentStep === 4) {
-      if (
-        !currentTopic.defaultsurvey.questions.filter(q => q.leader).length ||
-        !currentTopic.defaultsurvey.questions.filter(q => !q.leader).length
-      ) {
+    } else if (currentStep === 3) {
+      if (!currentTopic.defaultsurvey.questions.filter(q => q.leader).length) {
         setStepValidation({ ...stepValidation, [currentStep]: false });
-      } else if (
-        currentTopic.defaultsurvey.questions.filter(q => q.leader) ||
-        currentTopic.defaultsurvey.questions.filter(q => !q.leader)
-      ) {
+      } else if (currentTopic.defaultsurvey.questions.filter(q => q.leader)) {
+        setStepValidation({ ...stepValidation, [currentStep]: true });
+      }
+    } else if (currentStep === 4) {
+      if (!currentTopic.defaultsurvey.questions.filter(q => !q.leader).length) {
+        setStepValidation({ ...stepValidation, [currentStep]: false });
+      } else if (currentTopic.defaultsurvey.questions.filter(q => !q.leader)) {
         setStepValidation({ ...stepValidation, [currentStep]: true });
       }
     }
