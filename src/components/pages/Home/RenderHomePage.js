@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { TopicCreation } from '../TopicCreation';
 import { JoinTopic } from '../JoinTopic';
+import RenderSurveyQuestions from '../SurveyQuestions/RenderSurveyQuestions';
 const { Content, Sider } = Layout;
 const { Option } = Select;
 
@@ -13,6 +14,7 @@ function RenderHomePage(props) {
   const [currentTopic, setCurrentTopic] = useState(
     props.topics ? props.topics[0] : null
   );
+  const [currentSurvey, setCurrentSurvey] = useState(null);
   return (
     <>
       <Layout style={{ height: '100vh', backgroundColor: '#BC9D7E' }}>
@@ -114,7 +116,10 @@ function RenderHomePage(props) {
               <h2 style={{ textAlign: 'left' }}>
                 {currentTopic && currentTopic.title}
               </h2>
-              <Select placeholder="Select a Request">
+              <Select
+                placeholder="Select a Request"
+                onChange={e => setCurrentSurvey(e)}
+              >
                 {currentTopic &&
                   currentTopic.surveysrequests.map(request => {
                     return (
@@ -126,6 +131,14 @@ function RenderHomePage(props) {
               </Select>
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
               <p style={{ textAlign: 'left' }}>Context Questions go here.</p>
+              {currentSurvey ? (
+                <RenderSurveyQuestions
+                  surveyId={currentSurvey}
+                  topic={currentTopic}
+                />
+              ) : (
+                <></>
+              )}
             </Content>
             <Content>Team Member answers go here.</Content>
           </Layout>
