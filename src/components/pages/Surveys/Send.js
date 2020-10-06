@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Button, Modal, Progress, Input } from 'antd';
+import { Button, Modal, Progress, Input, message } from 'antd';
 import ChooseContexts from './Wizard/ChooseContexts';
 import ChooseMembers from './Wizard/ChooseMembers';
 import AnswerContexts from './Wizard/AnswerContexts';
@@ -11,6 +11,8 @@ const { TextArea } = Input;
 function Send(props) {
   // set localstate for progress
   const [progress, setProgress] = useState(20);
+  // set state to disable button if not all context questions answered
+  const [disableNext, setDisableNext] = useState(false);
   // set state for modal visibility
   const [isVisible, setIsVisible] = useState(false);
   // set state for the current list of questions to send, initially set to the default questions for the topic
@@ -30,24 +32,42 @@ function Send(props) {
     });
     return setQuestionsToSend(questions);
   };
+
   // function to move to next step in wizard
   const next = () => {
-    const addprogress = progress + 20;
-    if (progress == 60) {
-      console.log(contextAnswers);
-      const memberQuestions = questionsToSend.filter(question => {
-        return !question.leader;
+    const addProgress = progress + 20;
+    if (progress <= 40) {
+      return setProgress(addProgress);
+    } else {
+      let emptyfields = 0;
+      contextAnswers.map(object => {
+        if (JSON.stringify(object) === '{}') {
+          emptyfields += 1;
+        }
       });
-      const newQuestions = contextAnswers.concat(memberQuestions);
-      console.log(newQuestions);
-      setQuestionsToSend(newQuestions);
+      if (emptyfields > 0) {
+        console.log('not enough answers');
+        emptyfields = 0;
+        message.warning('Please answer all Context Questions!');
+      } else {
+        console.log('this is happening');
+        const memberQuestions = questionsToSend.filter(question => {
+          return !question.leader;
+        });
+        const newQuestions = contextAnswers.concat(memberQuestions);
+        console.log(newQuestions);
+        setQuestionsToSend(newQuestions);
+        setProgress(progress + 20);
+      }
     }
-    return setProgress(addprogress);
   };
+
   // func to go back one step in wizard
   const prev = () => {
     const subtractprogress = progress - 20;
-
+    if (progress == 60) {
+      setDisableNext(false);
+    }
     return setProgress(subtractprogress);
   };
 

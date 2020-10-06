@@ -13,11 +13,11 @@ function ReviewRequest({ questionsToSend, setProgress }) {
   };
   return (
     <>
-      <h3>Review</h3>
+      <h3 style={{ fontSize: '2rem', textDecoration: 'underline' }}>Review</h3>
       <h4>Context</h4>
-      {questionsToSend.map(question => {
+      {questionsToSend.map((question, index) => {
         if (question.leader) {
-          return <p>{question.body}</p>;
+          return <p key={index}>{question.body}</p>;
         }
       })}
       <Button
@@ -27,23 +27,27 @@ function ReviewRequest({ questionsToSend, setProgress }) {
       >
         Edit
       </Button>
+
+      <h4>Answers</h4>
+      {questionsToSend.map((question, index) => {
+        return <p key={index}>{question.answer}</p>;
+      })}
+      <Button
+        onClick={() => {
+          editSection('answers');
+        }}
+      >
+        Edit
+      </Button>
       <h4>Member</h4>
-      {questionsToSend.map(question => {
+      {questionsToSend.map((question, index) => {
         if (!question.leader) {
-          return <p>{question.body}</p>;
+          return <p key={index}>{question.body}</p>;
         }
       })}
       <Button
         onClick={() => {
           editSection('member');
-        }}
-      >
-        Edit
-      </Button>
-      <h4>Answers</h4>
-      <Button
-        onClick={() => {
-          editSection('answers');
         }}
       >
         Edit
