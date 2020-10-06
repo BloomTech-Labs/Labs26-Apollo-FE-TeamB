@@ -3,7 +3,7 @@ import { Button } from 'antd';
 function ReviewRequest({ questionsToSend, setProgress }) {
   const editSection = section => {
     console.log(section);
-    if (section == 'contexts') {
+    if (section == 'context') {
       setProgress(20);
     } else if (section == 'member') {
       setProgress(40);
@@ -14,7 +14,7 @@ function ReviewRequest({ questionsToSend, setProgress }) {
   return (
     <>
       <h3>Review</h3>
-      <h4>Contexts</h4>
+      <h4>Context</h4>
       {questionsToSend.map(question => {
         if (question.leader) {
           return <p>{question.body}</p>;
@@ -22,7 +22,7 @@ function ReviewRequest({ questionsToSend, setProgress }) {
       })}
       <Button
         onClick={() => {
-          editSection('contexts');
+          editSection('context');
         }}
       >
         Edit

@@ -13,7 +13,6 @@ function Send(props) {
   const [isVisible, setIsVisible] = useState(false);
   const [questionsToSend, setQuestionsToSend] = useState([]);
 
-  const [contextAnswers, setContextAnswers] = useState([]);
   const cancelModal = () => {
     setIsVisible(false);
   };
@@ -31,6 +30,14 @@ function Send(props) {
 
   const next = () => {
     const addprogress = progress + 20;
+    if (progress == 40) {
+      const numberofcontexts = [];
+      questionsToSend.map(q => {
+        if (q.leader == true) {
+          numberofcontexts.push(0);
+        }
+      });
+    }
     return setProgress(addprogress);
   };
 
@@ -39,16 +46,10 @@ function Send(props) {
     return setProgress(subtractprogress);
   };
 
-  const numberofcontexts = [];
-  questionsToSend.map(q => {
-    if (q.leader == true) {
-      numberofcontexts.push(0);
-    }
-  });
-
   const submitNewRequest = () => {
     console.log('sent');
   };
+
   return (
     <>
       <Button
@@ -96,7 +97,12 @@ function Send(props) {
             deleteQuestion={deleteQuestion}
           />
         )}
-        {progress == 60 && <AnswerContexts questionsToSend={questionsToSend} />}
+        {progress == 60 && (
+          <AnswerContexts
+            questionsToSend={questionsToSend}
+            setQuestionsToSend={setQuestionsToSend}
+          />
+        )}
 
         {progress == 80 && (
           <ReviewRequest

@@ -18,13 +18,14 @@ function ChooseContexts({
   const addNewContextQuestion = question => {
     console.log(question);
     const newQuestion = {
-      questionId: '',
       body: question,
+      type: 'TEXT',
       leader: true,
+      answer: '',
     };
-    console.log(newQuestion);
+
     const newQuestions = [...questionsToSend, newQuestion];
-    console.log(newQuestions);
+
     return setQuestionsToSend(newQuestions);
   };
   return (
