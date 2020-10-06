@@ -13,7 +13,6 @@ function AnswerContexts({ questionsToSend, contextAnswers }) {
     });
     findQuestion[0].answer = e.target.value;
     contextAnswers[position] = findQuestion[0];
-    console.log(contextAnswers);
   };
 
   return (

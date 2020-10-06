@@ -72,7 +72,6 @@ function Send(props) {
   };
 
   const submitNewRequest = () => {
-    console.log('sent');
     postNewRequest(
       props.currentTopic.topicId,
       questionsToSend,
