@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Button, Modal, Progress, Select, Input } from 'antd';
 import { FaRegTrashAlt } from 'react-icons/fa';
+import ChooseContexts from './Wizard/ChooseContexts';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -23,30 +24,11 @@ function Send(props) {
     return setQuestionsToSend(questions);
   };
 
-  const newContextQuestions = [
-    'New Leader Question 1',
-    'New Leader Question 2',
-    'New Leader Question 3',
-  ];
-
   const newMemberQuestions = [
     'New Member Question 1',
     'New Member Question 2',
     'New Member Question 3',
   ];
-
-  const addNewContextQuestion = question => {
-    console.log(question);
-    const newQuestion = {
-      questionId: '',
-      body: question,
-      leader: true,
-    };
-    console.log(newQuestion);
-    const newQuestions = [...questionsToSend, newQuestion];
-    console.log(newQuestions);
-    return setQuestionsToSend(newQuestions);
-  };
 
   const addNewMemberQuestion = question => {
     console.log(question);
@@ -55,9 +37,7 @@ function Send(props) {
       body: question,
       leader: false,
     };
-    console.log(newQuestion);
     const newQuestions = [...questionsToSend, newQuestion];
-    console.log(newQuestions);
     return setQuestionsToSend(newQuestions);
   };
 
@@ -75,16 +55,15 @@ function Send(props) {
     return setProgress(subtractprogress);
   };
 
+  const numberofcontexts = [];
+  questionsToSend.map(q => {
+    if (q.leader == true) {
+      numberofcontexts.push(0);
+    }
+  });
+
   const captureAnswers = e => {
     console.log(e.target.value);
-    const numberofcontexts = [];
-    questionsToSend.map(q => {
-      if (q.leader == true) {
-        numberofcontexts.push(0);
-      }
-    });
-    setContextAnswers(numberofcontexts);
-    console.log(contextAnswers);
   };
 
   const submitNewRequest = () => {
@@ -115,7 +94,12 @@ function Send(props) {
           <Button key={3}>Send Request</Button>,
         ]}
       >
-        <h3>Do you want to change your default Context questions?</h3>
+        <ChooseContexts
+          questionsToSend={questionsToSend}
+          setQuestionsToSend={setQuestionsToSend}
+          deleteQuestion={deleteQuestion}
+        />
+        {/* <h3>Do you want to change your default Context questions?</h3>
         {questionsToSend &&
           questionsToSend.map(question => {
             return (
@@ -157,7 +141,7 @@ function Send(props) {
               </Option>
             );
           })}
-        </Select>
+        </Select> */}
         <h3>Do you want to change your default Member questions?</h3>
         {questionsToSend &&
           questionsToSend.map(question => {
