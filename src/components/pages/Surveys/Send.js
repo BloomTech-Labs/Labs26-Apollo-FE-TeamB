@@ -11,6 +11,7 @@ function Send(props) {
   const [isVisible, setIsVisible] = useState(false);
   const [questionsToSend, setQuestionsToSend] = useState([]);
   const [currentStep, setCurrentStep] = useState(1);
+  const [contextAnswers, setContextAnswers] = useState([]);
   const cancelModal = () => {
     setIsVisible(false);
   };
@@ -72,6 +73,22 @@ function Send(props) {
   const prev = () => {
     const subtractprogress = progress - 20;
     return setProgress(subtractprogress);
+  };
+
+  const captureAnswers = e => {
+    console.log(e.target.value);
+    const numberofcontexts = [];
+    questionsToSend.map(q => {
+      if (q.leader == true) {
+        numberofcontexts.push(0);
+      }
+    });
+    setContextAnswers(numberofcontexts);
+    console.log(contextAnswers);
+  };
+
+  const submitNewRequest = () => {
+    console.log('sent');
   };
   return (
     <>
@@ -190,11 +207,15 @@ function Send(props) {
             question.leader && (
               <div>
                 <p>{question.body}</p>
-                <TextArea rows={4} resizeMode="None" />
+                <TextArea
+                  onChange={e => captureAnswers(e)}
+                  autoSize={{ minRows: 4, maxRows: 4 }}
+                />
               </div>
             )
           );
         })}
+        <h3>Review</h3>
       </Modal>
     </>
   );
