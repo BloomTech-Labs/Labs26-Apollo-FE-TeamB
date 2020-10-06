@@ -86,6 +86,18 @@ const getTopicById = (dispatchFunc, topicid) => {
     .catch(error => console.log(error));
 };
 
+// send a request to submit a new survey for a topic
+const postNewRequest = (topicId, questionslist) => {
+  return axiosWithAuth()
+    .post(`/surveys/topic/${topicId}`, questionslist)
+    .then(response => {
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
+
 const getAuthHeader = authState => {
   if (!authState.isAuthenticated) {
     throw new Error('Not authenticated');
