@@ -3,9 +3,7 @@ import { Form, Input } from 'antd';
 
 const { TextArea } = Input;
 
-function AnswerContexts({ questionsToSend, setQuestionsToSend }) {
-  const newContextAnswers = [];
-
+function AnswerContexts({ questionsToSend, contextAnswers }) {
   // get the answer and set it to the questions answer
   const captureAnswers = (e, currentquestion, position) => {
     console.log(e.target.value);
@@ -13,15 +11,16 @@ function AnswerContexts({ questionsToSend, setQuestionsToSend }) {
       return currentquestion.body === question.body;
     });
     findQuestion[0].answer = e.target.value;
-    newContextAnswers[position] = findQuestion[0];
+    contextAnswers[position] = findQuestion[0];
+    console.log(contextAnswers);
   };
   return (
     <Form>
       <h3>Answer Context Questions.</h3>
       {questionsToSend.map((question, index) => {
         if (question.leader) {
-          newContextAnswers.push({});
-          console.log(newContextAnswers);
+          contextAnswers.push({});
+          console.log(contextAnswers);
         }
 
         return (

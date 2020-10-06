@@ -9,38 +9,34 @@ import ReviewRequest from './Wizard/ReviewRequest';
 const { TextArea } = Input;
 
 function Send(props) {
+  // set localstate for progress
   const [progress, setProgress] = useState(20);
+  // set state for modal visibility
   const [isVisible, setIsVisible] = useState(false);
-  const [questionsToSend, setQuestionsToSend] = useState([]);
-
+  // set state for the current list of questions to send, initially set to the default questions for the topic
+  const [questionsToSend, setQuestionsToSend] = useState(
+    props.currentTopic.defaultsurvey.questions
+  );
+  // set local state for a list of the answers to context questions
+  const contextAnswers = [];
+  // function to close Modal
   const cancelModal = () => {
     setIsVisible(false);
   };
-
+  // function to remove a question
   const deleteQuestion = questionToDelete => {
     const questions = questionsToSend.filter(question => {
       return question != questionToDelete;
     });
     return setQuestionsToSend(questions);
   };
-
-  useEffect(() => {
-    setQuestionsToSend(props.currentTopic.defaultsurvey.questions);
-  }, []);
-
+  // function to move to next step in wizard
   const next = () => {
     const addprogress = progress + 20;
-    if (progress == 40) {
-      const numberofcontexts = [];
-      questionsToSend.map(q => {
-        if (q.leader == true) {
-          numberofcontexts.push(0);
-        }
-      });
-    }
+
     return setProgress(addprogress);
   };
-
+  // func to go back one step in wizard
   const prev = () => {
     const subtractprogress = progress - 20;
     return setProgress(subtractprogress);
@@ -100,7 +96,7 @@ function Send(props) {
         {progress == 60 && (
           <AnswerContexts
             questionsToSend={questionsToSend}
-            setQuestionsToSend={setQuestionsToSend}
+            contextAnswers={contextAnswers}
           />
         )}
 
