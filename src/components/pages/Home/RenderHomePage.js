@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { SendButton, RespondButton } from '../Surveys/index';
 import { Layout, PageHeader, Button, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { TopicCreation } from '../TopicCreation';
 import { JoinTopic } from '../JoinTopic';
+import { getTopicById } from '../../../api/index';
+import { getCurrentTopic } from '../../../state/actions/apolloActions';
 const { Content, Sider } = Layout;
 const { Option } = Select;
 
 function RenderHomePage(props) {
-  const { authService } = props;
-  const [currentTopic, setCurrentTopic] = useState(
-    props.topics ? props.topics[0] : null
-  );
+  const { authService, currentTopic } = props;
+
   return (
     <>
       <Layout style={{ height: '100vh', backgroundColor: '#BC9D7E' }}>
@@ -21,6 +21,7 @@ function RenderHomePage(props) {
             backgroundColor: '#0C5274',
             borderTopRightRadius: '2rem',
             borderBottomRightRadius: '2rem',
+            overflow: 'scroll',
           }}
         >
           <h2 style={{ color: '#BC9D7E', marginTop: '1rem' }}>Topics</h2>
@@ -46,7 +47,10 @@ function RenderHomePage(props) {
                 return (
                   <Button
                     key={topic.topicId}
-                    onClick={() => setCurrentTopic(topic)}
+                    onClick={() => {
+                      console.log(topic.topicId);
+                      getTopicById(props.getCurrentTopic, topic.topicId);
+                    }}
                     style={{
                       backgroundColor: '#BC9D7E',
                       border: '1px solid #191919',
@@ -66,7 +70,7 @@ function RenderHomePage(props) {
           <PageHeader
             className="header"
             title={<h1>Apollo</h1>}
-            subTitle={`Hello, ${props.username}`}
+            subTitle={`Hello, ${props.userInfo.name}`}
             style={{
               backgroundColor: '#BC9D7E',
               padding: '2rem',
@@ -112,11 +116,11 @@ function RenderHomePage(props) {
               }}
             >
               <h2 style={{ textAlign: 'left' }}>
-                {currentTopic && currentTopic.title}
+                {props.currentTopic && props.currentTopic.title}
               </h2>
               <Select placeholder="Select a Request">
-                {currentTopic &&
-                  currentTopic.surveysrequests.map(request => {
+                {props.currentTopic.surveysrequests &&
+                  props.currentTopic.surveysrequests.map(request => {
                     return (
                       <Option key={request.surveyId}>
                         Request {request.surveyId}
@@ -124,10 +128,18 @@ function RenderHomePage(props) {
                     );
                   })}
               </Select>
+              {props.currentTopic.owner &&
+              props.currentTopic.owner.username === props.userInfo.email ? (
+                <SendButton />
+              ) : (
+                <RespondButton />
+              )}
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
-              <p style={{ textAlign: 'left' }}>Context Questions go here.</p>
+              <p style={{ textAlign: 'left' }}>
+                Context Questions and answers go here.
+              </p>
             </Content>
-            <Content>Team Member answers go here.</Content>
+            <Content>Team Member questions and answers go here.</Content>
           </Layout>
         </Layout>
       </Layout>
@@ -137,9 +149,10 @@ function RenderHomePage(props) {
 
 const mapStateToProps = state => {
   return {
-    username: state.username,
+    userInfo: state.userInfo,
     topics: state.topics,
+    currentTopic: state.currentTopic,
   };
 };
 
-export default connect(mapStateToProps, {})(RenderHomePage);
+export default connect(mapStateToProps, { getCurrentTopic })(RenderHomePage);
