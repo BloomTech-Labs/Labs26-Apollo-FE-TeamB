@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, PageHeader, Button, Select } from 'antd';
+import { Layout, PageHeader, Button, Select, Menu, Dropdown } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -14,7 +14,9 @@ function RenderHomePage(props) {
   const [currentTopic, setCurrentTopic] = useState(
     props.topics ? props.topics[0] : null
   );
-  const [currentSurvey, setCurrentSurvey] = useState(null);
+
+  const [currentRequest, setCurrentRequest] = useState(null);
+
   return (
     <>
       <Layout style={{ height: '100vh', backgroundColor: '#BC9D7E' }}>
@@ -118,24 +120,24 @@ function RenderHomePage(props) {
               </h2>
               <Select
                 placeholder="Select a Request"
-                onChange={e => setCurrentSurvey(e)}
-              >
-                {currentTopic &&
-                  currentTopic.surveysrequests.map(request => {
-                    return (
-                      <Option key={request.surveyId}>
-                        Request {request.surveyId}
-                      </Option>
-                    );
-                  })}
-              </Select>
+                // onChange={e => setCurrentRequest(e)}
+                dropdownRender={menu => (
+                  <div>
+                    {currentTopic.surveysrequests.map(request => {
+                      return (
+                        //<Menu.Item key={request.surveyId}>
+                        <Button onClick={() => setCurrentRequest(request)}>
+                          Request {request.surveyId}
+                        </Button>
+                        //</Menu.Item>
+                      );
+                    })}
+                  </div>
+                )}
+              ></Select>
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
-              <p style={{ textAlign: 'left' }}>Context Questions go here.</p>
-              {currentSurvey ? (
-                <RenderSurveyQuestions
-                  surveyId={currentSurvey}
-                  topic={currentTopic}
-                />
+              {currentRequest ? (
+                <RenderSurveyQuestions survey={currentRequest} />
               ) : (
                 <></>
               )}
