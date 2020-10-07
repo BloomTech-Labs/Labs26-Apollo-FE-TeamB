@@ -6,12 +6,10 @@ export function Response({ contents }) {
       <h2>{contents.body}</h2>
       {contents.answers.map(answer => {
         return (
-          <>
-            <div key={answer.answerId}>
-              <h4>{answer.user.username}</h4>
-              <p>{answer.body}</p>
-            </div>
-          </>
+          <div key={answer.answerId}>
+            <h4>{answer.user.username}</h4>
+            <p>{answer.body}</p>
+          </div>
         );
       })}
     </>
