@@ -2,15 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Response } from './Response';
 
-function ResponseList({ users, survey }) {
+function ResponseList({ questions }) {
+  if (questions == null) {
+    return <p>No Questions</p>;
+  }
+
   debugger;
   return (
     <>
-      {users.map(user => {
-        survey.questions.forEach(question => {
-          console.log('thing');
-        });
-        return <Response />;
+      {questions.map((q, i) => {
+        return <Response key={`${q.questionId}`} contents={q} />;
       })}
     </>
   );

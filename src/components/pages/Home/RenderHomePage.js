@@ -14,6 +14,21 @@ function RenderHomePage(props) {
   const [currentTopic, setCurrentTopic] = useState(
     props.topics ? props.topics[0] : null
   );
+  const [currentSurvey, setCurrentSurvey] = useState(
+    currentTopic ? currentTopic.surveysrequests[0] : null
+  );
+
+  function handleChanges(value) {
+    let surveyIndex = value.charAt(value.length - 1);
+    setCurrentSurvey(currentTopic.surveysrequests[surveyIndex]);
+  }
+
+  function changeTopic(topic) {
+    setCurrentTopic(topic);
+    setCurrentSurvey(topic.surveysrequests[0]);
+  }
+
+  // debugger;
   return (
     <>
       <Layout style={{ height: '100vh', backgroundColor: '#BC9D7E' }}>
@@ -47,7 +62,7 @@ function RenderHomePage(props) {
                 return (
                   <Button
                     key={topic.topicId}
-                    onClick={() => setCurrentTopic(topic)}
+                    onClick={() => changeTopic(topic)}
                     style={{
                       backgroundColor: '#BC9D7E',
                       border: '1px solid #191919',
@@ -115,11 +130,15 @@ function RenderHomePage(props) {
               <h2 style={{ textAlign: 'left' }}>
                 {currentTopic && currentTopic.title}
               </h2>
-              <Select placeholder="Select a Request">
+              <Select
+                placeholder="Select a Request"
+                defaultValue={`Request ${currentSurvey.surveyId}`}
+                onChange={handleChanges}
+              >
                 {currentTopic &&
-                  currentTopic.surveysrequests.map(request => {
+                  currentTopic.surveysrequests.map((request, idx) => {
                     return (
-                      <Option key={request.surveyId}>
+                      <Option key={`Request-${idx}`}>
                         Request {request.surveyId}
                       </Option>
                     );
@@ -129,10 +148,9 @@ function RenderHomePage(props) {
               <p style={{ textAlign: 'left' }}>Context Questions go here.</p>
             </Content>
             <Content>
-              {currentTopic && (
+              {currentSurvey && (
                 <ResponseList
-                  users={currentTopic.users}
-                  survey={currentTopic.surveysrequests[0]}
+                  questions={currentSurvey.questions.filter(q => !q.leader)}
                 />
               )}
             </Content>
