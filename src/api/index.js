@@ -73,6 +73,18 @@ const getContexts = dispatchFunc => {
     });
 };
 
+const createAnswer = (newAnswer, fn) => {
+  return axiosWithAuth()
+    .post(`/surveys/response`, newAnswer)
+    .then(response => {
+      getUserTopics(fn);
+      return 'success';
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
 const getAuthHeader = authState => {
   if (!authState.isAuthenticated) {
     throw new Error('Not authenticated');
@@ -114,6 +126,7 @@ export {
   createNewTopic,
   userJoinTopic,
   getContexts,
+  createAnswer,
   getProfileData,
   getDSData,
   apiAuthGet,
