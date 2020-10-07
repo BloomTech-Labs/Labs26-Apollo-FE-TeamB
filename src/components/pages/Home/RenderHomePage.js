@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { TopicCreation } from '../TopicCreation';
 import { JoinTopic } from '../JoinTopic';
+import RespondButton from '../Surveys/RespondButton';
+import RespondForm from '../Surveys/RespondForm';
+
 const { Content, Sider } = Layout;
 const { Option } = Select;
 
@@ -13,6 +16,23 @@ function RenderHomePage(props) {
   const [currentTopic, setCurrentTopic] = useState(
     props.topics ? props.topics[0] : null
   );
+
+  const [currentRequest, setCurrentRequest] = useState({});
+  const [respond, setRespond] = useState(false);
+
+  const getCurrentRequest = value => {
+    currentTopic.surveysrequests.forEach(request => {
+      if (request.surveyId.toString() === value) {
+        setCurrentRequest(request);
+      }
+    });
+  };
+
+  const toggleResponseForm = () => {
+    console.log('clicked');
+    setRespond(!respond);
+  };
+
   return (
     <>
       <Layout style={{ height: '100vh', backgroundColor: '#BC9D7E' }}>
@@ -114,18 +134,37 @@ function RenderHomePage(props) {
               <h2 style={{ textAlign: 'left' }}>
                 {currentTopic && currentTopic.title}
               </h2>
-              <Select placeholder="Select a Request">
+              <Select
+                placeholder="Select a Request"
+                onChange={value => {
+                  getCurrentRequest(value);
+                }}
+              >
                 {currentTopic &&
-                  currentTopic.surveysrequests.map(request => {
+                  currentTopic.surveysrequests.map((request, index) => {
                     return (
                       <Option key={request.surveyId}>
-                        Request {request.surveyId}
+                        Request {index + 1}
                       </Option>
                     );
                   })}
               </Select>
+              {currentTopic &&
+                currentTopic.owner.username !== props.username &&
+                !currentRequest.responded && (
+                  <RespondButton
+                    currentRequest={currentRequest}
+                    toggleResponseForm={toggleResponseForm}
+                  />
+                )}
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
               <p style={{ textAlign: 'left' }}>Context Questions go here.</p>
+              {respond && (
+                <RespondForm
+                  currentRequest={currentRequest}
+                  toggleResponseForm={toggleResponseForm}
+                />
+              )}
             </Content>
             <Content>Team Member answers go here.</Content>
           </Layout>
