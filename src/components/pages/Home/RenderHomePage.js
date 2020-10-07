@@ -29,7 +29,6 @@ function RenderHomePage(props) {
   };
 
   const toggleResponseForm = () => {
-    console.log('clicked');
     setRespond(!respond);
   };
 
