@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Form, Input, Button } from 'antd';
-import { createAnswer, getUserTopics } from '../../../api/index';
+import { createAnswer } from '../../../api/index';
+import { getTopics } from '../../../state/actions/apolloActions';
 
 const RespondForm = props => {
   const { currentRequest, toggleResponseForm } = props;
@@ -48,7 +50,7 @@ const RespondForm = props => {
   };
 
   const responseSubmit = e => {
-    createAnswer(responses, getUserTopics)
+    createAnswer(responses, props.getTopics)
       .then(result => {
         toggleResponseForm();
       })
@@ -104,4 +106,10 @@ const RespondForm = props => {
   );
 };
 
-export default RespondForm;
+const mapStateToProps = state => {
+  return {
+    ...state,
+  };
+};
+
+export default connect(mapStateToProps, { getTopics })(RespondForm);
