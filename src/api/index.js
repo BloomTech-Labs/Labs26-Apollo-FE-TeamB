@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { store } from '../state/store';
+
 // the live api
 const liveUrl = 'https://apollo-b-api.herokuapp.com';
 // for testing locally
@@ -32,16 +33,19 @@ const axiosWithAuth = () => {
 const getUserTopics = dispatchFunc => {
   return axiosWithAuth()
     .get(usertopics)
-    .then(response => dispatchFunc(response.data))
+    .then(response => {
+      dispatchFunc(response.data);
+    })
     .catch(err => {
       console.log(err);
     });
 };
 
-const createNewTopic = newTopicData => {
+const createNewTopic = (newTopicData, fn) => {
   return axiosWithAuth()
     .post(createNew, newTopicData)
     .then(response => {
+      getUserTopics(fn);
       return response.data.joincode;
     })
     .catch(err => {
@@ -82,6 +86,30 @@ const createAnswer = (newAnswer, fn) => {
     })
     .catch(err => {
       console.log(err);
+    });
+};
+
+// get a topic by topic id, to set the currentTopic to
+const getTopicById = (dispatchFunc, topicid) => {
+  return axiosWithAuth()
+    .get(`/topics/topic/${topicid}`)
+    .then(response => {
+      return dispatchFunc(response.data);
+    })
+    .catch(error => console.log(error));
+};
+
+// send a request to submit a new survey for a topic
+const postNewRequest = (topicId, questionslist, dispatchFunc) => {
+  return axiosWithAuth()
+    .post(`/surveys/topic/${topicId}`, questionslist)
+    .then(response => {
+      console.log(response.data);
+      // refresh the current Topic
+      dispatchFunc(response.data);
+    })
+    .catch(error => {
+      console.log(error);
     });
 };
 
@@ -127,6 +155,8 @@ export {
   userJoinTopic,
   getContexts,
   createAnswer,
+  getTopicById,
+  postNewRequest,
   getProfileData,
   getDSData,
   apiAuthGet,

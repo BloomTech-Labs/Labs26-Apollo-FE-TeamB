@@ -40,9 +40,9 @@ You can find the deployed project at [Apollo](https://b.apollox.dev/).
 
 - A user can view a dashboard.
 - A user can create a new topic.
-- feature three
-- feature four
-- feature five
+- A user can view a list of topics
+- A user can select a topic to view
+- A user can create a new Survey Request
 
 #### Front end deployed to `🚫insert service here`
 

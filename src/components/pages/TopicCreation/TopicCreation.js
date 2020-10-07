@@ -9,7 +9,10 @@ import {
   ReviewFinal,
   CreationSuccess,
 } from './Steps/';
-import { getAllContexts } from '../../../state/actions/apolloActions';
+import {
+  getTopics,
+  getAllContexts,
+} from '../../../state/actions/apolloActions';
 import { createNewTopic, getContexts } from '../../../api/index';
 
 import 'antd/dist/antd.css';
@@ -57,7 +60,7 @@ const memberQuestionList = [
 //how many steps the wizard has
 const totalSteps = 6;
 
-const TopicCreation = ({ contexts, getAllContexts }) => {
+const TopicCreation = ({ getTopics, contexts, getAllContexts }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [currentTopic, setCurrentTopic] = useState(defaultTopic);
@@ -67,8 +70,8 @@ const TopicCreation = ({ contexts, getAllContexts }) => {
   const [stepValidation, setStepValidation] = useState({
     1: false,
     2: false,
-    3: true,
-    4: true,
+    3: false,
+    4: false,
     5: false,
   });
 
@@ -101,16 +104,16 @@ const TopicCreation = ({ contexts, getAllContexts }) => {
       if (currentTopic.title && currentTopic.frequency) {
         setStepValidation({ ...stepValidation, [currentStep]: true });
       }
-    } else if (currentStep === 3 || currentStep === 4) {
-      if (
-        !currentTopic.defaultsurvey.questions.filter(q => q.leader).length ||
-        !currentTopic.defaultsurvey.questions.filter(q => !q.leader).length
-      ) {
+    } else if (currentStep === 3) {
+      if (!currentTopic.defaultsurvey.questions.filter(q => q.leader).length) {
         setStepValidation({ ...stepValidation, [currentStep]: false });
-      } else if (
-        currentTopic.defaultsurvey.questions.filter(q => q.leader) ||
-        currentTopic.defaultsurvey.questions.filter(q => !q.leader)
-      ) {
+      } else if (currentTopic.defaultsurvey.questions.filter(q => q.leader)) {
+        setStepValidation({ ...stepValidation, [currentStep]: true });
+      }
+    } else if (currentStep === 4) {
+      if (!currentTopic.defaultsurvey.questions.filter(q => !q.leader).length) {
+        setStepValidation({ ...stepValidation, [currentStep]: false });
+      } else if (currentTopic.defaultsurvey.questions.filter(q => !q.leader)) {
         setStepValidation({ ...stepValidation, [currentStep]: true });
       }
     }
@@ -130,8 +133,10 @@ const TopicCreation = ({ contexts, getAllContexts }) => {
 
   const handleSubmit = async e => {
     setLoading(true);
-    await Promise.resolve(createNewTopic(currentTopic)).then(result =>
-      setNewJoinCode(result)
+    await Promise.resolve(createNewTopic(currentTopic, getTopics)).then(
+      result => {
+        setNewJoinCode(result);
+      }
     );
     setCurrentStep(6);
     setLoading(false);
@@ -381,5 +386,6 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
+  getTopics,
   getAllContexts,
 })(TopicCreation);
