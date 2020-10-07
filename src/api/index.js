@@ -77,6 +77,17 @@ const getContexts = dispatchFunc => {
     });
 };
 
+const createAnswer = (newAnswer, fn) => {
+  return axiosWithAuth()
+    .post(`/surveys/response`, newAnswer)
+    .then(response => {
+      return fn;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
 // get a topic by topic id, to set the currentTopic to
 const getTopicById = (dispatchFunc, topicid) => {
   return axiosWithAuth()
@@ -142,6 +153,7 @@ export {
   createNewTopic,
   userJoinTopic,
   getContexts,
+  createAnswer,
   getTopicById,
   postNewRequest,
   getProfileData,

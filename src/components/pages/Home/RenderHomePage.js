@@ -1,17 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { SendButton, RespondButton } from '../Surveys/index';
+import React, { useState } from 'react';
+import { SendButton, RespondButton, RespondForm } from '../Surveys/index';
 import { Layout, PageHeader, Button, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { TopicCreation } from '../TopicCreation';
 import { JoinTopic } from '../JoinTopic';
+import { RenderSurveyQuestions } from '../SurveyQuestions/RenderSurveyQuestions';
+import { ResponseList } from '../Responses';
 import { getTopicById } from '../../../api/index';
 import { getCurrentTopic } from '../../../state/actions/apolloActions';
+
 const { Content, Sider } = Layout;
 const { Option } = Select;
 
 function RenderHomePage(props) {
   const { authService, currentTopic } = props;
+  const [currentRequest, setCurrentRequest] = useState({});
+  const [requestPlaceholder, setRequestPlaceholder] = useState(
+    'Select a Request'
+  );
+  const [respond, setRespond] = useState(false);
+
+  function changeTopic(topic) {
+    getTopicById(props.getCurrentTopic, topic.topicId);
+    setCurrentRequest(topic.surveysrequests[0]);
+    setRequestPlaceholder(`Request ${topic.surveysrequests[0].surveyId}`);
+  }
+
+  const toggleResponseForm = () => {
+    setRespond(!respond);
+  };
 
   return (
     <>
@@ -47,10 +65,7 @@ function RenderHomePage(props) {
                 return (
                   <Button
                     key={topic.topicId}
-                    onClick={() => {
-                      console.log(topic.topicId);
-                      getTopicById(props.getCurrentTopic, topic.topicId);
-                    }}
+                    onClick={() => changeTopic(topic)}
                     style={{
                       backgroundColor: '#BC9D7E',
                       border: '1px solid #191919',
@@ -118,28 +133,64 @@ function RenderHomePage(props) {
               <h2 style={{ textAlign: 'left' }}>
                 {props.currentTopic && props.currentTopic.title}
               </h2>
-              <Select placeholder="Select a Request">
-                {props.currentTopic.surveysrequests &&
-                  props.currentTopic.surveysrequests.map(request => {
-                    return (
-                      <Option key={request.surveyId}>
-                        Request {request.surveyId}
-                      </Option>
-                    );
-                  })}
-              </Select>
+              <Select
+                placeholder={requestPlaceholder}
+                // onChange={e => setCurrentRequest(e)}
+                dropdownRender={menu => (
+                  <div>
+                    {currentTopic.surveysrequests &&
+                      currentTopic.surveysrequests.map(request => {
+                        return (
+                          //<Menu.Item key={request.surveyId}>
+                          <Button
+                            key={request.surveyId}
+                            onClick={() => {
+                              setCurrentRequest(request);
+                              setRequestPlaceholder(
+                                `Request ${request.surveyId}`
+                              );
+                            }}
+                          >
+                            Request {request.surveyId}
+                          </Button>
+                          //</Menu.Item>
+                        );
+                      })}
+                  </div>
+                )}
+              ></Select>
               {props.currentTopic.owner &&
-              props.currentTopic.owner.username === props.userInfo.email ? (
-                <SendButton />
-              ) : (
-                <RespondButton />
-              )}
+                props.currentTopic.owner.username === props.userInfo.email && (
+                  <SendButton />
+                )}
+              {props.currentTopic.owner &&
+                props.currentTopic.owner.username !== props.userInfo.email &&
+                !currentRequest.responded && (
+                  <RespondButton
+                    currentRequest={currentRequest}
+                    toggleResponseForm={toggleResponseForm}
+                  />
+                )}
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
-              <p style={{ textAlign: 'left' }}>
-                Context Questions and answers go here.
-              </p>
+              {currentRequest ? (
+                <RenderSurveyQuestions survey={currentRequest} />
+              ) : (
+                <></>
+              )}
             </Content>
-            <Content>Team Member questions and answers go here.</Content>
+            <Content>
+              {respond && (
+                <RespondForm
+                  currentRequest={currentRequest}
+                  toggleResponseForm={toggleResponseForm}
+                />
+              )}
+              {currentRequest && currentRequest.questions && (
+                <ResponseList
+                  questions={currentRequest.questions.filter(q => !q.leader)}
+                />
+              )}
+            </Content>
           </Layout>
         </Layout>
       </Layout>
