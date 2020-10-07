@@ -6,14 +6,24 @@ import { connect } from 'react-redux';
 import { TopicCreation } from '../TopicCreation';
 import { JoinTopic } from '../JoinTopic';
 import RenderSurveyQuestions from '../SurveyQuestions/RenderSurveyQuestions';
+import { ResponseList } from '../Responses';
 import { getTopicById } from '../../../api/index';
 import { getCurrentTopic } from '../../../state/actions/apolloActions';
 const { Content, Sider } = Layout;
 const { Option } = Select;
 
 function RenderHomePage(props) {
-const { authService, currentTopic } = props;
-const [currentRequest, setCurrentRequest] = useState(null);
+  const { authService, currentTopic } = props;
+  const [currentRequest, setCurrentRequest] = useState(null);
+  const [requestPlaceholder, setRequestPlaceholder] = useState(
+    'Select a Request'
+  );
+
+  function changeTopic(topic) {
+    getTopicById(props.getCurrentTopic, topic.topicId);
+    setCurrentRequest(topic.surveysrequests[0]);
+    setRequestPlaceholder(`Request ${topic.surveysrequests[0].surveyId}`);
+  }
 
   return (
     <>
@@ -49,10 +59,7 @@ const [currentRequest, setCurrentRequest] = useState(null);
                 return (
                   <Button
                     key={topic.topicId}
-                    onClick={() => {
-                      console.log(topic.topicId);
-                      getTopicById(props.getCurrentTopic, topic.topicId);
-                    }}
+                    onClick={() => changeTopic(topic)}
                     style={{
                       backgroundColor: '#BC9D7E',
                       border: '1px solid #191919',
@@ -121,19 +128,28 @@ const [currentRequest, setCurrentRequest] = useState(null);
                 {props.currentTopic && props.currentTopic.title}
               </h2>
               <Select
-                placeholder="Select a Request"
+                placeholder={requestPlaceholder}
                 // onChange={e => setCurrentRequest(e)}
                 dropdownRender={menu => (
                   <div>
-                    {currentTopic.surveysrequests.map(request => {
-                      return (
-                        //<Menu.Item key={request.surveyId}>
-                        <Button onClick={() => setCurrentRequest(request)}>
-                          Request {request.surveyId}
-                        </Button>
-                        //</Menu.Item>
-                      );
-                    })}
+                    {currentTopic.surveysrequests &&
+                      currentTopic.surveysrequests.map(request => {
+                        return (
+                          //<Menu.Item key={request.surveyId}>
+                          <Button
+                            key={request.surveyId}
+                            onClick={() => {
+                              setCurrentRequest(request);
+                              setRequestPlaceholder(
+                                `Request ${request.surveyId}`
+                              );
+                            }}
+                          >
+                            Request {request.surveyId}
+                          </Button>
+                          //</Menu.Item>
+                        );
+                      })}
                   </div>
                 )}
               ></Select>
@@ -141,10 +157,18 @@ const [currentRequest, setCurrentRequest] = useState(null);
               {currentRequest ? (
                 <RenderSurveyQuestions survey={currentRequest} />
               ) : (
-                <></>
+                <>
+                  <RespondButton />
+                </>
               )}
             </Content>
-            <Content>Team Member questions and answers go here.</Content>
+            <Content>
+              {currentRequest && (
+                <ResponseList
+                  questions={currentRequest.questions.filter(q => !q.leader)}
+                />
+              )}
+            </Content>
           </Layout>
         </Layout>
       </Layout>
