@@ -1,7 +1,6 @@
 import React from 'react';
 
 export function Response({ contents }) {
-  // debugger;
   return (
     <>
       <h2>{contents.body}</h2>

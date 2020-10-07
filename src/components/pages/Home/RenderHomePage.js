@@ -28,7 +28,6 @@ function RenderHomePage(props) {
     setCurrentSurvey(topic.surveysrequests[0]);
   }
 
-  // debugger;
   return (
     <>
       <Layout style={{ height: '100vh', backgroundColor: '#BC9D7E' }}>

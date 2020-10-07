@@ -7,7 +7,6 @@ function ResponseList({ questions }) {
     return <p>No Questions</p>;
   }
 
-  debugger;
   return (
     <>
       {questions.map((q, i) => {
