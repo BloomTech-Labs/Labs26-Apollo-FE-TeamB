@@ -81,8 +81,7 @@ const createAnswer = (newAnswer, fn) => {
   return axiosWithAuth()
     .post(`/surveys/response`, newAnswer)
     .then(response => {
-      getUserTopics(fn);
-      return 'success';
+      return fn;
     })
     .catch(err => {
       console.log(err);

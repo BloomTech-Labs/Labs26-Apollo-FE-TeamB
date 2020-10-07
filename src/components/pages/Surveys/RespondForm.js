@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Form, Input, Button } from 'antd';
 import { createAnswer } from '../../../api/index';
-import { getTopics } from '../../../state/actions/apolloActions';
+import { getCurrentTopic } from '../../../state/actions/apolloActions';
+import { getTopicById } from '../../../api/index';
 
 const RespondForm = props => {
   const { currentRequest, toggleResponseForm } = props;
@@ -50,7 +51,10 @@ const RespondForm = props => {
   };
 
   const responseSubmit = e => {
-    createAnswer(responses, props.getTopics)
+    createAnswer(
+      responses,
+      getTopicById(props.getCurrentTopic, props.currentTopic.topicId)
+    )
       .then(result => {
         toggleResponseForm();
       })
@@ -109,7 +113,8 @@ const RespondForm = props => {
 const mapStateToProps = state => {
   return {
     ...state,
+    currentTopic: state.currentTopic,
   };
 };
 
-export default connect(mapStateToProps, { getTopics })(RespondForm);
+export default connect(mapStateToProps, { getCurrentTopic })(RespondForm);
