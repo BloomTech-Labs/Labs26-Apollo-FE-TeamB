@@ -13,9 +13,10 @@ const { Option } = Select;
 
 function RenderHomePage(props) {
   const { authService, currentTopic } = props;
+  debugger;
 
   const [currentSurvey, setCurrentSurvey] = useState(
-    currentTopic ? currentTopic.surveysrequests[0] : null
+    currentTopic.surveysrequests ? currentTopic.surveysrequests[0] : null
   );
 
   function handleChanges(value) {
@@ -132,10 +133,11 @@ function RenderHomePage(props) {
               </h2>
               <Select
                 placeholder="Select a Request"
-                defaultValue={`Request ${currentSurvey.surveyId}`}
+                defaultValue={`Request ${currentSurvey &&
+                  currentSurvey.surveyId}`}
                 onChange={handleChanges}
               >
-                {currentTopic &&
+                {currentTopic.surveysrequests &&
                   currentTopic.surveysrequests.map((request, idx) => {
                     return (
                       <Option key={`Request-${idx}`}>
