@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { Layout, PageHeader, Button, Select, Menu, Dropdown } from 'antd';
 import { SendButton, RespondButton } from '../Surveys/index';
-import { Layout, PageHeader, Button, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { TopicCreation } from '../TopicCreation';
 import { JoinTopic } from '../JoinTopic';
+import RenderSurveyQuestions from '../SurveyQuestions/RenderSurveyQuestions';
 import { getTopicById } from '../../../api/index';
 import { getCurrentTopic } from '../../../state/actions/apolloActions';
 const { Content, Sider } = Layout;
 const { Option } = Select;
 
 function RenderHomePage(props) {
-  const { authService, currentTopic } = props;
+const { authService, currentTopic } = props;
+const [currentRequest, setCurrentRequest] = useState(null);
 
   return (
     <>
@@ -118,26 +120,29 @@ function RenderHomePage(props) {
               <h2 style={{ textAlign: 'left' }}>
                 {props.currentTopic && props.currentTopic.title}
               </h2>
-              <Select placeholder="Select a Request">
-                {props.currentTopic.surveysrequests &&
-                  props.currentTopic.surveysrequests.map(request => {
-                    return (
-                      <Option key={request.surveyId}>
-                        Request {request.surveyId}
-                      </Option>
-                    );
-                  })}
-              </Select>
-              {props.currentTopic.owner &&
-              props.currentTopic.owner.username === props.userInfo.email ? (
-                <SendButton />
-              ) : (
-                <RespondButton />
-              )}
+              <Select
+                placeholder="Select a Request"
+                // onChange={e => setCurrentRequest(e)}
+                dropdownRender={menu => (
+                  <div>
+                    {currentTopic.surveysrequests.map(request => {
+                      return (
+                        //<Menu.Item key={request.surveyId}>
+                        <Button onClick={() => setCurrentRequest(request)}>
+                          Request {request.surveyId}
+                        </Button>
+                        //</Menu.Item>
+                      );
+                    })}
+                  </div>
+                )}
+              ></Select>
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
-              <p style={{ textAlign: 'left' }}>
-                Context Questions and answers go here.
-              </p>
+              {currentRequest ? (
+                <RenderSurveyQuestions survey={currentRequest} />
+              ) : (
+                <></>
+              )}
             </Content>
             <Content>Team Member questions and answers go here.</Content>
           </Layout>
