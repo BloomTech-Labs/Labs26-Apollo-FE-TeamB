@@ -1,54 +1,36 @@
-import LocaleProvider from 'antd/lib/locale-provider'
-import React, {useState} from 'react'
+import React from 'react'
+import {Card} from 'antd'
 
 const QuestionCard = props => {
+    console.log(props.question)
     return (
-        <>
-           { props.body }
-        </>
+        <Card
+            size="small"
+            style={{
+                width: "20%"
+            }}
+        >
+            <p>{props.question.body}</p>
+            {/* <p>{props.question.answers[0]}</p> */}
+            {props.question.answers[0] ? <p>{props.question.answers[0].body}</p> : null} 
+        </Card>
     )
 }
-
 
 const RenderSurveyQuestions = props => {
-
-    const {surveysrequests} = props.topic
-
-    const getQuestions = surveysrequests => {
-        if (surveysrequests.surveyId == props.surveyId) {
-            return {
-                questions : surveysrequests.questions,
-                matchesSurvey : true
-            }
-        } 
-        return {
-            questions : [],
-            matchesSurvey : false
-        } 
-    }
-
-    const {questions, matchesSurvey} = getQuestions(surveysrequests)
-
-    console.log(questions)
-
-    const [leaderQuestions, setLeaderQuestions] = useState(
-        matchesSurvey ? leaderQuestions.filter((q, i) => {
-            return q.leader
-        }) : questions)
-            
-    console.log(leaderQuestions)
-    
+    const { questions } = props.survey
     return (
-        <>  
-            {leaderQuestions.map((q, i) => {
-                return (
-                    <QuestionCard question={q} key={i} />
-                )
-            } )}
+        <>
+            {questions.map((q, i) => {
+                if (q.leader) {
+                    return (
+                        <QuestionCard question={q} key={i} />
+                    )
+                }
+            })}
         </>
     )
 }
-
 
 export default RenderSurveyQuestions
 
