@@ -134,16 +134,21 @@ function RenderHomePage(props) {
                 {props.currentTopic && props.currentTopic.title}
               </h2>
               <Select
+                style={{ padding: '0' }}
                 placeholder={requestPlaceholder}
                 // onChange={e => setCurrentRequest(e)}
                 dropdownRender={menu => (
-                  <div>
+                  <div style={{ padding: '0' }}>
                     {currentTopic.surveysrequests &&
                       currentTopic.surveysrequests.map(request => {
                         return (
-                          //<Menu.Item key={request.surveyId}>
                           <Button
                             key={request.surveyId}
+                            style={{
+                              margin: '0',
+                              width: '100%',
+                              height: '100%',
+                            }}
                             onClick={() => {
                               setCurrentRequest(request);
                               setRequestPlaceholder(
@@ -153,7 +158,6 @@ function RenderHomePage(props) {
                           >
                             Request {request.surveyId}
                           </Button>
-                          //</Menu.Item>
                         );
                       })}
                   </div>
