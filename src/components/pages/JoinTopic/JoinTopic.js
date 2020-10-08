@@ -63,7 +63,7 @@ const JoinTopic = props => {
           borderRadius: '1rem',
         }}
       >
-        Join Topic
+        Join
       </Button>
       <Modal
         visible={isVisible}

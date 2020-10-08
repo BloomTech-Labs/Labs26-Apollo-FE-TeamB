@@ -9,6 +9,7 @@ import { RenderSurveyQuestions } from '../SurveyQuestions/RenderSurveyQuestions'
 import { ResponseList } from '../Responses';
 import { getTopicById } from '../../../api/index';
 import { getCurrentTopic } from '../../../state/actions/apolloActions';
+import { CaretDownOutlined } from '@ant-design/icons';
 
 const { Content, Sider } = Layout;
 const { Option } = Select;
@@ -51,16 +52,27 @@ function RenderHomePage(props) {
             overflow: 'scroll',
           }}
         >
-          <h2 style={{ color: '#BC9D7E', marginTop: '1rem' }}>Topics</h2>
           <div
             style={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'space-around',
+              position: 'sticky',
+              top: '0',
+              zIndex: '2',
+              backgroundColor: '#0C5274',
+              padding: '.5rem 0',
+              borderBottom: '1px solid #BC9D7E',
             }}
           >
-            <TopicCreation />
-            <JoinTopic />
+            <h2 style={{ color: '#BC9D7E', marginTop: '1rem' }}>Topics</h2>
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'space-around',
+              }}
+            >
+              <TopicCreation />
+              <JoinTopic />
+            </div>
           </div>
           <div
             style={{
@@ -88,6 +100,19 @@ function RenderHomePage(props) {
                   </Button>
                 );
               })}
+            <div
+              className="showMore"
+              style={{
+                width: '100%',
+                position: 'sticky',
+                bottom: '0',
+                backgroundColor: '#0C5274',
+                color: '#BC9D7E',
+                borderTop: '1px solid #BC9D7E',
+              }}
+            >
+              <CaretDownOutlined style={{ fontSize: '2rem' }} />
+            </div>
           </div>
         </Sider>
         <Layout style={{ backgroundColor: '#BC9D7E' }}>
