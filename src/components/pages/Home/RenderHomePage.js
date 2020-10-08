@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SendButton, RespondButton, RespondForm } from '../Surveys/index';
 import { Layout, PageHeader, Button, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
@@ -16,6 +16,7 @@ const { Option } = Select;
 function RenderHomePage(props) {
   const { authService, currentTopic } = props;
   const [currentRequest, setCurrentRequest] = useState({});
+  const [currentRequestIndex, setCurrentRequestIndex] = useState(0);
   const [requestPlaceholder, setRequestPlaceholder] = useState(
     'Select a Request'
   );
@@ -30,6 +31,14 @@ function RenderHomePage(props) {
   const toggleResponseForm = () => {
     setRespond(!respond);
   };
+
+  useEffect(() => {
+    if (props.currentTopic && props.currentTopic.surveysrequests) {
+      setCurrentRequest(
+        props.currentTopic.surveysrequests[currentRequestIndex]
+      );
+    }
+  }, [props]);
 
   return (
     <>
@@ -135,16 +144,15 @@ function RenderHomePage(props) {
               </h2>
               <Select
                 placeholder={requestPlaceholder}
-                // onChange={e => setCurrentRequest(e)}
                 dropdownRender={menu => (
                   <div>
                     {currentTopic.surveysrequests &&
-                      currentTopic.surveysrequests.map(request => {
+                      currentTopic.surveysrequests.map((request, index) => {
                         return (
-                          //<Menu.Item key={request.surveyId}>
                           <Button
                             key={request.surveyId}
                             onClick={() => {
+                              setCurrentRequestIndex(index);
                               setCurrentRequest(request);
                               setRequestPlaceholder(
                                 `Request ${request.surveyId}`
@@ -153,7 +161,6 @@ function RenderHomePage(props) {
                           >
                             Request {request.surveyId}
                           </Button>
-                          //</Menu.Item>
                         );
                       })}
                   </div>
