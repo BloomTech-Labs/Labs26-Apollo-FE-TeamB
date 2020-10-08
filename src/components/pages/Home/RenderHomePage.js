@@ -168,14 +168,20 @@ function RenderHomePage(props) {
                 {props.currentTopic && props.currentTopic.title}
               </h2>
               <Select
+                style={{ padding: '0' }}
                 placeholder={requestPlaceholder}
                 dropdownRender={menu => (
-                  <div>
+                  <div style={{ padding: '0' }}>
                     {currentTopic.surveysrequests &&
                       currentTopic.surveysrequests.map((request, index) => {
                         return (
                           <Button
                             key={request.surveyId}
+                            style={{
+                              margin: '0',
+                              width: '100%',
+                              height: '100%',
+                            }}
                             onClick={() => {
                               setCurrentRequestIndex(index);
                               setCurrentRequest(request);
