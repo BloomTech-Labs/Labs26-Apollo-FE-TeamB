@@ -33,7 +33,11 @@ function RenderHomePage(props) {
   };
 
   useEffect(() => {
-    setCurrentRequest(props.currentTopic.surveysrequests[currentRequestIndex]);
+    if (props.currentTopic && props.currentTopic.surveysrequests) {
+      setCurrentRequest(
+        props.currentTopic.surveysrequests[currentRequestIndex]
+      );
+    }
   }, [props]);
 
   return (
