@@ -167,6 +167,10 @@ function RenderHomePage(props) {
               <h2 style={{ textAlign: 'left' }}>
                 {props.currentTopic && props.currentTopic.title}
               </h2>
+              <p style={{ textAlign: 'left' }}>
+                Join Code: {props.currentTopic && props.currentTopic.joincode}
+              </p>
+
               <Select
                 style={{ padding: '0' }}
                 placeholder={requestPlaceholder}
