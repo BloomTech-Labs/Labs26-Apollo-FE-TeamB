@@ -2,7 +2,6 @@ import React from 'react';
 import { Card } from 'antd';
 
 const QuestionCard = props => {
-  console.log(props.question);
   return (
     <Card
       size="small"
