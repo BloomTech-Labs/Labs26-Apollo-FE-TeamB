@@ -12,9 +12,10 @@ function ResponseList({ questions, currentTopic }) {
       <div style={{ display: 'flex', alignItems: 'center' }}>
         Members:
         {currentTopic.users &&
-          currentTopic.users.map(member => {
+          currentTopic.users.map((member, index) => {
             return (
               <div
+                key={index}
                 style={{
                   border: '1px solid #191919',
                   borderRadius: '2rem',
