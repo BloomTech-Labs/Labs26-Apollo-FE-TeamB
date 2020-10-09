@@ -51,10 +51,7 @@ const RespondForm = props => {
   };
 
   const responseSubmit = e => {
-    createAnswer(
-      responses,
-      getTopicById(props.getCurrentTopic, props.currentTopic.topicId)
-    )
+    createAnswer(responses, props.getCurrentTopic, props.currentTopic.topicId)
       .then(result => {
         toggleResponseForm();
       })
