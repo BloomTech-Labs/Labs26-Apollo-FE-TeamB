@@ -34,7 +34,6 @@ function AnswerContexts({ questionsToSend, setQuestionsToSend }) {
     console.log(questionsToSend);
   };
 
-  console.log(questionsToSend);
   return (
     <Form form={form}>
       <h3>Answer Context Questions.</h3>
