@@ -4,11 +4,9 @@ function ReviewRequest({ questionsToSend, setProgress }) {
   const editSection = section => {
     console.log(section);
     if (section == 'context') {
-      setProgress(20);
+      setProgress(25);
     } else if (section == 'member') {
-      setProgress(40);
-    } else if (section == 'answers') {
-      setProgress(60);
+      setProgress(50);
     }
   };
   return (
@@ -17,7 +15,12 @@ function ReviewRequest({ questionsToSend, setProgress }) {
       <h4>Context</h4>
       {questionsToSend.map((question, index) => {
         if (question.leader) {
-          return <p key={index}>{question.body}</p>;
+          return (
+            <div key={index}>
+              <p>{question.body}</p>
+              <p>{question.answer}</p>
+            </div>
+          );
         }
       })}
       <Button
@@ -28,17 +31,6 @@ function ReviewRequest({ questionsToSend, setProgress }) {
         Edit
       </Button>
 
-      <h4>Answers</h4>
-      {questionsToSend.map((question, index) => {
-        return <p key={index}>{question.answer}</p>;
-      })}
-      <Button
-        onClick={() => {
-          editSection('answers');
-        }}
-      >
-        Edit
-      </Button>
       <h4>Member</h4>
       {questionsToSend.map((question, index) => {
         if (!question.leader) {

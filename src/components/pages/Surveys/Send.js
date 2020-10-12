@@ -59,17 +59,6 @@ function Send(props) {
     setQuestionsToSend(props.currentTopic.defaultsurvey.questions);
   };
 
-  // set local state for a list of the answers to context questions
-  const contextAnswers = [];
-
-  // function to remove a question
-  const deleteQuestion = questionToDelete => {
-    const questions = questionsToSend.filter(question => {
-      return question != questionToDelete;
-    });
-    return setQuestionsToSend(questions);
-  };
-
   const submitNewRequest = () => {
     postNewRequest(
       props.currentTopic.topicId,
@@ -125,14 +114,12 @@ function Send(props) {
           <AnswerContexts
             questionsToSend={questionsToSend}
             setQuestionsToSend={setQuestionsToSend}
-            contextAnswers={contextAnswers}
           />
         )}
         {progress == 50 && (
           <ChooseMembers
             questionsToSend={questionsToSend}
             setQuestionsToSend={setQuestionsToSend}
-            deleteQuestion={deleteQuestion}
           />
         )}
         {progress == 75 && (
