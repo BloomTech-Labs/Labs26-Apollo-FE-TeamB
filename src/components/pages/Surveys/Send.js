@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Button, Modal, Progress, Input, message } from 'antd';
-import ChooseContexts from './Wizard/ChooseContexts';
 import ChooseMembers from './Wizard/ChooseMembers';
 import AnswerContexts from './Wizard/AnswerContexts';
 import ReviewRequest from './Wizard/ReviewRequest';
@@ -14,64 +13,50 @@ import {
 const { TextArea } = Input;
 
 function Send(props) {
+  // local state to change button deisplay if sent a survey today
   const [sent, setSent] = useState(false);
-  // set localstate for progress
-  const [progress, setProgress] = useState(20);
-  // set state for modal visibility
-  const [isVisible, setIsVisible] = useState(false);
-  // set state for the current list of questions to send, initially set to the default questions for the topic
-  const [questionsToSend, setQuestionsToSend] = useState([]);
-
+  // change the send button to sent if the date of the last created survey is the same day as today
   useEffect(() => {
-    setQuestionsToSend(props.currentTopic.defaultsurvey.questions);
+    setSent(false);
+    const d = new Date();
+    const today = d.getDate();
+    props.currentTopic.surveysrequests.map(request => {
+      if (new Date(request.createdDate).getDate() == today) {
+        setSent(true);
+      }
+    });
   }, [props.currentTopic]);
 
-  // set local state for a list of the answers to context questions
-  const contextAnswers = [];
+  // set state for modal visibility
+  const [isVisible, setIsVisible] = useState(false);
   // function to close Modal
   const cancelModal = () => {
     setIsVisible(false);
   };
-  // function to remove a question
-  const deleteQuestion = questionToDelete => {
-    const questions = questionsToSend.filter(question => {
-      return question != questionToDelete;
-    });
-    return setQuestionsToSend(questions);
-  };
+
+  // set localstate for progress
+  const [progress, setProgress] = useState(25);
 
   // function to move to next step in wizard
   const next = () => {
-    const addProgress = progress + 20;
-    if (progress <= 40) {
+    const addProgress = progress + 25;
+    if (progress <= 50) {
       return setProgress(addProgress);
-    } else {
-      // check to see if all questions have been answered
-      let emptyfields = 0;
-      contextAnswers.map(object => {
-        if (JSON.stringify(object) === '{}') {
-          emptyfields += 1;
-        }
-      });
-      if (emptyfields > 0) {
-        emptyfields = 0;
-        message.warning('Please answer all Context Questions!');
-      } else {
-        const memberQuestions = questionsToSend.filter(question => {
-          return !question.leader;
-        });
-        const newQuestions = contextAnswers.concat(memberQuestions);
-        setQuestionsToSend(newQuestions);
-        setProgress(progress + 20);
-      }
     }
   };
 
   // func to go back one step in wizard
   const prev = () => {
-    const subtractprogress = progress - 20;
-
+    const subtractprogress = progress - 25;
     return setProgress(subtractprogress);
+  };
+
+  // set state for the current list of questions to send, initially set to the default questions for the topic
+  const [questionsToSend, setQuestionsToSend] = useState([]);
+
+  const showModal = () => {
+    setIsVisible(true);
+    setQuestionsToSend(props.currentTopic.defaultsurvey.questions);
   };
 
   const submitNewRequest = () => {
@@ -85,26 +70,10 @@ function Send(props) {
     setProgress(20);
   };
 
-  useEffect(() => {
-    setSent(false);
-    const d = new Date();
-    const today = d.getDate();
-    props.currentTopic.surveysrequests.map(request => {
-      if (new Date(request.createdDate).getDate() == today) {
-        setSent(true);
-      }
-    });
-  }, [props.currentTopic]);
-
   return (
     <>
       {!sent && (
-        <Button
-          onClick={() => {
-            setIsVisible(true);
-          }}
-          style={{ marginLeft: '1rem' }}
-        >
+        <Button onClick={() => showModal()} style={{ marginLeft: '1rem' }}>
           Send New Request
         </Button>
       )}
@@ -119,21 +88,21 @@ function Send(props) {
         onCancel={cancelModal}
         footer={[
           <>
-            {progress >= 40 && (
+            {progress >= 50 && (
               <Button key={1} onClick={prev}>
                 Previous
               </Button>
             )}
           </>,
           <>
-            {progress <= 60 && (
+            {progress <= 50 && (
               <Button key={2} onClick={next}>
                 Next
               </Button>
             )}
           </>,
           <>
-            {progress == 80 && (
+            {progress == 75 && (
               <Button key={3} onClick={submitNewRequest}>
                 Send Request
               </Button>
@@ -141,28 +110,19 @@ function Send(props) {
           </>,
         ]}
       >
-        {progress == 20 && (
-          <ChooseContexts
+        {progress == 25 && (
+          <AnswerContexts
             questionsToSend={questionsToSend}
             setQuestionsToSend={setQuestionsToSend}
-            deleteQuestion={deleteQuestion}
           />
         )}
-        {progress == 40 && (
+        {progress == 50 && (
           <ChooseMembers
             questionsToSend={questionsToSend}
             setQuestionsToSend={setQuestionsToSend}
-            deleteQuestion={deleteQuestion}
           />
         )}
-        {progress == 60 && (
-          <AnswerContexts
-            questionsToSend={questionsToSend}
-            contextAnswers={contextAnswers}
-          />
-        )}
-
-        {progress == 80 && (
+        {progress == 75 && (
           <ReviewRequest
             questionsToSend={questionsToSend}
             setProgress={setProgress}
