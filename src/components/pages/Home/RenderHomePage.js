@@ -24,6 +24,7 @@ function RenderHomePage(props) {
   const [respond, setRespond] = useState(false);
 
   function changeTopic(topic) {
+    setCurrentRequestIndex(0);
     getTopicById(props.getCurrentTopic, topic.topicId);
     setCurrentRequest(topic.surveysrequests[0]);
     setRequestPlaceholder(`Request ${topic.surveysrequests[0].surveyId}`);
