@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SendButton, RespondButton, RespondForm } from '../Surveys/index';
-import { Layout, PageHeader, Button, Select } from 'antd';
+import { Layout, PageHeader, Button, Select, Divider } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { TopicCreation } from '../TopicCreation';
@@ -162,6 +162,7 @@ function RenderHomePage(props) {
                 backgroundColor: '#BC9D7E',
                 textAlign: 'left',
                 marginLeft: '2rem',
+                width: '30%',
               }}
             >
               <h2 style={{ textAlign: 'left' }}>
@@ -220,7 +221,14 @@ function RenderHomePage(props) {
                 <></>
               )}
             </Content>
-            <Content>
+
+            <Content
+              style={{
+                borderLeft: '1px solid #191919',
+                paddingLeft: '1rem',
+                width: '70%',
+              }}
+            >
               {respond && (
                 <RespondForm
                   currentRequest={currentRequest}

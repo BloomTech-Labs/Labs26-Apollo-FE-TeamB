@@ -25,7 +25,7 @@ export const RenderContextQuestions = props => {
       {questions &&
         questions.map((q, i) => {
           if (q.leader) {
-            return <QuestionCard question={q} key={i} />;
+            return <p key={i}>{q.body}</p>;
           }
         })}
     </>
