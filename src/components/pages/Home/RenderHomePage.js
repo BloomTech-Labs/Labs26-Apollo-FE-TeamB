@@ -5,7 +5,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { TopicCreation } from '../TopicCreation';
 import { JoinTopic } from '../JoinTopic';
-import { RenderSurveyQuestions } from '../SurveyQuestions/RenderSurveyQuestions';
+import { RenderContextQuestions } from '../ContextQuestions/RenderContextQuestions';
 import { ResponseList } from '../Responses';
 import { getTopicById } from '../../../api/index';
 import { getCurrentTopic } from '../../../state/actions/apolloActions';
@@ -215,7 +215,7 @@ function RenderHomePage(props) {
                 )}
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
               {currentRequest ? (
-                <RenderSurveyQuestions survey={currentRequest} />
+                <RenderContextQuestions survey={currentRequest} />
               ) : (
                 <></>
               )}
