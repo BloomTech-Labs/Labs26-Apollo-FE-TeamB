@@ -52,10 +52,8 @@ const RespondForm = props => {
   };
 
   const responseSubmit = e => {
-    createAnswer(responses)
-      .then(result => {
-        getTopicById(props.getCurrentTopic, props.currentTopic.topicId);
-      })
+    createAnswer(responses, props.getCurrentTopic, props.currentTopic.topicId)
+      .then(result => {})
       .catch(err => {
         console.log(err);
       });
