@@ -10,6 +10,7 @@ import { ResponseList } from '../Responses';
 import { getTopicById } from '../../../api/index';
 import { getCurrentTopic } from '../../../state/actions/apolloActions';
 import { CaretDownOutlined } from '@ant-design/icons';
+import { TopicNav } from '../TopicNav';
 
 const { Content, Sider } = Layout;
 const { Option } = Select;
@@ -22,12 +23,6 @@ function RenderHomePage(props) {
     'Select a Request'
   );
   const [respond, setRespond] = useState(false);
-
-  function changeTopic(topic) {
-    getTopicById(props.getCurrentTopic, topic.topicId);
-    setCurrentRequest(topic.surveysrequests[0]);
-    setRequestPlaceholder(`Request ${topic.surveysrequests[0].surveyId}`);
-  }
 
   const toggleResponseForm = () => {
     setRespond(!respond);
@@ -44,77 +39,7 @@ function RenderHomePage(props) {
   return (
     <>
       <Layout style={{ height: '100vh', backgroundColor: '#BC9D7E' }}>
-        <Sider
-          style={{
-            backgroundColor: '#0C5274',
-            borderTopRightRadius: '2rem',
-            borderBottomRightRadius: '2rem',
-            overflow: 'scroll',
-          }}
-        >
-          <div
-            style={{
-              position: 'sticky',
-              top: '0',
-              zIndex: '2',
-              backgroundColor: '#0C5274',
-              padding: '.5rem 0',
-              borderBottom: '1px solid #BC9D7E',
-            }}
-          >
-            <h2 style={{ color: '#BC9D7E', marginTop: '1rem' }}>Topics</h2>
-            <div
-              style={{
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'space-around',
-              }}
-            >
-              <TopicCreation />
-              <JoinTopic />
-            </div>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              flexFlow: 'column',
-              alignItems: 'center',
-            }}
-          >
-            {props.topics &&
-              props.topics.map(topic => {
-                return (
-                  <Button
-                    key={topic.topicId}
-                    onClick={() => changeTopic(topic)}
-                    style={{
-                      backgroundColor: '#BC9D7E',
-                      border: '1px solid #191919',
-                      borderRadius: '1rem',
-                      fontWeight: 'bold',
-                      color: '#191919',
-                      margin: '1rem',
-                    }}
-                  >
-                    {topic.title}
-                  </Button>
-                );
-              })}
-            <div
-              className="showMore"
-              style={{
-                width: '100%',
-                position: 'sticky',
-                bottom: '0',
-                backgroundColor: '#0C5274',
-                color: '#BC9D7E',
-                borderTop: '1px solid #BC9D7E',
-              }}
-            >
-              <CaretDownOutlined style={{ fontSize: '2rem' }} />
-            </div>
-          </div>
-        </Sider>
+        <TopicNav />
         <Layout style={{ backgroundColor: '#BC9D7E' }}>
           <PageHeader
             className="header"

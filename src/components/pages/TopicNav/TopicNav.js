@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Sider from 'antd/lib/layout/Sider';
+import { Layout } from 'antd';
 import {
   ApartmentOutlined,
   NodeIndexOutlined,
@@ -10,9 +10,12 @@ import {
   AccountBookOutlined,
   AudioOutlined,
   CarOutlined,
-  PlusCircleOutlined,
 } from '@ant-design/icons';
 import { JoinTopic } from '../JoinTopic';
+import { getCurrentTopic } from '../../../state/actions/apolloActions';
+import { getTopicById } from '../../../api/index';
+
+const { Sider } = Layout;
 
 function TopicNav(props) {
   const topicLinkStyle = {
@@ -45,7 +48,10 @@ function TopicNav(props) {
         return (
           <span
             style={{ display: 'block', width: '100%', margin: '2rem 0' }}
-            onClick={() => console.log(topic)}
+            onClick={() => {
+              console.log(topic.topicId);
+              getTopicById(props.getCurrentTopic, topic.topicId);
+            }}
           >
             {icons[index]}
           </span>
@@ -63,4 +69,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {})(TopicNav);
+export default connect(mapStateToProps, { getCurrentTopic })(TopicNav);
