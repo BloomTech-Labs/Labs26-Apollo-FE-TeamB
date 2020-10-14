@@ -22,7 +22,7 @@ import { getTopicById, getRequestById } from '../../../api/index';
 
 const { Content } = Layout;
 const { Option } = Select;
-// fixing merge
+
 function RenderHomePage(props) {
   const { authService, currentTopic } = props;
 
