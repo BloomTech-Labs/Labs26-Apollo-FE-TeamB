@@ -43,14 +43,17 @@ export const apolloReducer = (state = initialState, action) => {
             mostrecenttopic = topic;
           }
         });
-
+        console.log(mostrecenttopic);
         if (mostrecenttopic.surveysrequests.length > 0) {
           let mostrecentrequestdate =
             mostrecenttopic.surveysrequests[0].createdDate;
           let mostrecentrequest = mostrecenttopic.surveysrequests[0];
           mostrecenttopic.surveysrequests.map(request => {
+            console.log(request.createdDate);
             if (request.createdDate > mostrecentrequestdate) {
+              console.log('this is happening');
               mostrecentrequestdate = request.createdDate;
+              console.log(mostrecentrequestdate);
               mostrecentrequest = request;
             }
           });
@@ -79,11 +82,29 @@ export const apolloReducer = (state = initialState, action) => {
         ...state,
         contexts: action.payload,
       };
+
     case SET_CURRENT_TOPIC:
-      return {
-        ...state,
-        currentTopic: action.payload,
-      };
+      if (action.payload.surveysrequests.length > 0) {
+        let recentrequestdate = action.payload.surveysrequests[0].createdDate;
+        let recentrequest = action.payload.surveysrequests[0];
+        action.payload.surveysrequests.map(request => {
+          console.log(request.createdDate);
+          if (request.createdDate > recentrequestdate) {
+            recentrequestdate = request.createdDate;
+            recentrequest = request;
+          }
+        });
+        return {
+          ...state,
+          currentTopic: action.payload,
+          currentRequest: recentrequest,
+        };
+      } else {
+        return {
+          ...state,
+          currentTopic: action.payload,
+        };
+      }
 
     case ADD_NEW_SURVEY:
       return {
