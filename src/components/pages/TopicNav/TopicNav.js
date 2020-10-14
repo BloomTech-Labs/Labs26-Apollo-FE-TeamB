@@ -75,6 +75,7 @@ function TopicNav(props) {
       {props.topics.map((topic, index) => {
         return (
           <span
+            key={index}
             style={{
               display: 'block',
               width: '100%',
