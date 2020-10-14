@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SendButton, RespondForm } from '../Surveys/index';
-import { Layout, PageHeader, Button, Select } from 'antd';
+import { Layout, PageHeader, Button, Select, Divider, Modal } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { RenderContextQuestions } from '../ContextQuestions/RenderContextQuestions';
@@ -24,7 +24,7 @@ function RenderHomePage(props) {
 
   return (
     <>
-      <Layout style={{ height: '100vh' }}>
+      <Layout>
         <TopicNav />
         <Layout>
           <PageHeader
@@ -45,6 +45,7 @@ function RenderHomePage(props) {
                   padding: '.5rem',
                 }}
               />,
+              <Modal></Modal>,
               <Button
                 key="3"
                 onClick={() => authService.logout()}
@@ -69,7 +70,7 @@ function RenderHomePage(props) {
               style={{
                 textAlign: 'left',
                 marginLeft: '2rem',
-                width: '30%',
+                width: '40%',
               }}
             >
               <h2 style={{ textAlign: 'left' }}>
@@ -119,7 +120,15 @@ function RenderHomePage(props) {
                 <></>
               )}
             </Content>
-            <Content>
+            <Divider
+              type="vertical"
+              style={{
+                height: '100%',
+                width: '4px',
+                backgroundColor: '#191919',
+              }}
+            />
+            <Content style={{ width: '60%' }}>
               {props.currentTopic.owner &&
                 props.currentTopic.owner.username !== props.userInfo.email &&
                 !props.currentRequest.responded && (
