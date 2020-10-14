@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { SendButton, RespondButton, RespondForm } from '../Surveys/index';
-import { Layout, PageHeader, Button, Select, Divider } from 'antd';
+import { SendButton, RespondForm } from '../Surveys/index';
+import { Layout, PageHeader, Button, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { RenderContextQuestions } from '../ContextQuestions/RenderContextQuestions';
 import { ResponseList } from '../Responses';
 import { getCurrentTopic } from '../../../state/actions/apolloActions';
 import { TopicNav } from '../TopicNav';
+import { getTopicById } from '../../../api/index';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -18,11 +19,13 @@ function RenderHomePage(props) {
   const [requestPlaceholder, setRequestPlaceholder] = useState(
     'Select a Request'
   );
-  const [respond, setRespond] = useState(false);
 
-  const toggleResponseForm = () => {
-    setRespond(!respond);
-  };
+  function changeTopic(topic) {
+    setCurrentRequestIndex(0);
+    getTopicById(props.getCurrentTopic, topic.topicId);
+    setCurrentRequest(topic.surveysrequests[0]);
+    setRequestPlaceholder(`Request ${topic.surveysrequests[0].surveyId}`);
+  }
 
   useEffect(() => {
     if (props.currentTopic && props.currentTopic.surveysrequests) {
@@ -30,7 +33,7 @@ function RenderHomePage(props) {
         props.currentTopic.surveysrequests[currentRequestIndex]
       );
     }
-  }, [props]);
+  }, [props.currentTopic]);
 
   return (
     <>
@@ -123,14 +126,6 @@ function RenderHomePage(props) {
                 props.currentTopic.owner.username === props.userInfo.email && (
                   <SendButton />
                 )}
-              {props.currentTopic.owner &&
-                props.currentTopic.owner.username !== props.userInfo.email &&
-                !currentRequest.responded && (
-                  <RespondButton
-                    currentRequest={currentRequest}
-                    toggleResponseForm={toggleResponseForm}
-                  />
-                )}
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
               {currentRequest ? (
                 <RenderContextQuestions survey={currentRequest} />
@@ -138,25 +133,19 @@ function RenderHomePage(props) {
                 <></>
               )}
             </Content>
-
-            <Content
-              style={{
-                borderLeft: '1px solid #191919',
-                paddingLeft: '1rem',
-                width: '70%',
-              }}
-            >
-              {respond && (
-                <RespondForm
-                  currentRequest={currentRequest}
-                  toggleResponseForm={toggleResponseForm}
-                />
-              )}
-              {currentRequest && currentRequest.questions && (
-                <ResponseList
-                  questions={currentRequest.questions.filter(q => !q.leader)}
-                />
-              )}
+            <Content>
+              {props.currentTopic.owner &&
+                props.currentTopic.owner.username !== props.userInfo.email &&
+                !currentRequest.responded && (
+                  <RespondForm currentRequest={currentRequest} />
+                )}
+              {currentRequest &&
+                currentRequest.questions &&
+                currentRequest.responded && (
+                  <ResponseList
+                    questions={currentRequest.questions.filter(q => !q.leader)}
+                  />
+                )}
             </Content>
           </Layout>
         </Layout>
