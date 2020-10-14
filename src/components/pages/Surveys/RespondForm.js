@@ -6,7 +6,8 @@ import { getCurrentTopic } from '../../../state/actions/apolloActions';
 import { getTopicById } from '../../../api/index';
 
 const RespondForm = props => {
-  const { currentRequest, toggleResponseForm } = props;
+  const { TextArea } = Input;
+  const { currentRequest } = props;
   const [responses, setResponses] = useState([]);
   const [questions, setQuestions] = useState([]);
 
@@ -52,9 +53,7 @@ const RespondForm = props => {
 
   const responseSubmit = e => {
     createAnswer(responses, props.getCurrentTopic, props.currentTopic.topicId)
-      .then(result => {
-        toggleResponseForm();
-      })
+      .then(result => {})
       .catch(err => {
         console.log(err);
       });
@@ -67,11 +66,10 @@ const RespondForm = props => {
       layout="vertical"
       labelAlign="left"
       style={{
-        height: '85%',
-        maxHeight: '60vh',
-        overflow: 'auto',
-        overflowX: 'hidden',
-        borderBottom: '1px solid grey',
+        width: '30vw',
+        maxHeight: '70vh',
+        overflow: 'scroll',
+        marginRight: '10%',
       }}
     >
       {/* map through questions and make a form item for each one */}
@@ -82,14 +80,15 @@ const RespondForm = props => {
               <div
                 style={{
                   display: 'flex',
+                  flexDirection: 'column',
                   justifyContent: 'space-between',
-                  paddingBottom: '2%',
                 }}
               >
-                <h4 style={{ textAlign: 'left' }}>{`Question ${index + 1}`}</h4>
-                <p>{question.body}</p>
+                <h3 style={{ textAlign: 'left' }}>
+                  {index + 1}. {question.body}
+                </h3>
               </div>
-              <Input
+              <TextArea
                 htmlFor={index}
                 key={index}
                 name={index}
@@ -97,6 +96,7 @@ const RespondForm = props => {
                 onChange={responseChange}
                 size="large"
                 style={{ textAlign: 'left' }}
+                rows={5}
               />
             </Form.Item>
           ))}
