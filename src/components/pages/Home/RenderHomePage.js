@@ -38,15 +38,14 @@ function RenderHomePage(props) {
 
   return (
     <>
-      <Layout style={{ height: '100vh', backgroundColor: '#BC9D7E' }}>
+      <Layout style={{ height: '100vh' }}>
         <TopicNav />
-        <Layout style={{ backgroundColor: '#BC9D7E' }}>
+        <Layout>
           <PageHeader
             className="header"
             title={<h1>Apollo</h1>}
             subTitle={`Hello, ${props.userInfo.name}`}
             style={{
-              backgroundColor: '#BC9D7E',
               padding: '2rem',
             }}
             extra={[
@@ -64,10 +63,9 @@ function RenderHomePage(props) {
                 key="3"
                 onClick={() => authService.logout()}
                 style={{
-                  backgroundColor: '#191919',
-                  border: '1px solid #BC9D7E',
+                  border: '1px solid #191919',
+                  color: '#191919',
                   fontWeight: 'bold',
-                  color: '#BC9D7E',
                   borderRadius: '1rem',
                 }}
               >
@@ -79,12 +77,10 @@ function RenderHomePage(props) {
             style={{
               display: 'flex',
               flexFlow: 'row',
-              backgroundColor: '#BC9D7E',
             }}
           >
             <Content
               style={{
-                backgroundColor: '#BC9D7E',
                 textAlign: 'left',
                 marginLeft: '2rem',
                 width: '30%',
