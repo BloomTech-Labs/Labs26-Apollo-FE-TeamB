@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
 import {
@@ -49,11 +49,12 @@ function TopicNav(props) {
 
   const [icons, setIcons] = useState(outlinedicons);
 
-  const highlightLink = id => {
+  // sets the icon to be filled icon if it is the current Topic
+  useEffect(() => {
     const newIcons = [];
 
     props.topics.map((topic, idx) => {
-      if (id === topic.topicId) {
+      if (topic.topicId === props.currentTopic.topicId) {
         newIcons.push(filledicons[idx]);
       } else {
         newIcons.push(outlinedicons[idx]);
@@ -61,7 +62,8 @@ function TopicNav(props) {
     });
 
     setIcons(newIcons);
-  };
+  }, [props.currentTopic]);
+
   return (
     <Sider
       style={{
@@ -81,7 +83,6 @@ function TopicNav(props) {
             }}
             onClick={() => {
               getTopicById(props.getCurrentTopic, topic.topicId);
-              highlightLink(topic.topicId);
             }}
           >
             {icons[index]}
@@ -97,6 +98,7 @@ const mapStateToProps = state => {
   return {
     ...state,
     topics: state.topics,
+    currentTopic: state.currentTopic,
   };
 };
 
