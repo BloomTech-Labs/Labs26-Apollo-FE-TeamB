@@ -210,11 +210,10 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts }) => {
         type="primary"
         onClick={showModal}
         style={{
-          backgroundColor: '#BC9D7E',
+          backgroundColor: 'indigo',
           border: '1px solid #191919',
           fontWeight: 'bold',
-          color: '#191919',
-          borderRadius: '1rem',
+          color: 'white',
         }}
       >
         Create
