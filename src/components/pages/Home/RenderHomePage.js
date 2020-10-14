@@ -24,7 +24,7 @@ function RenderHomePage(props) {
 
   return (
     <>
-      <Layout>
+      <Layout style={{ height: '100vh' }}>
         <TopicNav />
         <Layout>
           <PageHeader
@@ -70,7 +70,8 @@ function RenderHomePage(props) {
               style={{
                 textAlign: 'left',
                 marginLeft: '2rem',
-                width: '40%',
+                width: '30%',
+                overflow: 'scroll',
               }}
             >
               <h2 style={{ textAlign: 'left' }}>
@@ -120,19 +121,13 @@ function RenderHomePage(props) {
                 <></>
               )}
             </Content>
-            <Divider
-              type="vertical"
-              style={{
-                height: '100%',
-                width: '4px',
-                backgroundColor: '#191919',
-              }}
-            />
+
             <Content
               style={{
-                width: '60%',
+                width: '70%',
                 display: 'flex',
                 justifyContent: 'center',
+                overflow: 'scroll',
               }}
             >
               {props.currentTopic.owner &&

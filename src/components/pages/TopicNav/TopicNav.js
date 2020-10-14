@@ -70,7 +70,6 @@ function TopicNav(props) {
         backgroundColor: 'indigo',
         borderTopRightRadius: '4rem',
         borderBottomRightRadius: '4rem',
-        height: '100vh',
       }}
     >
       {props.topics.map((topic, index) => {
