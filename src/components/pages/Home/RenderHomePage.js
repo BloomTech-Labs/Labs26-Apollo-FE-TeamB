@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { SendButton, RespondForm } from '../Surveys/index';
-import { Layout, PageHeader, Button, Select, Divider, Modal } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import {
+  Layout,
+  PageHeader,
+  Button,
+  Select,
+  Divider,
+  Modal,
+  message,
+} from 'antd';
+import { UserOutlined, CopyOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { RenderContextQuestions } from '../ContextQuestions/RenderContextQuestions';
 import { ResponseList } from '../Responses';
@@ -18,9 +26,10 @@ const { Option } = Select;
 function RenderHomePage(props) {
   const { authService, currentTopic } = props;
 
-  function changeTopic(topic) {
-    getTopicById(props.getCurrentTopic, topic.topicId);
-  }
+  const copyJoinCode = joincode => {
+    navigator.clipboard.writeText(joincode);
+    message.info('Copied!');
+  };
 
   return (
     <>
@@ -74,12 +83,38 @@ function RenderHomePage(props) {
                 overflow: 'scroll',
               }}
             >
-              <h2 style={{ textAlign: 'left' }}>
-                {props.currentTopic && props.currentTopic.title}
-              </h2>
-              <p style={{ textAlign: 'left' }}>
-                Join Code: {props.currentTopic && props.currentTopic.joincode}
-              </p>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-around',
+                  marginBottom: '2rem',
+                }}
+              >
+                <h2
+                  style={{
+                    textAlign: 'left',
+                    fontSize: '2rem',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {props.currentTopic && props.currentTopic.title}
+                </h2>
+                <Button
+                  style={{
+                    backgroundColor: 'indigo',
+                    color: 'white',
+                    fontWeight: 'bold',
+                  }}
+                  onClick={() => {
+                    copyJoinCode(props.currentTopic.joincode);
+                  }}
+                >
+                  <CopyOutlined />
+                  {props.currentTopic && props.currentTopic.joincode}
+                </Button>
+              </div>
 
               <Select
                 style={{ padding: '0' }}
@@ -121,7 +156,6 @@ function RenderHomePage(props) {
                 <></>
               )}
             </Content>
-
             <Content
               style={{
                 width: '70%',
