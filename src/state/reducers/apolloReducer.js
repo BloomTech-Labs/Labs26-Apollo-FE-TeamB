@@ -51,9 +51,7 @@ export const apolloReducer = (state = initialState, action) => {
           mostrecenttopic.surveysrequests.map(request => {
             console.log(request.createdDate);
             if (request.createdDate > mostrecentrequestdate) {
-              console.log('this is happening');
               mostrecentrequestdate = request.createdDate;
-              console.log(mostrecentrequestdate);
               mostrecentrequest = request;
             }
           });
@@ -88,7 +86,6 @@ export const apolloReducer = (state = initialState, action) => {
         let recentrequestdate = action.payload.surveysrequests[0].createdDate;
         let recentrequest = action.payload.surveysrequests[0];
         action.payload.surveysrequests.map(request => {
-          console.log(request.createdDate);
           if (request.createdDate > recentrequestdate) {
             recentrequestdate = request.createdDate;
             recentrequest = request;
