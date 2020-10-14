@@ -14,26 +14,10 @@ const { Option } = Select;
 // fixing merge
 function RenderHomePage(props) {
   const { authService, currentTopic } = props;
-  const [currentRequest, setCurrentRequest] = useState({});
-  const [currentRequestIndex, setCurrentRequestIndex] = useState(0);
-  const [requestPlaceholder, setRequestPlaceholder] = useState(
-    'Select a Request'
-  );
 
   function changeTopic(topic) {
-    setCurrentRequestIndex(0);
     getTopicById(props.getCurrentTopic, topic.topicId);
-    setCurrentRequest(topic.surveysrequests[0]);
-    setRequestPlaceholder(`Request ${topic.surveysrequests[0].surveyId}`);
   }
-
-  useEffect(() => {
-    if (props.currentTopic && props.currentTopic.surveysrequests) {
-      setCurrentRequest(
-        props.currentTopic.surveysrequests[currentRequestIndex]
-      );
-    }
-  }, [props.currentTopic]);
 
   return (
     <>
@@ -108,9 +92,7 @@ function RenderHomePage(props) {
                               height: '100%',
                             }}
                             onClick={() => {
-                              setCurrentRequestIndex(index);
-                              setCurrentRequest(request);
-                              setRequestPlaceholder(`${request.createdDate}`);
+                              console.log(props.currentRequest);
                             }}
                           >
                             {request.createdDate}
@@ -125,8 +107,8 @@ function RenderHomePage(props) {
                   <SendButton />
                 )}
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
-              {currentRequest ? (
-                <RenderContextQuestions survey={currentRequest} />
+              {props.currentRequest ? (
+                <RenderContextQuestions survey={props.currentRequest} />
               ) : (
                 <></>
               )}
@@ -134,14 +116,16 @@ function RenderHomePage(props) {
             <Content>
               {props.currentTopic.owner &&
                 props.currentTopic.owner.username !== props.userInfo.email &&
-                !currentRequest.responded && (
-                  <RespondForm currentRequest={currentRequest} />
+                !props.currentRequest.responded && (
+                  <RespondForm currentRequest={props.currentRequest} />
                 )}
-              {currentRequest &&
-                currentRequest.questions &&
-                currentRequest.responded && (
+              {props.currentRequest &&
+                props.currentRequest.questions &&
+                props.currentRequest.responded && (
                   <ResponseList
-                    questions={currentRequest.questions.filter(q => !q.leader)}
+                    questions={props.currentRequest.questions.filter(
+                      q => !q.leader
+                    )}
                   />
                 )}
             </Content>
