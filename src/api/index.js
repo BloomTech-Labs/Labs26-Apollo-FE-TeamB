@@ -112,6 +112,17 @@ const postNewRequest = (topicId, questionslist, dispatchFunc) => {
     });
 };
 
+// get the request by Id
+const getRequestById = () => {
+  return axiosWithAuth()
+    .get(response => {
+      console.log(response);
+    })
+    .then(error => {
+      console.log(error);
+    });
+};
+
 const getAuthHeader = authState => {
   if (!authState.isAuthenticated) {
     throw new Error('Not authenticated');
