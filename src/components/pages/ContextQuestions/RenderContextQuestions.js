@@ -2,6 +2,7 @@ import React from 'react';
 import { Card } from 'antd';
 
 const QuestionCard = props => {
+  console.log(props.question);
   return (
     <Card
       size="small"
@@ -25,7 +26,7 @@ export const RenderContextQuestions = props => {
       {questions &&
         questions.map((q, i) => {
           if (q.leader) {
-            return <p key={i}>{q.body}</p>;
+            return <QuestionCard question={q} />;
           }
         })}
     </>
