@@ -3,16 +3,12 @@ import { SendButton, RespondButton, RespondForm } from '../Surveys/index';
 import { Layout, PageHeader, Button, Select, Divider } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
-import { TopicCreation } from '../TopicCreation';
-import { JoinTopic } from '../JoinTopic';
 import { RenderContextQuestions } from '../ContextQuestions/RenderContextQuestions';
 import { ResponseList } from '../Responses';
-import { getTopicById } from '../../../api/index';
 import { getCurrentTopic } from '../../../state/actions/apolloActions';
-import { CaretDownOutlined } from '@ant-design/icons';
 import { TopicNav } from '../TopicNav';
 
-const { Content, Sider } = Layout;
+const { Content } = Layout;
 const { Option } = Select;
 
 function RenderHomePage(props) {
