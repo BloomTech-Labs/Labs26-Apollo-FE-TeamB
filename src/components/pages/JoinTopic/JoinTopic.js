@@ -5,6 +5,8 @@ import { JoinCodeForm } from './components';
 import { userJoinTopic, getUserTopics } from '../../../api/index';
 import { getTopics } from '../../../state/actions/apolloActions';
 import 'antd/dist/antd.css';
+import { PlusCircleOutlined } from '@ant-design/icons';
+import { TopicCreation } from '../TopicCreation';
 
 const JoinTopic = props => {
   const [isVisible, setIsVisible] = useState(false);
@@ -52,19 +54,12 @@ const JoinTopic = props => {
 
   return (
     <>
-      <Button
-        type="primary"
+      <PlusCircleOutlined
         onClick={showModal}
-        style={{
-          backgroundColor: '#BC9D7E',
-          border: '1px solid #191919',
-          fontWeight: 'bold',
-          color: '#191919',
-          borderRadius: '1rem',
-        }}
+        style={{ fontSize: '4rem', color: 'white' }}
       >
         Join
-      </Button>
+      </PlusCircleOutlined>
       <Modal
         visible={isVisible}
         onCancel={handleCancel}
@@ -105,6 +100,7 @@ const JoinTopic = props => {
         }
       >
         <JoinCodeForm inputValue={code} stateHandler={handleCodeState} />
+        <TopicCreation />
       </Modal>
     </>
   );

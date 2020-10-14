@@ -12,6 +12,7 @@ import {
   CarOutlined,
   PlusCircleOutlined,
 } from '@ant-design/icons';
+import { JoinTopic } from '../JoinTopic';
 
 function TopicNav(props) {
   const topicLinkStyle = {
@@ -50,10 +51,7 @@ function TopicNav(props) {
           </span>
         );
       })}
-      <PlusCircleOutlined
-        onClick={() => console.log('This is happening!')}
-        style={{ fontSize: '4rem', color: 'white' }}
-      />
+      <JoinTopic />
     </Sider>
   );
 }
