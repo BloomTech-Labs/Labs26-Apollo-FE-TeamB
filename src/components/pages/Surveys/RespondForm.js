@@ -66,10 +66,11 @@ const RespondForm = props => {
       layout="vertical"
       labelAlign="left"
       style={{
-        width: '30vw',
-        maxHeight: '70vh',
-        overflow: 'scroll',
-        marginRight: '10%',
+        width: '80%',
+        marginBottom: '2rem',
+        // maxHeight: '70vh',
+        // overflow: 'scroll',
+        // marginRight: '10%',
       }}
     >
       {/* map through questions and make a form item for each one */}
@@ -100,7 +101,18 @@ const RespondForm = props => {
               />
             </Form.Item>
           ))}
-          {checkResponses() && <Button onClick={responseSubmit}>Submit</Button>}
+          {checkResponses() && (
+            <Button
+              style={{
+                backgroundColor: 'indigo',
+                color: 'white',
+                fontWeight: 'bold',
+              }}
+              onClick={responseSubmit}
+            >
+              Submit
+            </Button>
+          )}
         </>
       )}
     </Form>

@@ -128,7 +128,13 @@ function RenderHomePage(props) {
                 backgroundColor: '#191919',
               }}
             />
-            <Content style={{ width: '60%' }}>
+            <Content
+              style={{
+                width: '60%',
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
               {props.currentTopic.owner &&
                 props.currentTopic.owner.username !== props.userInfo.email &&
                 !props.currentRequest.responded && (
