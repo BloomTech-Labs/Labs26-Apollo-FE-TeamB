@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Form, Input, Button } from 'antd';
 import { createAnswer } from '../../../api/index';
 import { getCurrentTopic } from '../../../state/actions/apolloActions';
-import { getTopicById } from '../../../api/index';
 
 const RespondForm = props => {
   const { TextArea } = Input;
@@ -21,7 +20,7 @@ const RespondForm = props => {
       // construct responses to correct format for API
       for (let i = 0; i < allQuestions.length; i++) {
         if (allQuestions[i].leader === false) {
-          responses.push({ body: '', questionid: allQuestions[i].questionId });
+          responses.push({ body: '', questionid: allQuestions[i].questionid });
         }
       }
       for (let i = 0; i < allQuestions.length; i++) {
