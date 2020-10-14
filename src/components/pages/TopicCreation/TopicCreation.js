@@ -205,6 +205,10 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
     handleCurrentValidation();
   }, [currentTopic, newContextType]);
 
+  useEffect(() => {
+    handleCurrentValidation();
+  }, [currentStep]);
+
   return (
     <>
       <Button
