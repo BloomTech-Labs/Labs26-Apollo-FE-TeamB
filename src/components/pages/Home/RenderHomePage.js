@@ -89,7 +89,7 @@ function RenderHomePage(props) {
                       currentTopic.surveysrequests.map((request, index) => {
                         return (
                           <Button
-                            key={request.surveyId}
+                            key={request.surveyid}
                             style={{
                               margin: '0',
                               width: '100%',
@@ -97,7 +97,7 @@ function RenderHomePage(props) {
                             }}
                             onClick={() => {
                               getRequestById(
-                                request.surveyId,
+                                request.surveyid,
                                 props.getCurrentRequest
                               );
                             }}
