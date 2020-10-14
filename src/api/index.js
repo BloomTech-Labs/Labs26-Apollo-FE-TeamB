@@ -113,11 +113,11 @@ const postNewRequest = (topicId, questionslist, dispatchFunc) => {
 };
 
 // get the request by Id
-const getRequestById = requestId => {
+const getRequestById = (requestId, dispatchFunc) => {
   return axiosWithAuth()
     .get(`/surveys/survey/${requestId}`)
     .then(response => {
-      console.log(response);
+      dispatchFunc(response.data);
     })
     .catch(error => {
       console.log(error);
@@ -167,6 +167,7 @@ export {
   getContexts,
   createAnswer,
   getTopicById,
+  getRequestById,
   postNewRequest,
   getProfileData,
   getDSData,

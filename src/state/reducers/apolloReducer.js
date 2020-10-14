@@ -8,6 +8,7 @@ import {
   GET_ALL_CONTEXTS,
   SET_CURRENT_TOPIC,
   ADD_NEW_SURVEY,
+  SET_CURRENT_REQUEST,
 } from '../actions/apolloActions';
 
 const initialState = {
@@ -113,6 +114,11 @@ export const apolloReducer = (state = initialState, action) => {
             action.payload,
           ],
         },
+      };
+    case SET_CURRENT_REQUEST:
+      return {
+        ...state,
+        currentRequest: action.payload,
       };
     default:
       return state;

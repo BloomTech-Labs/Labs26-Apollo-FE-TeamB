@@ -5,9 +5,12 @@ import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { RenderContextQuestions } from '../ContextQuestions/RenderContextQuestions';
 import { ResponseList } from '../Responses';
-import { getCurrentTopic } from '../../../state/actions/apolloActions';
+import {
+  getCurrentTopic,
+  getCurrentRequest,
+} from '../../../state/actions/apolloActions';
 import { TopicNav } from '../TopicNav';
-import { getTopicById } from '../../../api/index';
+import { getTopicById, getRequestById } from '../../../api/index';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -92,7 +95,10 @@ function RenderHomePage(props) {
                               height: '100%',
                             }}
                             onClick={() => {
-                              console.log(props.currentRequest);
+                              getRequestById(
+                                request.surveyId,
+                                props.getCurrentRequest
+                              );
                             }}
                           >
                             {request.createdDate}
@@ -145,4 +151,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getCurrentTopic })(RenderHomePage);
+export default connect(mapStateToProps, { getCurrentTopic, getCurrentRequest })(
+  RenderHomePage
+);
