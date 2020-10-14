@@ -107,12 +107,10 @@ function RenderHomePage(props) {
                             onClick={() => {
                               setCurrentRequestIndex(index);
                               setCurrentRequest(request);
-                              setRequestPlaceholder(
-                                `Request ${request.surveyId}`
-                              );
+                              setRequestPlaceholder(`${request.createdDate}`);
                             }}
                           >
-                            Request {request.surveyId}
+                            {request.createdDate}
                           </Button>
                         );
                       })}
@@ -143,7 +141,7 @@ function RenderHomePage(props) {
               style={{
                 borderLeft: '1px solid #191919',
                 paddingLeft: '1rem',
-                width: '70%',
+                width: '50%',
               }}
             >
               {respond && (

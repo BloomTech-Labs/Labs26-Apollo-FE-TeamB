@@ -75,6 +75,7 @@ const RespondForm = props => {
         overflow: 'auto',
         overflowX: 'hidden',
         borderBottom: '1px solid grey',
+        width: '90%',
       }}
     >
       {/* map through questions and make a form item for each one */}
