@@ -8,6 +8,7 @@ import {
   GET_ALL_CONTEXTS,
   SET_CURRENT_TOPIC,
   ADD_NEW_SURVEY,
+  SET_CURRENT_REQUEST,
 } from '../actions/apolloActions';
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   topics: [],
   contexts: [],
   currentTopic: {},
+  currentRequest: {},
 };
 
 export const apolloReducer = (state = initialState, action) => {
@@ -42,12 +44,31 @@ export const apolloReducer = (state = initialState, action) => {
             mostrecenttopic = topic;
           }
         });
-
-        return {
-          ...state,
-          topics: action.payload,
-          currentTopic: mostrecenttopic,
-        };
+        console.log(mostrecenttopic);
+        if (mostrecenttopic.surveysrequests.length > 0) {
+          let mostrecentrequestdate =
+            mostrecenttopic.surveysrequests[0].createdDate;
+          let mostrecentrequest = mostrecenttopic.surveysrequests[0];
+          mostrecenttopic.surveysrequests.map(request => {
+            console.log(request.createdDate);
+            if (request.createdDate > mostrecentrequestdate) {
+              mostrecentrequestdate = request.createdDate;
+              mostrecentrequest = request;
+            }
+          });
+          return {
+            ...state,
+            topics: action.payload,
+            currentTopic: mostrecenttopic,
+            currentRequest: mostrecentrequest,
+          };
+        } else {
+          return {
+            ...state,
+            topics: action.payload,
+            currentTopic: mostrecenttopic,
+          };
+        }
       } else {
         return {
           ...state,
@@ -60,11 +81,28 @@ export const apolloReducer = (state = initialState, action) => {
         ...state,
         contexts: action.payload,
       };
+
     case SET_CURRENT_TOPIC:
-      return {
-        ...state,
-        currentTopic: action.payload,
-      };
+      if (action.payload.surveysrequests.length > 0) {
+        let recentrequestdate = action.payload.surveysrequests[0].createdDate;
+        let recentrequest = action.payload.surveysrequests[0];
+        action.payload.surveysrequests.map(request => {
+          if (request.createdDate > recentrequestdate) {
+            recentrequestdate = request.createdDate;
+            recentrequest = request;
+          }
+        });
+        return {
+          ...state,
+          currentTopic: action.payload,
+          currentRequest: recentrequest,
+        };
+      } else {
+        return {
+          ...state,
+          currentTopic: action.payload,
+        };
+      }
 
     case ADD_NEW_SURVEY:
       return {
@@ -76,6 +114,11 @@ export const apolloReducer = (state = initialState, action) => {
             action.payload,
           ],
         },
+      };
+    case SET_CURRENT_REQUEST:
+      return {
+        ...state,
+        currentRequest: action.payload,
       };
     default:
       return state;

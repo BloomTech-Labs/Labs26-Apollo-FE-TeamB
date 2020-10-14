@@ -8,14 +8,14 @@ function ResponseList({ questions, currentTopic }) {
   }
 
   return (
-    <>
+    <section width="100%">
       <div style={{ display: 'flex', alignItems: 'center' }}>
         Members:
         {currentTopic.users &&
           currentTopic.users.map((member, index) => {
             return (
               <div
-                key={index}
+                key={member.userid}
                 style={{
                   border: '1px solid #191919',
                   borderRadius: '2rem',
@@ -29,9 +29,9 @@ function ResponseList({ questions, currentTopic }) {
           })}
       </div>
       {questions.map((q, i) => {
-        return <Response key={`${q.questionId}`} contents={q} />;
+        return <Response key={i} contents={q} />;
       })}
-    </>
+    </section>
   );
 }
 

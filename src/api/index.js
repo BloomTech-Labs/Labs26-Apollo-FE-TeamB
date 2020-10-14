@@ -112,6 +112,18 @@ const postNewRequest = (topicId, questionslist, dispatchFunc) => {
     });
 };
 
+// get the request by Id
+const getRequestById = (requestId, dispatchFunc) => {
+  return axiosWithAuth()
+    .get(`/surveys/survey/${requestId}`)
+    .then(response => {
+      dispatchFunc(response.data);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
+
 const getAuthHeader = authState => {
   if (!authState.isAuthenticated) {
     throw new Error('Not authenticated');
@@ -155,6 +167,7 @@ export {
   getContexts,
   createAnswer,
   getTopicById,
+  getRequestById,
   postNewRequest,
   getProfileData,
   getDSData,

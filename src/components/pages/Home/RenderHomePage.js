@@ -1,39 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { SendButton, RespondForm } from '../Surveys/index';
-import { Layout, PageHeader, Button, Select } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import {
+  Layout,
+  PageHeader,
+  Button,
+  Select,
+  Divider,
+  Modal,
+  message,
+} from 'antd';
+import { UserOutlined, CopyOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { RenderContextQuestions } from '../ContextQuestions/RenderContextQuestions';
 import { ResponseList } from '../Responses';
-import { getCurrentTopic } from '../../../state/actions/apolloActions';
+import {
+  getCurrentTopic,
+  getCurrentRequest,
+} from '../../../state/actions/apolloActions';
 import { TopicNav } from '../TopicNav';
-import { getTopicById } from '../../../api/index';
+import { getTopicById, getRequestById } from '../../../api/index';
 
 const { Content } = Layout;
 const { Option } = Select;
-// fixing merge
+
 function RenderHomePage(props) {
   const { authService, currentTopic } = props;
-  const [currentRequest, setCurrentRequest] = useState({});
-  const [currentRequestIndex, setCurrentRequestIndex] = useState(0);
-  const [requestPlaceholder, setRequestPlaceholder] = useState(
-    'Select a Request'
-  );
 
-  function changeTopic(topic) {
-    setCurrentRequestIndex(0);
-    getTopicById(props.getCurrentTopic, topic.topicId);
-    setCurrentRequest(topic.surveysrequests[0]);
-    setRequestPlaceholder(`Request ${topic.surveysrequests[0].surveyId}`);
-  }
-
-  useEffect(() => {
-    if (props.currentTopic && props.currentTopic.surveysrequests) {
-      setCurrentRequest(
-        props.currentTopic.surveysrequests[currentRequestIndex]
-      );
-    }
-  }, [props.currentTopic]);
+  const copyJoinCode = joincode => {
+    navigator.clipboard.writeText(joincode);
+    message.info('Copied!');
+  };
 
   return (
     <>
@@ -58,6 +54,7 @@ function RenderHomePage(props) {
                   padding: '.5rem',
                 }}
               />,
+              <Modal></Modal>,
               <Button
                 key="3"
                 onClick={() => authService.logout()}
@@ -83,39 +80,65 @@ function RenderHomePage(props) {
                 textAlign: 'left',
                 marginLeft: '2rem',
                 width: '30%',
+                overflow: 'scroll',
               }}
             >
-              <h2 style={{ textAlign: 'left' }}>
-                {props.currentTopic && props.currentTopic.title}
-              </h2>
-              <p style={{ textAlign: 'left' }}>
-                Join Code: {props.currentTopic && props.currentTopic.joincode}
-              </p>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-around',
+                  marginBottom: '2rem',
+                }}
+              >
+                <h2
+                  style={{
+                    textAlign: 'left',
+                    fontSize: '2rem',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {props.currentTopic && props.currentTopic.title}
+                </h2>
+                <Button
+                  style={{
+                    backgroundColor: 'indigo',
+                    color: 'white',
+                    fontWeight: 'bold',
+                  }}
+                  onClick={() => {
+                    copyJoinCode(props.currentTopic.joincode);
+                  }}
+                >
+                  <CopyOutlined />
+                  {props.currentTopic && props.currentTopic.joincode}
+                </Button>
+              </div>
 
               <Select
                 style={{ padding: '0' }}
-                placeholder={requestPlaceholder}
+                placeholder={props.currentRequest.createdDate}
                 dropdownRender={menu => (
                   <div style={{ padding: '0' }}>
                     {currentTopic.surveysrequests &&
                       currentTopic.surveysrequests.map((request, index) => {
                         return (
                           <Button
-                            key={request.surveyId}
+                            key={request.surveyid}
                             style={{
                               margin: '0',
                               width: '100%',
                               height: '100%',
                             }}
                             onClick={() => {
-                              setCurrentRequestIndex(index);
-                              setCurrentRequest(request);
-                              setRequestPlaceholder(
-                                `Request ${request.surveyId}`
+                              getRequestById(
+                                request.surveyid,
+                                props.getCurrentRequest
                               );
                             }}
                           >
-                            Request {request.surveyId}
+                            {request.createdDate}
                           </Button>
                         );
                       })}
@@ -127,23 +150,32 @@ function RenderHomePage(props) {
                   <SendButton />
                 )}
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
-              {currentRequest ? (
-                <RenderContextQuestions survey={currentRequest} />
+              {props.currentRequest ? (
+                <RenderContextQuestions survey={props.currentRequest} />
               ) : (
                 <></>
               )}
             </Content>
-            <Content>
+            <Content
+              style={{
+                width: '70%',
+                display: 'flex',
+                justifyContent: 'center',
+                overflow: 'scroll',
+              }}
+            >
               {props.currentTopic.owner &&
                 props.currentTopic.owner.username !== props.userInfo.email &&
-                !currentRequest.responded && (
-                  <RespondForm currentRequest={currentRequest} />
+                !props.currentRequest.responded && (
+                  <RespondForm currentRequest={props.currentRequest} />
                 )}
-              {currentRequest &&
-                currentRequest.questions &&
-                currentRequest.responded && (
+              {props.currentRequest &&
+                props.currentRequest.questions &&
+                props.currentRequest.responded && (
                   <ResponseList
-                    questions={currentRequest.questions.filter(q => !q.leader)}
+                    questions={props.currentRequest.questions.filter(
+                      q => !q.leader
+                    )}
                   />
                 )}
             </Content>
@@ -159,7 +191,10 @@ const mapStateToProps = state => {
     userInfo: state.userInfo,
     topics: state.topics,
     currentTopic: state.currentTopic,
+    currentRequest: state.currentRequest,
   };
 };
 
-export default connect(mapStateToProps, { getCurrentTopic })(RenderHomePage);
+export default connect(mapStateToProps, { getCurrentTopic, getCurrentRequest })(
+  RenderHomePage
+);

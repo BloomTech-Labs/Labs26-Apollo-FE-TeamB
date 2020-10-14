@@ -9,8 +9,9 @@ export const GET_TOPICS = 'GET_TOPICS';
 export const GET_ALL_CONTEXTS = 'GET_ALL_CONTEXTS';
 export const SET_CURRENT_TOPIC = 'SET_CURRENT_TOPIC';
 export const ADD_NEW_SURVEY = 'ADD_NEW_SURVEY';
+export const SET_CURRENT_REQUEST = 'SET_CURRENT_REQUEST';
 
-// this function sets the username in gloabal state - used in Render Home page
+// this function sets the username in global state - used in Render Home page
 export const getUserInfo = userinfo => {
   return dispatch => {
     dispatch({ type: GET_USER_INFO, payload: userinfo });
@@ -47,5 +48,12 @@ export const getCurrentTopic = topic => {
 export const addNewSurvey = survey => {
   return dispatch => {
     dispatch({ type: ADD_NEW_SURVEY, payload: survey });
+  };
+};
+
+// action to change current request to a new request
+export const getCurrentRequest = request => {
+  return dispatch => {
+    dispatch({ type: SET_CURRENT_REQUEST, payload: request });
   };
 };
