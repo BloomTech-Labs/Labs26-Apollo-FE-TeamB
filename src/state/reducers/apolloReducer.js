@@ -16,6 +16,7 @@ const initialState = {
   topics: [],
   contexts: [],
   currentTopic: {},
+  currentRequest: {},
 };
 
 export const apolloReducer = (state = initialState, action) => {
@@ -43,11 +44,29 @@ export const apolloReducer = (state = initialState, action) => {
           }
         });
 
-        return {
-          ...state,
-          topics: action.payload,
-          currentTopic: mostrecenttopic,
-        };
+        if (mostrecenttopic.surveysrequests.length > 0) {
+          let mostrecentrequestdate =
+            mostrecenttopic.surveysrequests[0].createdDate;
+          let mostrecentrequest = mostrecenttopic.surveysrequests[0];
+          mostrecenttopic.surveysrequests.map(request => {
+            if (request.createdDate > mostrecentrequestdate) {
+              mostrecentrequestdate = request.createdDate;
+              mostrecentrequest = request;
+            }
+          });
+          return {
+            ...state,
+            topics: action.payload,
+            currentTopic: mostrecenttopic,
+            currentRequest: mostrecentrequest,
+          };
+        } else {
+          return {
+            ...state,
+            topics: action.payload,
+            currentTopic: mostrecenttopic,
+          };
+        }
       } else {
         return {
           ...state,
