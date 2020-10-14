@@ -3,17 +3,15 @@ import { SendButton, RespondForm } from '../Surveys/index';
 import { Layout, PageHeader, Button, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
-import { TopicCreation } from '../TopicCreation';
-import { JoinTopic } from '../JoinTopic';
-import { RenderSurveyQuestions } from '../SurveyQuestions/RenderSurveyQuestions';
+import { RenderContextQuestions } from '../ContextQuestions/RenderContextQuestions';
 import { ResponseList } from '../Responses';
-import { getTopicById } from '../../../api/index';
 import { getCurrentTopic } from '../../../state/actions/apolloActions';
-import { CaretDownOutlined } from '@ant-design/icons';
+import { TopicNav } from '../TopicNav';
+import { getTopicById } from '../../../api/index';
 
-const { Content, Sider } = Layout;
+const { Content } = Layout;
 const { Option } = Select;
-
+// fixing merge
 function RenderHomePage(props) {
   const { authService, currentTopic } = props;
   const [currentRequest, setCurrentRequest] = useState({});
@@ -39,85 +37,14 @@ function RenderHomePage(props) {
 
   return (
     <>
-      <Layout style={{ height: '100vh', backgroundColor: '#BC9D7E' }}>
-        <Sider
-          style={{
-            backgroundColor: '#0C5274',
-            borderTopRightRadius: '2rem',
-            borderBottomRightRadius: '2rem',
-            overflow: 'scroll',
-          }}
-        >
-          <div
-            style={{
-              position: 'sticky',
-              top: '0',
-              zIndex: '2',
-              backgroundColor: '#0C5274',
-              padding: '.5rem 0',
-              borderBottom: '1px solid #BC9D7E',
-            }}
-          >
-            <h2 style={{ color: '#BC9D7E', marginTop: '1rem' }}>Topics</h2>
-            <div
-              style={{
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'space-around',
-              }}
-            >
-              <TopicCreation />
-              <JoinTopic />
-            </div>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              flexFlow: 'column',
-              alignItems: 'center',
-            }}
-          >
-            {props.topics &&
-              props.topics.map(topic => {
-                return (
-                  <Button
-                    key={topic.topicId}
-                    onClick={() => changeTopic(topic)}
-                    style={{
-                      backgroundColor: '#BC9D7E',
-                      border: '1px solid #191919',
-                      borderRadius: '1rem',
-                      fontWeight: 'bold',
-                      color: '#191919',
-                      margin: '1rem',
-                    }}
-                  >
-                    {topic.title}
-                  </Button>
-                );
-              })}
-            <div
-              className="showMore"
-              style={{
-                width: '100%',
-                position: 'sticky',
-                bottom: '0',
-                backgroundColor: '#0C5274',
-                color: '#BC9D7E',
-                borderTop: '1px solid #BC9D7E',
-              }}
-            >
-              <CaretDownOutlined style={{ fontSize: '2rem' }} />
-            </div>
-          </div>
-        </Sider>
-        <Layout style={{ backgroundColor: '#BC9D7E' }}>
+      <Layout style={{ height: '100vh' }}>
+        <TopicNav />
+        <Layout>
           <PageHeader
             className="header"
             title={<h1>Apollo</h1>}
             subTitle={`Hello, ${props.userInfo.name}`}
             style={{
-              backgroundColor: '#BC9D7E',
               padding: '2rem',
             }}
             extra={[
@@ -135,10 +62,9 @@ function RenderHomePage(props) {
                 key="3"
                 onClick={() => authService.logout()}
                 style={{
-                  backgroundColor: '#191919',
-                  border: '1px solid #BC9D7E',
+                  border: '1px solid #191919',
+                  color: '#191919',
                   fontWeight: 'bold',
-                  color: '#BC9D7E',
                   borderRadius: '1rem',
                 }}
               >
@@ -150,14 +76,13 @@ function RenderHomePage(props) {
             style={{
               display: 'flex',
               flexFlow: 'row',
-              backgroundColor: '#BC9D7E',
             }}
           >
             <Content
               style={{
-                backgroundColor: '#BC9D7E',
                 textAlign: 'left',
                 marginLeft: '2rem',
+                width: '30%',
               }}
             >
               <h2 style={{ textAlign: 'left' }}>
@@ -203,7 +128,7 @@ function RenderHomePage(props) {
                 )}
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
               {currentRequest ? (
-                <RenderSurveyQuestions survey={currentRequest} />
+                <RenderContextQuestions survey={currentRequest} />
               ) : (
                 <></>
               )}

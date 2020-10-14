@@ -60,7 +60,7 @@ const memberQuestionList = [
 //how many steps the wizard has
 const totalSteps = 6;
 
-const TopicCreation = ({ getTopics, contexts, getAllContexts }) => {
+const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [currentTopic, setCurrentTopic] = useState(defaultTopic);
@@ -122,6 +122,7 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts }) => {
   //handles opening the modal
   const showModal = () => {
     setIsVisible(true);
+    cancelJoin();
   };
 
   //handles submitting the modal
@@ -214,11 +215,10 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts }) => {
         type="primary"
         onClick={showModal}
         style={{
-          backgroundColor: '#BC9D7E',
+          backgroundColor: 'indigo',
           border: '1px solid #191919',
           fontWeight: 'bold',
-          color: '#191919',
-          borderRadius: '1rem',
+          color: 'white',
         }}
       >
         Create

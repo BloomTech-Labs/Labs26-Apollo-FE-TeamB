@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Button, message } from 'antd';
+import { Modal, Button, message, Divider } from 'antd';
 import { JoinCodeForm } from './components';
 import { userJoinTopic, getUserTopics } from '../../../api/index';
 import { getTopics } from '../../../state/actions/apolloActions';
 import 'antd/dist/antd.css';
+import { PlusCircleOutlined } from '@ant-design/icons';
+import { TopicCreation } from '../TopicCreation';
 
 const JoinTopic = props => {
   const [isVisible, setIsVisible] = useState(false);
@@ -52,59 +54,36 @@ const JoinTopic = props => {
 
   return (
     <>
-      <Button
-        type="primary"
+      <PlusCircleOutlined
         onClick={showModal}
-        style={{
-          backgroundColor: '#BC9D7E',
-          border: '1px solid #191919',
-          fontWeight: 'bold',
-          color: '#191919',
-          borderRadius: '1rem',
-        }}
+        style={{ fontSize: '4rem', color: 'white' }}
       >
         Join
-      </Button>
+      </PlusCircleOutlined>
       <Modal
         visible={isVisible}
         onCancel={handleCancel}
         width={320}
-        title={
-          <h2
-            style={{
-              textAlign: 'left',
-              paddingTop: '5%',
-            }}
-          >
-            Join Topic
-          </h2>
-        }
-        footer={
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Button
-              key="closeJoinModal"
-              onClick={handleCancel}
-              style={{ width: '40%' }}
-            >
-              Cancel
-            </Button>
-            <Button
-              key="submitCode"
-              onClick={handleSubmit}
-              type="primary"
-              style={{ width: '40%' }}
-            >
-              Submit
-            </Button>
-          </div>
-        }
+        title="Join or Create"
+        footer=""
       >
         <JoinCodeForm inputValue={code} stateHandler={handleCodeState} />
+        <Button
+          style={{
+            backgroundColor: 'indigo',
+            border: '1px solid #191919',
+            fontWeight: 'bold',
+            color: 'white',
+            marginTop: '1rem',
+          }}
+          onClick={handleSubmit}
+        >
+          Join
+        </Button>
+        <Divider />
+        <p>OR</p>
+        <Divider />
+        <TopicCreation cancelJoin={handleCancel} />
       </Modal>
     </>
   );

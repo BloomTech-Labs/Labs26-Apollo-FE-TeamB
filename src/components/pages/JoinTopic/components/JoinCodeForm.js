@@ -12,7 +12,7 @@ const JoinCodeForm = ({ inputValue, stateHandler }) => {
         maxLength={9}
         style={{
           fontSize: '2.5rem',
-          textAlign: 'left',
+          textAlign: 'center',
         }}
         placeholder="Join Code"
         value={inputValue ? inputValue : null}
