@@ -113,12 +113,13 @@ const postNewRequest = (topicId, questionslist, dispatchFunc) => {
 };
 
 // get the request by Id
-const getRequestById = () => {
+const getRequestById = requestId => {
   return axiosWithAuth()
-    .get(response => {
+    .get(`/surveys/survey/${requestId}`)
+    .then(response => {
       console.log(response);
     })
-    .then(error => {
+    .catch(error => {
       console.log(error);
     });
 };
