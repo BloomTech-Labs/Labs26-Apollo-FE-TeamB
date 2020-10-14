@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button, message, Divider } from 'antd';
 import { JoinCodeForm } from './components';
-import { userJoinTopic, getUserTopics } from '../../../api/index';
+import { userJoinTopic } from '../../../api/index';
 import { getTopics } from '../../../state/actions/apolloActions';
 import 'antd/dist/antd.css';
 import { PlusCircleOutlined } from '@ant-design/icons';
