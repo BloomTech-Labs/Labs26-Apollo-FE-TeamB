@@ -8,7 +8,7 @@ function ResponseList({ questions, currentTopic }) {
   }
 
   return (
-    <>
+    <section width="100%">
       <div style={{ display: 'flex', alignItems: 'center' }}>
         Members:
         {currentTopic.users &&
@@ -31,7 +31,7 @@ function ResponseList({ questions, currentTopic }) {
       {questions.map((q, i) => {
         return <Response key={i} contents={q} />;
       })}
-    </>
+    </section>
   );
 }
 
