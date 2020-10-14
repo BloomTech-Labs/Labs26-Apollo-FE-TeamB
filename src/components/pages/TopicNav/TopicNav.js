@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
 import {
-  ApartmentOutlined,
-  NodeIndexOutlined,
   MobileOutlined,
-  FundProjectionScreenOutlined,
+  MobileFilled,
   BugOutlined,
+  BugFilled,
   AccountBookOutlined,
+  AccountBookFilled,
+  AudioFilled,
   AudioOutlined,
   CarOutlined,
+  CarFilled,
+  BellOutlined,
+  BellFilled,
 } from '@ant-design/icons';
 import { JoinTopic } from '../JoinTopic';
 import { getCurrentTopic } from '../../../state/actions/apolloActions';
@@ -25,17 +29,39 @@ function TopicNav(props) {
     padding: '1rem',
     fontSize: '2rem',
   };
-  const icons = [
-    <ApartmentOutlined style={topicLinkStyle} />,
-    <NodeIndexOutlined style={topicLinkStyle} />,
+  const outlinedicons = [
     <MobileOutlined style={topicLinkStyle} />,
-    <FundProjectionScreenOutlined style={topicLinkStyle} />,
     <BugOutlined style={topicLinkStyle} />,
     <AccountBookOutlined style={topicLinkStyle} />,
     <AudioOutlined style={topicLinkStyle} />,
+    <BugOutlined style={topicLinkStyle} />,
     <CarOutlined style={topicLinkStyle} />,
   ];
 
+  const filledicons = [
+    <MobileFilled style={topicLinkStyle} />,
+    <BugFilled style={topicLinkStyle} />,
+    <AccountBookFilled style={topicLinkStyle} />,
+    <AudioFilled style={topicLinkStyle} />,
+    <BugFilled style={topicLinkStyle} />,
+    <CarFilled style={topicLinkStyle} />,
+  ];
+
+  const [icons, setIcons] = useState(outlinedicons);
+
+  const highlightLink = id => {
+    const newIcons = [];
+
+    props.topics.map((topic, idx) => {
+      if (id === topic.topicId) {
+        newIcons.push(filledicons[idx]);
+      } else {
+        newIcons.push(outlinedicons[idx]);
+      }
+    });
+
+    setIcons(newIcons);
+  };
   return (
     <Sider
       style={{
@@ -47,10 +73,15 @@ function TopicNav(props) {
       {props.topics.map((topic, index) => {
         return (
           <span
-            style={{ display: 'block', width: '100%', margin: '2rem 0' }}
+            style={{
+              display: 'block',
+              width: '100%',
+              margin: '2rem 0',
+              backgroundColor: 'light indigo',
+            }}
             onClick={() => {
-              console.log(topic.topicId);
               getTopicById(props.getCurrentTopic, topic.topicId);
+              highlightLink(topic.topicId);
             }}
           >
             {icons[index]}
