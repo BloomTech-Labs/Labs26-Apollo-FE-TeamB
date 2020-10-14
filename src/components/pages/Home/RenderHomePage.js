@@ -11,7 +11,7 @@ import { getTopicById } from '../../../api/index';
 
 const { Content } = Layout;
 const { Option } = Select;
-// fixing merge
+
 function RenderHomePage(props) {
   const { authService, currentTopic } = props;
   const [currentRequest, setCurrentRequest] = useState({});
@@ -38,7 +38,7 @@ function RenderHomePage(props) {
   return (
     <>
       <Layout style={{ height: '100vh' }}>
-        <TopicNav />
+        <TopicNav changeTopic={changeTopic} />
         <Layout>
           <PageHeader
             className="header"
@@ -136,6 +136,7 @@ function RenderHomePage(props) {
             <Content>
               {props.currentTopic.owner &&
                 props.currentTopic.owner.username !== props.userInfo.email &&
+                currentRequest &&
                 !currentRequest.responded && (
                   <RespondForm currentRequest={currentRequest} />
                 )}

@@ -82,7 +82,8 @@ function TopicNav(props) {
               backgroundColor: 'light indigo',
             }}
             onClick={() => {
-              getTopicById(props.getCurrentTopic, topic.topicId);
+              // getTopicById(props.getCurrentTopic, topic.topicId);
+              props.changeTopic(topic);
             }}
           >
             {icons[index]}
