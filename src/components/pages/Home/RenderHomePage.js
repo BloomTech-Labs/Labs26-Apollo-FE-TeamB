@@ -10,7 +10,7 @@ import { TopicNav } from '../TopicNav';
 
 const { Content } = Layout;
 const { Option } = Select;
-
+// fixing merge
 function RenderHomePage(props) {
   const { authService, currentTopic } = props;
   const [currentRequest, setCurrentRequest] = useState({});
@@ -18,11 +18,11 @@ function RenderHomePage(props) {
   const [requestPlaceholder, setRequestPlaceholder] = useState(
     'Select a Request'
   );
+  const [respond, setRespond] = useState(false);
 
   const toggleResponseForm = () => {
     setRespond(!respond);
   };
-
 
   useEffect(() => {
     if (props.currentTopic && props.currentTopic.surveysrequests) {
@@ -30,7 +30,7 @@ function RenderHomePage(props) {
         props.currentTopic.surveysrequests[currentRequestIndex]
       );
     }
-  }, [props.currentTopic]);
+  }, [props]);
 
   return (
     <>
@@ -123,6 +123,14 @@ function RenderHomePage(props) {
                 props.currentTopic.owner.username === props.userInfo.email && (
                   <SendButton />
                 )}
+              {props.currentTopic.owner &&
+                props.currentTopic.owner.username !== props.userInfo.email &&
+                !currentRequest.responded && (
+                  <RespondButton
+                    currentRequest={currentRequest}
+                    toggleResponseForm={toggleResponseForm}
+                  />
+                )}
               <h3 style={{ textAlign: 'left' }}>CONTEXT</h3>
               {currentRequest ? (
                 <RenderContextQuestions survey={currentRequest} />
@@ -130,11 +138,12 @@ function RenderHomePage(props) {
                 <></>
               )}
             </Content>
+
             <Content
               style={{
                 borderLeft: '1px solid #191919',
                 paddingLeft: '1rem',
-                width: '50%',
+                width: '70%',
               }}
             >
               {respond && (
