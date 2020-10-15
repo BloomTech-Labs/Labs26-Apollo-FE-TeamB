@@ -1,6 +1,8 @@
 import React from 'react';
+import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { Response } from './Response';
+import { message } from 'antd';
 
 function ResponseList({ questions, currentTopic, currentRequest }) {
   if (questions == null) {
@@ -25,6 +27,7 @@ function ResponseList({ questions, currentTopic, currentRequest }) {
   return (
     <section style={{ width: '100%', marginRight: '2rem' }}>
       <div
+        className="member_list"
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -34,16 +37,19 @@ function ResponseList({ questions, currentTopic, currentRequest }) {
         {currentTopic.users &&
           currentTopic.users.map((member, index) => {
             return (
-              <div
-                key={member.userid}
-                style={{
-                  border: '1px solid #191919',
-                  borderRadius: '2rem',
-                  width: '5%',
-                  margin: '0 3px',
-                }}
-              >
-                {member.user.userid}
+              <div>
+                <UserOutlined
+                  style={{
+                    border: '1px solid #191919',
+                    borderRadius: '50%',
+                    width: '2rem',
+                    height: '2rem',
+                    fontSize: '1.5rem',
+                  }}
+                  onMouseEnter={() => {
+                    message.info(member.user.username, 0.5);
+                  }}
+                />
               </div>
             );
           })}
