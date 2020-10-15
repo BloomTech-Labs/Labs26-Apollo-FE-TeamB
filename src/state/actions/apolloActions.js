@@ -60,8 +60,8 @@ export const getCurrentRequest = request => {
 };
 
 // action to set the current member answers - can choose a single member or get all answers
-export const setMemberAnswers = questions => {
+export const setMemberAnswers = memberid => {
   return dispatch => {
-    dispatch({ type: SET_MEMBER_ANSWERS, payload: questions });
+    dispatch({ type: SET_MEMBER_ANSWERS, payload: memberid });
   };
 };
