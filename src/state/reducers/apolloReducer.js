@@ -10,6 +10,7 @@ import {
   SET_CURRENT_TOPIC,
   ADD_NEW_SURVEY,
   SET_CURRENT_REQUEST,
+  SET_MEMBER_ANSWERS,
 } from '../actions/apolloActions';
 
 const initialState = {
@@ -130,6 +131,11 @@ export const apolloReducer = (state = initialState, action) => {
         currentMemberAnswers: action.payload.questions.filter(q => {
           return !q.leader;
         }),
+      };
+    case SET_MEMBER_ANSWERS:
+      return {
+        ...state,
+        currentMemberAnswers: action.payload,
       };
     default:
       return state;
