@@ -35,6 +35,13 @@ function ResponseList({
       setMemberAnswers
     );
   };
+
+  const getAllAnswers = () => {
+    const memberquestions = currentRequest.questions.filter(q => {
+      return !q.leader;
+    });
+    return setMemberAnswers(memberquestions);
+  };
   return (
     <section style={{ width: '100%', marginRight: '2rem' }}>
       <div
@@ -71,7 +78,10 @@ function ResponseList({
                 />
               );
             })}
-          <Button style={{ backgroundColor: 'indigo', color: 'white' }}>
+          <Button
+            onClick={getAllAnswers}
+            style={{ backgroundColor: 'indigo', color: 'white' }}
+          >
             {numberOfMemberAnswers} / {totalmembers}
           </Button>
         </div>
