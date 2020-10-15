@@ -77,11 +77,11 @@ const getContexts = dispatchFunc => {
     });
 };
 
-const createAnswer = (newAnswer, fn, topicid) => {
+const createAnswer = (newAnswer, id, dispatchFunc) => {
   return axiosWithAuth()
     .post(`/surveys/response`, newAnswer)
     .then(response => {
-      getTopicById(fn, topicid);
+      getRequestById(id, dispatchFunc);
     })
     .catch(err => {
       console.log(err);
