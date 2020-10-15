@@ -1,14 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { Response } from './Response';
 import { message } from 'antd';
 
-function ResponseList({ questions, currentTopic, currentRequest }) {
-  if (questions == null) {
-    return <p>No Questions</p>;
-  }
-
+function ResponseList({ currentTopic, currentRequest, currentMemberAnswers }) {
   const totalmembers = currentTopic.users.length;
 
   const memberAnswers = {};
@@ -20,24 +17,36 @@ function ResponseList({ questions, currentTopic, currentRequest }) {
           memberAnswers[answer.user.userid] = answer;
           numberOfMemberAnswers += 1;
         }
-        // memberAnswers[answer.user.userid]
       });
     }
   });
+
+  const chooseMember = memberid => {
+    const newMemberAnswers = [];
+    currentRequest.questions.map(q => {
+      if (!q.leader) {
+        const newAnswers = q.answers.filter(a => {
+          return a.user.userid === memberid;
+        });
+        q.answers = newAnswers;
+        newMemberAnswers.push(q);
+      }
+    });
+    console.log(newMemberAnswers);
+  };
   return (
     <section style={{ width: '100%', marginRight: '2rem' }}>
       <div
         className="member_list"
         style={{
           display: 'flex',
-          alignItems: 'center',
           justifyContent: 'flex-end',
         }}
       >
-        {currentTopic.users &&
-          currentTopic.users.map((member, index) => {
-            return (
-              <div>
+        <div style={{ display: 'flex' }}>
+          {currentTopic.users &&
+            currentTopic.users.map((member, index) => {
+              return (
                 <UserOutlined
                   style={{
                     border: '1px solid #191919',
@@ -45,26 +54,28 @@ function ResponseList({ questions, currentTopic, currentRequest }) {
                     width: '2rem',
                     height: '2rem',
                     fontSize: '1.5rem',
+                    margin: '0 4px',
                   }}
+                  onClick={() => chooseMember(member.user.userid)}
                   onMouseEnter={() => {
                     message.info({
                       content: member.user.username,
                       duration: 0.5,
                       style: {
-                        marginLeft: '50vw',
-                        marginTop: '10vh',
+                        marginLeft: '70vw',
+                        marginTop: '5vh',
                       },
                     });
                   }}
                 />
-              </div>
-            );
-          })}
-        <p>
-          {numberOfMemberAnswers} / {totalmembers}
-        </p>
+              );
+            })}
+          <Button style={{ backgroundColor: 'indigo', color: 'white' }}>
+            {numberOfMemberAnswers} / {totalmembers}
+          </Button>
+        </div>
       </div>
-      {questions.map((q, i) => {
+      {currentMemberAnswers.map((q, i) => {
         return <Response key={i} contents={q} />;
       })}
     </section>
@@ -76,6 +87,7 @@ const mapStateToProps = state => {
     ...state,
     currentTopic: state.currentTopic,
     currentRequest: state.currentRequest,
+    currentMemberAnswers: state.currentMemberAnswers,
   };
 };
 
