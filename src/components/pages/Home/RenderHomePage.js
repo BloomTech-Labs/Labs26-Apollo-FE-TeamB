@@ -171,13 +171,7 @@ function RenderHomePage(props) {
                 )}
               {props.currentRequest &&
                 props.currentRequest.questions &&
-                props.currentRequest.responded && (
-                  <ResponseList
-                    questions={props.currentRequest.questions.filter(
-                      q => !q.leader
-                    )}
-                  />
-                )}
+                props.currentRequest.responded && <ResponseList />}
             </Content>
           </Layout>
         </Layout>
