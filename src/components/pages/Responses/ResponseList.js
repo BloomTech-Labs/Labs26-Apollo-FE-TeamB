@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { Response } from './Response';
 import { message } from 'antd';
+import { setMemberAnswers } from '../../../state/actions/apolloActions';
+import { getAnswersByMemberId } from '../../../api/index';
 
-function ResponseList({ currentTopic, currentRequest, currentMemberAnswers }) {
+function ResponseList({
+  currentTopic,
+  currentRequest,
+  currentMemberAnswers,
+  setMemberAnswers,
+}) {
   const totalmembers = currentTopic.users.length;
 
   const memberAnswers = {};
@@ -22,17 +29,11 @@ function ResponseList({ currentTopic, currentRequest, currentMemberAnswers }) {
   });
 
   const chooseMember = memberid => {
-    const newMemberAnswers = [];
-    currentRequest.questions.map(q => {
-      if (!q.leader) {
-        const newAnswers = q.answers.filter(a => {
-          return a.user.userid === memberid;
-        });
-        q.answers = newAnswers;
-        newMemberAnswers.push(q);
-      }
-    });
-    console.log(newMemberAnswers);
+    return getAnswersByMemberId(
+      currentRequest.surveyid,
+      memberid,
+      setMemberAnswers
+    );
   };
   return (
     <section style={{ width: '100%', marginRight: '2rem' }}>
@@ -75,9 +76,10 @@ function ResponseList({ currentTopic, currentRequest, currentMemberAnswers }) {
           </Button>
         </div>
       </div>
-      {currentMemberAnswers.map((q, i) => {
-        return <Response key={i} contents={q} />;
-      })}
+      {currentMemberAnswers &&
+        currentMemberAnswers.map((q, i) => {
+          return <Response key={i} contents={q} />;
+        })}
     </section>
   );
 }
@@ -91,4 +93,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {})(ResponseList);
+export default connect(mapStateToProps, { setMemberAnswers })(ResponseList);
