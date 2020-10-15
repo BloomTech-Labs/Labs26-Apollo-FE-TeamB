@@ -47,7 +47,14 @@ function ResponseList({ questions, currentTopic, currentRequest }) {
                     fontSize: '1.5rem',
                   }}
                   onMouseEnter={() => {
-                    message.info(member.user.username, 0.5);
+                    message.info({
+                      content: member.user.username,
+                      duration: 0.5,
+                      style: {
+                        marginLeft: '50vw',
+                        marginTop: '10vh',
+                      },
+                    });
                   }}
                 />
               </div>
