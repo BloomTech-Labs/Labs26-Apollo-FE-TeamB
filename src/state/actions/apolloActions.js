@@ -10,6 +10,7 @@ export const GET_ALL_CONTEXTS = 'GET_ALL_CONTEXTS';
 export const SET_CURRENT_TOPIC = 'SET_CURRENT_TOPIC';
 export const ADD_NEW_SURVEY = 'ADD_NEW_SURVEY';
 export const SET_CURRENT_REQUEST = 'SET_CURRENT_REQUEST';
+export const SET_MEMBER_ANSWERS = 'SET_MEMBER_ANSWERS';
 
 // this function sets the username in global state - used in Render Home page
 export const getUserInfo = userinfo => {
@@ -55,5 +56,12 @@ export const addNewSurvey = survey => {
 export const getCurrentRequest = request => {
   return dispatch => {
     dispatch({ type: SET_CURRENT_REQUEST, payload: request });
+  };
+};
+
+// action to set the current member answers - can choose a single member or get all answers
+export const setMemberAnswers = questions => {
+  return dispatch => {
+    dispatch({ type: SET_MEMBER_ANSWERS, payload: questions });
   };
 };
