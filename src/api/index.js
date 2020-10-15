@@ -133,13 +133,11 @@ const getAnswersByMemberId = (requestid, memberid, dispatchFunc) => {
       const memberquestions = allquestions.filter(q => {
         return !q.leader;
       });
-
       memberquestions.forEach(q => {
         q.answers = q.answers.filter(a => {
           return a.user.userid === memberid;
         });
       });
-      console.log(memberquestions);
       return dispatchFunc(memberquestions);
     })
     .catch(error => {
