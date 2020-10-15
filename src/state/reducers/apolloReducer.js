@@ -1,6 +1,7 @@
 // import all of your reducers into this file, and export them back out.
 // This allows for the simplification of flow when importing reducers into your actions throughout your app.
 
+import ActionButton from 'antd/lib/modal/ActionButton';
 import {
   GET_USER_INFO,
   GET_BEARER_TOKEN,
@@ -18,6 +19,7 @@ const initialState = {
   contexts: [],
   currentTopic: {},
   currentRequest: {},
+  currentMemberAnswers: [],
 };
 
 export const apolloReducer = (state = initialState, action) => {
@@ -61,6 +63,9 @@ export const apolloReducer = (state = initialState, action) => {
             topics: action.payload,
             currentTopic: mostrecenttopic,
             currentRequest: mostrecentrequest,
+            currentMemberAnswers: mostrecentrequest.questions.filter(q => {
+              return !q.leader;
+            }),
           };
         } else {
           return {
@@ -96,6 +101,9 @@ export const apolloReducer = (state = initialState, action) => {
           ...state,
           currentTopic: action.payload,
           currentRequest: recentrequest,
+          currentMemberAnswers: recentrequest.questions.filter(q => {
+            return !q.leader;
+          }),
         };
       } else {
         return {
@@ -119,6 +127,9 @@ export const apolloReducer = (state = initialState, action) => {
       return {
         ...state,
         currentRequest: action.payload,
+        currentMemberAnswers: action.payload.questions.filter(q => {
+          return !q.leader;
+        }),
       };
     default:
       return state;
