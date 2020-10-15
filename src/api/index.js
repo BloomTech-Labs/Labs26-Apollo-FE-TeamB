@@ -124,6 +124,29 @@ const getRequestById = (requestId, dispatchFunc) => {
     });
 };
 
+// api function that gets the current request then does logic on the result to display answers by the member id
+const getAnswersByMemberId = (requestid, memberid, dispatchFunc) => {
+  return axiosWithAuth()
+    .get(`/surveys/survey/${requestid}`)
+    .then(response => {
+      const allquestions = response.data.questions;
+      const memberquestions = allquestions.filter(q => {
+        return !q.leader;
+      });
+
+      memberquestions.forEach(q => {
+        q.answers = q.answers.filter(a => {
+          return a.user.userid === memberid;
+        });
+      });
+      console.log(memberquestions);
+      return dispatchFunc(memberquestions);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
+
 const getAuthHeader = authState => {
   if (!authState.isAuthenticated) {
     throw new Error('Not authenticated');
@@ -168,6 +191,7 @@ export {
   createAnswer,
   getTopicById,
   getRequestById,
+  getAnswersByMemberId,
   postNewRequest,
   getProfileData,
   getDSData,
