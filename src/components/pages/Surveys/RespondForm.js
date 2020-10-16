@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Form, Input, Button } from 'antd';
 import { createAnswer } from '../../../api/index';
-import { getCurrentTopic } from '../../../state/actions/apolloActions';
+import { getCurrentRequest } from '../../../state/actions/apolloActions';
 
 const RespondForm = props => {
   const { TextArea } = Input;
@@ -50,12 +50,8 @@ const RespondForm = props => {
     return false;
   };
 
-  const responseSubmit = e => {
-    createAnswer(responses, props.getCurrentTopic, props.currentTopic.topicId)
-      .then(result => {})
-      .catch(err => {
-        console.log(err);
-      });
+  const responseSubmit = (id, func) => {
+    createAnswer(responses, id, func);
   };
 
   return (
@@ -107,7 +103,12 @@ const RespondForm = props => {
                 color: 'white',
                 fontWeight: 'bold',
               }}
-              onClick={responseSubmit}
+              onClick={() =>
+                responseSubmit(
+                  props.currentRequest.surveyid,
+                  props.getCurrentRequest
+                )
+              }
             >
               Submit
             </Button>
@@ -125,4 +126,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getCurrentTopic })(RespondForm);
+export default connect(mapStateToProps, { getCurrentRequest })(RespondForm);
