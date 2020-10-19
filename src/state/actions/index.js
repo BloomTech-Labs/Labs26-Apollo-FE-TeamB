@@ -1,7 +1,6 @@
 // ###############################################
-export const GET_USER_INFO_START = 'GET_USER_INFO_START';
-export const GET_USER_INFO_SUCCESS = 'GET_USER_INFO_SUCCESS';
-export const GET_USER_INFO_FAIL = 'GET_USER_INFO_FAIL';
+export const SET_USER_INFO_SUCCESS = 'SET_USER_INFO_SUCCESS';
+export const SET_USER_INFO_FAIL = 'SET_USER_INFO_FAIL';
 // ###############################################
 export const SET_BEARER_TOKEN_SUCCESS = 'GET_BEARER_TOKEN_SUCCESS';
 export const SET_BEARER_TOKEN_FAIL= 'GET_BEARER_TOKEN_FAIL';
@@ -30,12 +29,15 @@ export const CREATE_NEW_TOPIC_FAIL = 'CREATE_NEW_TOPIC_FAIL'
 import axiosWithAuth from '../../utils/axiosWithAuth'
 import {USER_TOPICS, CREATE_NEW} from '../../api'
 
-// this function sets the username in gloabal state - used in Render Home page
-// export const getUserInfo = userinfo => {
-//   return dispatch => {
-//     dispatch({ type: GET_USER_INFO, payload: userinfo })
-//   };
-// };
+export const setUserInfo = userinfo => {
+  return dispatch => {
+    dispatch({ type: SET_USER_INFO_SUCCESS, payload: userinfo })
+    if (userinfo == null) {
+      dispatch({ type: SET_USER_INFO_FAIL,
+        payload: { error: "Userinfo is null ( check your args )"}})
+    }
+  };
+};
 
 // sets the bearer in gloabal state to be used with any api call - used in Render Home page and referenced in api calls that need auth
 export const setBearerToken = token => {
@@ -77,15 +79,14 @@ export const createNewTopic = topicInfo => {
         dispatch({ type: CREATE_NEW_TOPIC_SUCCESS,
           payload: { error: "", isFetching: false }}) // what is this setting into state?
       })
-
   }
 }
 
-// export const getAllContexts = contexts => {
-//   return dispatch => {
-//     dispatch({ type: GET_ALL_CONTEXTS, payload: contexts });
-//   };
-// };
+export const getAllContexts = contexts => {
+  return dispatch => {
+    dispatch({ type: GET_ALL_CONTEXTS, payload: contexts });
+  };
+};
 
 // action to take the topic from get topic by id call and add to state
 // export const getCurrentTopic = topic => {
