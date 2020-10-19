@@ -4,7 +4,6 @@ import { FaRegTrashAlt } from 'react-icons/fa';
 import { Form, Input, Select, Button } from 'antd';
 
 const { TextArea } = Input;
-const { Option } = Select;
 
 function AnswerContexts({
   form,
@@ -13,22 +12,25 @@ function AnswerContexts({
   handleChange,
   onFinish,
 }) {
-  const deleteQuestion = question => {
-    const newQuestions = questionsToSend.filter(q => {
-      if (q.questionId !== question.questionId) {
-        return q;
-      }
-    });
-    return setQuestionsToSend(newQuestions);
+  const [newQuestionIndex, setNewQuestionIndex] = useState([]);
+
+  const deleteQuestion = questionIndex => {
+    // create a copy of questionsToSend
+    const newQuestions = JSON.parse(JSON.stringify(questionsToSend));
+    // remove element at questionIndex
+    newQuestions.splice(questionIndex, 1);
+    setQuestionsToSend(newQuestions);
   };
 
-  const addQuestion = e => {
-    console.log(e);
+  const addQuestion = () => {
     const newQuestion = {
-      body: e,
+      body: '',
       leader: true,
+      type: `TEXT`,
+      answer: '',
     };
     setQuestionsToSend([...questionsToSend, newQuestion]);
+    setNewQuestionIndex([...newQuestionIndex, questionsToSend.length]);
   };
 
   return (
@@ -38,7 +40,8 @@ function AnswerContexts({
         return (
           question.leader && (
             <Form.Item key={index}>
-              {question.body && (
+              {/* if question is an existing question */}
+              {question.body && !newQuestionIndex.includes(index) && (
                 <div
                   style={{
                     display: 'flex',
@@ -56,7 +59,43 @@ function AnswerContexts({
                   ></Button>
                 </div>
               )}
-              {/*  */}
+
+              {/* if question is a new question */}
+              {newQuestionIndex.includes(index) && (
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    textAlign: 'left',
+                  }}
+                >
+                  <Form.Item
+                    name={`${index}question`}
+                    rules={[
+                      {
+                        required: true,
+                        message:
+                          'Please type a new question or delete this using the icon!',
+                      },
+                    ]}
+                    style={{ flexGrow: 1 }}
+                  >
+                    <Input
+                      name={`${index}body`}
+                      placeholder="Type a new context question here"
+                      value={questionsToSend[index]['body']}
+                      onChange={handleChange}
+                      style={{ textAlign: 'left' }}
+                    />
+                  </Form.Item>
+                  <Button
+                    onClick={() => deleteQuestion(index)}
+                    icon={<FaRegTrashAlt />}
+                  ></Button>
+                </div>
+              )}
+
+              {/* all existing questions */}
               <Form.Item
                 style={{ display: 'block' }}
                 name={`${index}answer`}
@@ -79,9 +118,7 @@ function AnswerContexts({
           )
         );
       })}
-      <Select placeholder="Add New Question" onChange={e => addQuestion(e)}>
-        <Option value="New Question">New Question</Option>
-      </Select>
+      <Button onClick={addQuestion}>New Question</Button>
     </Form>
   );
 }
