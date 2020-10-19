@@ -20,6 +20,8 @@ const ContextTypeMenu = ({ currentContext, contextTypes, stateHandler }) => {
             padding: '0',
             display: 'flex',
             alignItems: 'center',
+            color: '#191919',
+            backgroundColor: 'white',
           }}
           onClick={handleClick}
         >
@@ -28,7 +30,11 @@ const ContextTypeMenu = ({ currentContext, contextTypes, stateHandler }) => {
           context.description === currentContext.description ? (
             <FaCircle
               key="filledCircle"
-              style={{ fontSize: '1.5rem', paddingRight: '1%' }}
+              style={{
+                fontSize: '1.5rem',
+                paddingRight: '1%',
+                color: 'indigo',
+              }}
             />
           ) : (
             <FaRegCircle
