@@ -19,6 +19,7 @@ import {
 } from '../../../state/actions/apolloActions';
 import { TopicNav } from '../TopicNav';
 import { getTopicById, getRequestById } from '../../../api/index';
+import Profile from '../Profile/Profile';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -43,31 +44,7 @@ function RenderHomePage(props) {
             style={{
               padding: '2rem',
             }}
-            extra={[
-              // this is the user profile icon
-              <UserOutlined
-                key="4"
-                style={{
-                  fontSize: '30px',
-                  border: '1px solid #191919',
-                  borderRadius: '2rem',
-                  padding: '.5rem',
-                }}
-              />,
-              <Modal></Modal>,
-              <Button
-                key="3"
-                onClick={() => authService.logout()}
-                style={{
-                  border: '1px solid #191919',
-                  color: '#191919',
-                  fontWeight: 'bold',
-                  borderRadius: '1rem',
-                }}
-              >
-                Sign Out
-              </Button>,
-            ]}
+            extra={[<Profile authService={authService} />]}
           ></PageHeader>
           <Layout
             style={{
