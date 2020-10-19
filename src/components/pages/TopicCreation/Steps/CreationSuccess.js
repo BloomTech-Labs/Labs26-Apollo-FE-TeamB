@@ -26,7 +26,16 @@ const CreationSuccess = props => {
         <>
           <p>Share this with your teammates so they can join your new topic!</p>
           <Tooltip title={`${tooltip}`}>
-            <Button onClick={copyToClipboard}>Copy Join Code</Button>
+            <Button
+              style={{
+                backgroundColor: 'indigo',
+                color: 'white',
+                fontWeight: 'bold',
+              }}
+              onClick={copyToClipboard}
+            >
+              Copy Join Code
+            </Button>
           </Tooltip>
         </>,
       ]}
