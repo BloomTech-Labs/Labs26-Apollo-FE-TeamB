@@ -20,6 +20,8 @@ function Profile({ authService }) {
         onClick={showProfileModal}
       />
       <Modal
+        width="15rem"
+        style={{ position: 'fixed', right: '0' }}
         visible={isVisible}
         onCancel={() => {
           setIsVisible(false);
