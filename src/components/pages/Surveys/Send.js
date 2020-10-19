@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import { Button, Modal, Progress, Form } from 'antd';
+import { Button, Modal, Progress, Form, message } from 'antd';
 import ChooseMembers from './Wizard/ChooseMembers';
 import AnswerContexts from './Wizard/AnswerContexts';
 import ReviewRequest from './Wizard/ReviewRequest';
@@ -37,11 +37,35 @@ function Send(props) {
   const [progress, setProgress] = useState(25);
   const prevProgress = useRef(0); //store previous progress
 
+  const hasMemberQuestions = array => {
+    return array.some(element => {
+      return element.leader === false;
+    });
+  };
   // function to move to next step in wizard
   const next = () => {
     // if on the first step: answer context questions
     // submit form to trigger validation
-    form.submit();
+    if (progress === 50) {
+      if (hasMemberQuestions(questionsToSend)) {
+        form.submit();
+      } else {
+        message.config({
+          maxCount: 1,
+          className: 'modal-validation',
+        });
+        message.error({
+          content: `Must have at least 1 member question`,
+          duration: 2,
+          style: {
+            marginTop: '40%',
+            fontSize: '1.4rem',
+          },
+        });
+      }
+    } else {
+      form.submit();
+    }
   };
 
   // func to go back one step in wizard
