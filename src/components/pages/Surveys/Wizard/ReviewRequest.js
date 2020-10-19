@@ -2,10 +2,9 @@ import React from 'react';
 import { Button } from 'antd';
 function ReviewRequest({ questionsToSend, setProgress }) {
   const editSection = section => {
-    console.log(section);
-    if (section == 'context') {
+    if (section === 'context') {
       setProgress(25);
-    } else if (section == 'member') {
+    } else if (section === 'member') {
       setProgress(50);
     }
   };
@@ -22,6 +21,7 @@ function ReviewRequest({ questionsToSend, setProgress }) {
             </div>
           );
         }
+        return null;
       })}
       <Button
         onClick={() => {
@@ -36,6 +36,7 @@ function ReviewRequest({ questionsToSend, setProgress }) {
         if (!question.leader) {
           return <p key={index}>{question.body}</p>;
         }
+        return null;
       })}
       <Button
         onClick={() => {

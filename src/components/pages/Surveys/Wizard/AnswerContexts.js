@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FaRegTrashAlt } from 'react-icons/fa';
 
-import { Form, Input, Select, Button } from 'antd';
+import { Form, Input, Button } from 'antd';
 
 const { TextArea } = Input;
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Button, Modal, Progress, Input, Form } from 'antd';
+import { Button, Modal, Progress, Form } from 'antd';
 import ChooseMembers from './Wizard/ChooseMembers';
 import AnswerContexts from './Wizard/AnswerContexts';
 import ReviewRequest from './Wizard/ReviewRequest';
@@ -10,8 +10,6 @@ import {
   addNewSurvey,
 } from '../../../state/actions/apolloActions';
 
-const { TextArea } = Input;
-
 function Send(props) {
   const [form] = Form.useForm();
 
@@ -19,11 +17,10 @@ function Send(props) {
   const [sent, setSent] = useState(false);
   // change the send button to sent if the date of the last created survey is the same day as today
   useEffect(() => {
-    setSent(false);
     const d = new Date();
     const today = d.getDate();
-    props.currentTopic.surveysrequests.map(request => {
-      if (new Date(request.createdDate).getDate() == today) {
+    props.currentTopic.surveysrequests.forEach(request => {
+      if (new Date(request.createdDate).getDate() === today) {
         setSent(true);
       }
     });
@@ -121,39 +118,32 @@ function Send(props) {
         </Button>
       )}
       {sent && (
-        <Button style={{ marginLeft: '1rem' }} disabled="true">
+        <Button style={{ marginLeft: '1rem' }} disabled={true}>
           Sent
         </Button>
       )}
       <Modal
-        title={['Send New Request', <Progress percent={progress}></Progress>]}
+        title={[
+          'Send New Request',
+          <Progress key={`progress`} percent={progress}></Progress>,
+        ]}
         visible={isVisible}
         onCancel={cancelModal}
         footer={[
-          <>
-            {progress >= 50 && (
-              <Button key={1} onClick={prev}>
-                Previous
-              </Button>
+          <span key={1}>
+            {progress >= 50 && <Button onClick={prev}>Previous</Button>}
+          </span>,
+          <span key={2}>
+            {progress <= 50 && <Button onClick={next}>Next</Button>}
+          </span>,
+          <span key={3}>
+            {progress === 75 && (
+              <Button onClick={submitNewRequest}>Send Request</Button>
             )}
-          </>,
-          <>
-            {progress <= 50 && (
-              <Button key={2} onClick={next}>
-                Next
-              </Button>
-            )}
-          </>,
-          <>
-            {progress == 75 && (
-              <Button key={3} onClick={submitNewRequest}>
-                Send Request
-              </Button>
-            )}
-          </>,
+          </span>,
         ]}
       >
-        {progress == 25 && (
+        {progress === 25 && (
           <AnswerContexts
             form={form}
             questionsToSend={questionsToSend}
@@ -162,13 +152,13 @@ function Send(props) {
             onFinish={onFinish}
           />
         )}
-        {progress == 50 && (
+        {progress === 50 && (
           <ChooseMembers
             questionsToSend={questionsToSend}
             setQuestionsToSend={setQuestionsToSend}
           />
         )}
-        {progress == 75 && (
+        {progress === 75 && (
           <ReviewRequest
             questionsToSend={questionsToSend}
             setProgress={setProgress}

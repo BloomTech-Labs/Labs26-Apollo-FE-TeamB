@@ -17,9 +17,9 @@ function ChooseMembers({
   const addNewMemberQuestion = question => {
     console.log(question);
     const newQuestion = {
-      questionId: '',
       body: question,
       leader: false,
+      type: 'TEXT',
     };
 
     const newQuestions = [...questionsToSend, newQuestion];
