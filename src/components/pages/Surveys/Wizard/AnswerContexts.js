@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { FaRegTrashAlt } from 'react-icons/fa';
 
-import { Form, Input, Select } from 'antd';
+import { Form, Input, Select, Button } from 'antd';
 
 const { TextArea } = Input;
 const { Option } = Select;
 
-function AnswerContexts({ questionsToSend, setQuestionsToSend }) {
-  const [form] = Form.useForm();
-
+function AnswerContexts({
+  form,
+  questionsToSend,
+  setQuestionsToSend,
+  handleChange,
+  onFinish,
+}) {
   const deleteQuestion = question => {
     const newQuestions = questionsToSend.filter(q => {
       if (q.questionId !== question.questionId) {
@@ -27,38 +31,51 @@ function AnswerContexts({ questionsToSend, setQuestionsToSend }) {
     setQuestionsToSend([...questionsToSend, newQuestion]);
   };
 
-  const captureAnswer = (e, question) => {
-    // console.log(e.target.value)
-    // console.log(question)
-    question.answer = e.target.value;
-    console.log(questionsToSend);
-  };
-
   return (
-    <Form form={form}>
+    <Form form={form} onFinish={onFinish} onFinishFailed={onFinish}>
       <h3>Answer Context Questions.</h3>
       {questionsToSend.map((question, index) => {
         return (
           question.leader && (
-            <div key={index}>
+            <Form.Item key={index}>
+              {question.body && (
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    textAlign: 'left',
+                  }}
+                >
+                  <p>
+                    <span style={{ color: 'red' }}>*</span>
+                    {question.body}
+                  </p>
+                  <Button
+                    onClick={() => deleteQuestion(index)}
+                    icon={<FaRegTrashAlt />}
+                  ></Button>
+                </div>
+              )}
+              {/*  */}
               <Form.Item
-                name={question.body}
-                label={question.body}
                 style={{ display: 'block' }}
+                name={`${index}answer`}
                 rules={[
                   {
                     required: true,
+                    message: 'Please answer this context question!',
                   },
                 ]}
               >
-                <FaRegTrashAlt onClick={() => deleteQuestion(question)} />
-
                 <TextArea
-                  onChange={e => captureAnswer(e, question)}
+                  name={`${index}answer`}
+                  value={questionsToSend[index]['answer']}
+                  onChange={handleChange}
                   autoSize={{ minRows: 4, maxRows: 4 }}
+                  style={{ textAlign: 'left' }}
                 />
               </Form.Item>
-            </div>
+            </Form.Item>
           )
         );
       })}

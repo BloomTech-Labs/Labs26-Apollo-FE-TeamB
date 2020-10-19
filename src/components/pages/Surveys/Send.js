@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Button, Modal, Progress, Input, message } from 'antd';
+import { Button, Modal, Progress, Input, Form } from 'antd';
 import ChooseMembers from './Wizard/ChooseMembers';
 import AnswerContexts from './Wizard/AnswerContexts';
 import ReviewRequest from './Wizard/ReviewRequest';
@@ -13,6 +13,8 @@ import {
 const { TextArea } = Input;
 
 function Send(props) {
+  const [form] = Form.useForm();
+
   // local state to change button deisplay if sent a survey today
   const [sent, setSent] = useState(false);
   // change the send button to sent if the date of the last created survey is the same day as today
@@ -39,16 +41,22 @@ function Send(props) {
 
   // function to move to next step in wizard
   const next = () => {
-    const addProgress = progress + 25;
-    if (progress <= 50) {
-      return setProgress(addProgress);
+    // if on the first step: answer context questions
+    // submit form to trigger validation
+    if (progress === 25) {
+      form.submit();
+    } else {
+      const addProgress = progress + 25;
+      if (progress <= 50) {
+        setProgress(addProgress);
+      }
     }
   };
 
   // func to go back one step in wizard
   const prev = () => {
     const subtractprogress = progress - 25;
-    return setProgress(subtractprogress);
+    setProgress(subtractprogress);
   };
 
   // set state for the current list of questions to send, initially set to the default questions for the topic
@@ -70,6 +78,25 @@ function Send(props) {
     setQuestionsToSend(requestQuestions);
   };
 
+  const handleChange = e => {
+    // create new questionsToSend state array
+    let newQuestionsToSend = JSON.parse(JSON.stringify(questionsToSend));
+    newQuestionsToSend[e.target.name.charAt(0)][e.target.name.slice(1)] =
+      e.target.value;
+
+    // antd form values for validation
+    form.setFieldsValue({ [e.target.name.charAt(0)]: e.target.value });
+    setQuestionsToSend(newQuestionsToSend);
+  };
+
+  const onFinish = values => {
+    // check form validation
+    // only proceed if ALL context questions are answered
+    if (!values.errorFields) {
+      setProgress(progress + 25);
+    }
+  };
+
   const showModal = () => {
     setIsVisible(true);
     reset();
@@ -85,7 +112,7 @@ function Send(props) {
     setQuestionsToSend([]);
     setProgress(20);
   };
-  console.log(questionsToSend);
+
   return (
     <>
       {!sent && (
@@ -128,8 +155,11 @@ function Send(props) {
       >
         {progress == 25 && (
           <AnswerContexts
+            form={form}
             questionsToSend={questionsToSend}
             setQuestionsToSend={setQuestionsToSend}
+            handleChange={handleChange}
+            onFinish={onFinish}
           />
         )}
         {progress == 50 && (
