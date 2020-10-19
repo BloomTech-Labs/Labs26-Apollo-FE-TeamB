@@ -52,24 +52,8 @@ function RenderHomePage(props) {
                 overflow: 'scroll',
               }}
             >
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-around',
-                  marginBottom: '2rem',
-                }}
-              >
-                <h2
-                  style={{
-                    textAlign: 'left',
-                    fontSize: '2rem',
-                    fontWeight: 'bold',
-                  }}
-                >
-                  {props.currentTopic && props.currentTopic.title}
-                </h2>
+              <div className="topic-title">
+                <h2>{props.currentTopic && props.currentTopic.title}</h2>
                 <Button
                   style={{
                     backgroundColor: 'indigo',
