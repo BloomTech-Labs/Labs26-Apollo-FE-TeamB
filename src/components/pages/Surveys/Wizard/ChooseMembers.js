@@ -1,75 +1,105 @@
-import React from 'react';
-import { Button, Select } from 'antd';
+import React, { useState } from 'react';
+import { Button, Form, Input } from 'antd';
 import { FaRegTrashAlt } from 'react-icons/fa';
 
-const { Option } = Select;
-
 function ChooseMembers({
+  form,
   questionsToSend,
   setQuestionsToSend,
-  deleteQuestion,
+  handleChange,
+  onFinish,
 }) {
-  const newMemberQuestions = [
-    'New Member Question 1',
-    'New Member Question 2',
-    'New Member Question 3',
-  ];
-  const addNewMemberQuestion = question => {
-    console.log(question);
+  const [newQuestionIndex, setNewQuestionIndex] = useState([]);
+
+  const deleteQuestion = questionIndex => {
+    // create a copy of questionsToSend
+    const newQuestions = JSON.parse(JSON.stringify(questionsToSend));
+    // remove element at questionIndex
+    newQuestions.splice(questionIndex, 1);
+    setQuestionsToSend(newQuestions);
+  };
+
+  const addNewMemberQuestion = () => {
     const newQuestion = {
-      body: question,
+      body: '',
       leader: false,
       type: 'TEXT',
     };
 
     const newQuestions = [...questionsToSend, newQuestion];
-    return setQuestionsToSend(newQuestions);
+    setQuestionsToSend(newQuestions);
+    setNewQuestionIndex([...newQuestionIndex, questionsToSend.length]);
   };
+
   return (
     <>
       <h3>Do you want to change your default Member questions?</h3>
-      {questionsToSend &&
-        questionsToSend.map((question, index) => {
-          return (
-            !question.leader && (
-              <div
-                key={index}
-                style={{
-                  display: 'flex',
-                  flexFlow: 'row',
-                  justifyContent: 'space-around',
-                  textAlign: 'center',
-                }}
-              >
-                <p>{question.body}</p>
-                <Button
-                  onClick={() => deleteQuestion(question)}
-                  icon={
-                    <FaRegTrashAlt
-                      style={{ margin: '0 8px', pointerEvents: 'none' }}
-                    />
-                  }
-                />
-              </div>
-            )
-          );
-        })}
-      <Select
-        defaultValue="New Member Question"
-        onChange={addNewMemberQuestion}
-      >
-        {newMemberQuestions.map((question, index) => {
-          return (
-            <Option
-              key={index}
-              onClick={() => addNewMemberQuestion(question)}
-              value={question}
-            >
-              {question}
-            </Option>
-          );
-        })}
-      </Select>
+      <Form form={form} onFinish={onFinish} onFinishFailed={onFinish}>
+        {questionsToSend &&
+          questionsToSend.map((question, index) => {
+            return (
+              !question.leader && (
+                <div key={index}>
+                  {!newQuestionIndex.includes(index) && (
+                    <div
+                      key={index}
+                      style={{
+                        display: 'flex',
+                        flexFlow: 'row',
+                        justifyContent: 'space-around',
+                        textAlign: 'center',
+                      }}
+                    >
+                      <p>{question.body}</p>
+                      <Button
+                        onClick={() => deleteQuestion(index)}
+                        icon={
+                          <FaRegTrashAlt
+                            style={{ margin: '0 8px', pointerEvents: 'none' }}
+                          />
+                        }
+                      />
+                    </div>
+                  )}
+                  {newQuestionIndex.includes(index) && (
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        textAlign: 'left',
+                      }}
+                    >
+                      <Form.Item
+                        name={`${index}question`}
+                        rules={[
+                          {
+                            required: true,
+                            message:
+                              'Please type a new question or delete this using the icon!',
+                          },
+                        ]}
+                        style={{ flexGrow: 1 }}
+                      >
+                        <Input
+                          name={`${index}body`}
+                          placeholder="Type a new member question here"
+                          value={questionsToSend[index]['body']}
+                          onChange={handleChange}
+                          style={{ textAlign: 'left' }}
+                        />
+                      </Form.Item>
+                      <Button
+                        onClick={() => deleteQuestion(index)}
+                        icon={<FaRegTrashAlt />}
+                      ></Button>
+                    </div>
+                  )}
+                </div>
+              )
+            );
+          })}
+      </Form>
+      <Button onClick={addNewMemberQuestion}>New Member Question</Button>
     </>
   );
 }

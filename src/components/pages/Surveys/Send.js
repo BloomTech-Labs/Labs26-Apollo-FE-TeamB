@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Button, Modal, Progress, Form } from 'antd';
 import ChooseMembers from './Wizard/ChooseMembers';
@@ -35,25 +35,25 @@ function Send(props) {
 
   // set localstate for progress
   const [progress, setProgress] = useState(25);
+  const prevProgress = useRef(0); //store previous progress
 
   // function to move to next step in wizard
   const next = () => {
     // if on the first step: answer context questions
     // submit form to trigger validation
-    if (progress === 25) {
-      form.submit();
-    } else {
-      const addProgress = progress + 25;
-      if (progress <= 50) {
-        setProgress(addProgress);
-      }
-    }
+    form.submit();
   };
 
   // func to go back one step in wizard
   const prev = () => {
-    const subtractprogress = progress - 25;
-    setProgress(subtractprogress);
+    if (progress === 50) {
+      prevProgress.current += 25; // let onFinish know prev is clicked
+      form.submit();
+    } else {
+      const subtractProgress = progress - 25;
+      prevProgress.current = subtractProgress - 25;
+      setProgress(subtractProgress);
+    }
   };
 
   // set state for the current list of questions to send, initially set to the default questions for the topic
@@ -88,9 +88,20 @@ function Send(props) {
 
   const onFinish = values => {
     // check form validation
-    // only proceed if ALL context questions are answered
-    if (!values.errorFields) {
-      setProgress(progress + 25);
+
+    // next clicked and form is completed
+    if (!values.errorFields && prevProgress.current < progress) {
+      const addProgress = progress + 25;
+      prevProgress.current = progress;
+      setProgress(addProgress);
+      // prev clicked and form is completed
+    } else if (!values.errorFields && prevProgress.current >= progress) {
+      const subtractProgress = progress - 25;
+      prevProgress.current = subtractProgress - 25;
+      setProgress(subtractProgress);
+      // prev clicked and form is NOT completed
+    } else if (values.errorFields && prevProgress.current >= progress) {
+      prevProgress.current = progress - 25;
     }
   };
 
@@ -154,8 +165,11 @@ function Send(props) {
         )}
         {progress === 50 && (
           <ChooseMembers
+            form={form}
             questionsToSend={questionsToSend}
             setQuestionsToSend={setQuestionsToSend}
+            handleChange={handleChange}
+            onFinish={onFinish}
           />
         )}
         {progress === 75 && (
