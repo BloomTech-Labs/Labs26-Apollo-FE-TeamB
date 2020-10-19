@@ -1,20 +1,21 @@
 import axios from 'axios';
 
-
 // !MAJOR REFACTOR!
 // ####################
 // API ENDPOINTS
-export const LIVE_URL = 'https://apollo-b-api.herokuapp.com'
-export const LOCAL_TEST_URL = 'http://localhost:2019'
-export const USER_TOPICS = '/topics/topics'
-export const CREATE_NEW = '/topics/new'
+export const API_LIVE_URL = 'https://apollo-b-api.herokuapp.com'
+export const API_LOCAL_TEST_URL = 'http://localhost:2019'
+export const API_USER_TOPICS = '/topics/topics'
+export const API_CREATE_NEW = '/topics/new'
+export const API_GET_CONTEXTS = '/contexts/contexts' 
 export const API_URL = `${process.env.REACT_APP_API_URI}`
 
 // ####################
-// FUNCTIONS REFACTORED
+// CALLS REFACTORED
 // axiosWithAuth --> utils
 // getUserTopics --> actions
-//  
+// createNewTopic --> actions
+// getContexts --> actions
 // ####################
 
 const sleep = time =>
@@ -22,21 +23,17 @@ const sleep = time =>
     setTimeout(resolve, time);
   });
 
-// in order for tests to pass token needs to be gathered from authstate
-// token is the bearer token in global state - if the api call needs it, just pass token as last argument and connect bearerToken from global state
-
-
-const createNewTopic = (newTopicData, fn) => {
-  return axiosWithAuth()
-    .post(createNew, newTopicData)
-    .then(response => {
-      getUserTopics(fn);
-      return response.data.joincode;
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};
+// const createNewTopic = (newTopicData, fn) => {
+//   return axiosWithAuth()
+//     .post(createNew, newTopicData)
+//     .then(response => {
+//       getUserTopics(fn);
+//       return response.data.joincode;
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+// };
 
 const userJoinTopic = (joinCode, fn) => {
   return axiosWithAuth()
@@ -51,16 +48,16 @@ const userJoinTopic = (joinCode, fn) => {
 };
 
 // get the list of contexts when starting the create new topic wizard
-const getContexts = dispatchFunc => {
-  return axiosWithAuth()
-    .get('/contexts/contexts')
-    .then(response => {
-      return dispatchFunc(response.data);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-};
+// const getContexts = dispatchFunc => {
+//   return axiosWithAuth()
+//     .get('/contexts/contexts')
+//     .then(response => {
+//       return dispatchFunc(response.data);
+//     })
+//     .catch(error => {
+//       console.log(error);
+//     });
+// };
 
 const createAnswer = (newAnswer, fn) => {
   return axiosWithAuth()
@@ -134,7 +131,6 @@ const getProfileData = authState => {
 
 export {
   sleep,
-  getUserTopics,
   createNewTopic,
   userJoinTopic,
   getContexts,
