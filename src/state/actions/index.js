@@ -9,9 +9,9 @@ export const GET_TOPICS_START = 'GET_TOPICS_START';
 export const GET_TOPICS_SUCCESS = 'GET_TOPICS_SUCCESS';
 export const GET_TOPICS_FAIL = 'GET_TOPICS_FAIL';
 // ###############################################
-export const GET_ALL_CONTEXTS_START = 'GET_ALL_CONTEXTS_START';
-export const GET_ALL_CONTEXTS_SUCCESS = 'GET_ALL_CONTEXTS_SUCCESS';
-export const GET_ALL_CONTEXTS_FAIL = 'GET_ALL_CONTEXTS_FAIL';
+export const GET_CONTEXTS_START = 'GET_CONTEXTS_START';
+export const GET_CONTEXTS_SUCCESS = 'GET_CONTEXTS_SUCCESS';
+export const GET_CONTEXTS_FAIL = 'GET_CONTEXTS_FAIL';
 // ###############################################
 export const SET_CURRENT_TOPIC_START = 'SET_CURRENT_TOPIC_START';
 export const SET_CURRENT_TOPIC_SUCCESS = 'SET_CURRENT_TOPIC_SUCCESS';
@@ -27,7 +27,10 @@ export const CREATE_NEW_TOPIC_FAIL = 'CREATE_NEW_TOPIC_FAIL'
 // ###############################################
 
 import axiosWithAuth from '../../utils/axiosWithAuth'
-import {USER_TOPICS, CREATE_NEW} from '../../api'
+import {API_USER_TOPICS, 
+  API_CREATE_NEW,
+  API_GET_CONTEXTS
+} from '../../api'
 
 export const setUserInfo = userinfo => {
   return dispatch => {
@@ -39,7 +42,6 @@ export const setUserInfo = userinfo => {
   };
 };
 
-// sets the bearer in gloabal state to be used with any api call - used in Render Home page and referenced in api calls that need auth
 export const setBearerToken = token => {
   return dispatch => {
     dispatch({ type: GET_BEARER_TOKEN_SUCCESS, payload: {error: "", token: token} });
@@ -50,14 +52,13 @@ export const setBearerToken = token => {
   };
 };
 
-// gets topics on initial login & upon joining a topic
 export const getUserTopics = () => {
   return dispatch => {
     dispatch({ type: GET_TOPICS_START,
       payload: { error: "", isFetching: true }})
 
     axiosWithAuth()
-      .get(USER_TOPICS)
+      .get(API_USER_TOPICS)
       .then(res => {
         dispatch({ type: GET_TOPICS_SUCCESS, 
           payload: { error: "", isFetching: false, topics: res.data }});
@@ -74,17 +75,33 @@ export const createNewTopic = topicInfo => {
     dispatch({ type: CREATE_NEW_TOPIC_START,
       payload: {error: "", isFetching: true}})
     axiosWithAuth()
-      .get(CREATE_NEW, topicInfo)
+      .get(API_CREATE_NEW, topicInfo)
       .then(res => {
         dispatch({ type: CREATE_NEW_TOPIC_SUCCESS,
           payload: { error: "", isFetching: false }}) // what is this setting into state?
       })
+      .catch(err => {
+        dispatch({ type: CREATE_NEW_TOPIC_FAIL,
+          payload: { error: err, isFetching: false }})
+      })
   }
 }
 
-export const getAllContexts = contexts => {
+export const getContexts = () => {
   return dispatch => {
-    dispatch({ type: GET_ALL_CONTEXTS, payload: contexts });
+    dispatch({ type: GET_CONTEXTS_START, 
+      payload: { error: "", isFetching: true}});
+    axiosWithAuth()
+      .get(API_GET_CONTEXTS)
+      .then(res => {
+        dispatch({ type: GET_CONTEXTS_SUCCESS,
+          payload: { error: "", isFetching: false, 
+          contexts: res.data }})
+      })
+      .catch(err => {
+        dispatch({ type: GET_CONTEXTS_FAIL,
+          payload: { error: err, isFetching: false}})
+      })
   };
 };
 
