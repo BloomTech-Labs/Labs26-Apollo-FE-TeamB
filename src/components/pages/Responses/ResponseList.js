@@ -43,14 +43,12 @@ function ResponseList({
     return setMemberAnswers(memberquestions);
   };
   return (
-    <section style={{ width: '100%', marginRight: '2rem' }}>
+    <section width="100%">
       <div
-        className="member_list"
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-        }}
+        className="members"
+        style={{ display: 'flex', alignItems: 'center' }}
       >
+        Members:
         <div style={{ display: 'flex' }}>
           {currentTopic.users &&
             currentTopic.users.map((member, index) => {
@@ -86,10 +84,13 @@ function ResponseList({
           </Button>
         </div>
       </div>
-      {currentMemberAnswers &&
-        currentMemberAnswers.map((q, i) => {
-          return <Response key={i} contents={q} />;
-        })}
+      <section className="responses">
+        <h3>Responses</h3>
+        {currentMemberAnswers &&
+          currentMemberAnswers.map((q, i) => {
+            return <Response key={i} contents={q} />;
+          })}
+      </section>
     </section>
   );
 }

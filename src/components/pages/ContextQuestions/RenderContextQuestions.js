@@ -4,14 +4,8 @@ import { Card } from 'antd';
 const QuestionCard = props => {
   // console.log(props.question);
   return (
-    <Card
-      size="small"
-      style={{
-        width: '20%',
-      }}
-    >
-      <p>{props.question.body}</p>
-      {/* <p>{props.question.answers[0]}</p> */}
+    <Card size="small" className="contextCard">
+      <h4>{props.question.body}</h4>
       {props.question.answers[0] ? (
         <p>{props.question.answers[0].body}</p>
       ) : null}
