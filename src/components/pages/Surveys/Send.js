@@ -54,9 +54,25 @@ function Send(props) {
   // set state for the current list of questions to send, initially set to the default questions for the topic
   const [questionsToSend, setQuestionsToSend] = useState([]);
 
+  const reset = () => {
+    let requestQuestions = [];
+    let questions = props.currentTopic.defaultsurvey.questions
+      ? props.currentTopic.defaultsurvey.questions
+      : [];
+    for (let i = 0; i < questions.length; i++) {
+      requestQuestions.push({
+        body: `${questions[i].body}`,
+        type: `${questions[i].type}`,
+        leader: questions[i].leader,
+        answer: '',
+      });
+    }
+    setQuestionsToSend(requestQuestions);
+  };
+
   const showModal = () => {
     setIsVisible(true);
-    setQuestionsToSend(props.currentTopic.defaultsurvey.questions);
+    reset();
   };
 
   const submitNewRequest = () => {
@@ -69,7 +85,7 @@ function Send(props) {
     setQuestionsToSend([]);
     setProgress(20);
   };
-
+  console.log(questionsToSend);
   return (
     <>
       {!sent && (
