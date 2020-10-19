@@ -55,30 +55,38 @@ const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
             style={{
               display: 'flex',
               justifyContent: 'space-between',
-              paddingBottom: '2%',
+              alignItems: 'center',
+              marginBottom: '2%',
             }}
           >
-            <label style={{ textAlign: 'left' }}>
-              {`Question ${index + 1}`}
-            </label>
+            <Input
+              htmlFor={index}
+              key={index}
+              value={question.body}
+              onChange={inputChange}
+              size="large"
+              style={{ textAlign: 'left', marginRight: '1rem' }}
+            />
             <Button
               htmlFor={index}
-              icon={
-                <FaRegTrashAlt
-                  style={{ margin: '0 8px', pointerEvents: 'none' }}
-                />
-              }
+              style={{
+                backgroundColor: 'indigo',
+                color: 'white',
+                fontWieght: 'bold',
+                borderRadius: '5px',
+              }}
+              icon={<FaRegTrashAlt style={{ pointerEvents: 'none' }} />}
               onClick={handleClick}
             />
           </div>
-          <Input
+          {/* <Input
             htmlFor={index}
             key={index}
             value={question.body}
             onChange={inputChange}
             size="large"
             style={{ textAlign: 'left' }}
-          />
+          /> */}
         </Form.Item>
       ))}
     </Form>
