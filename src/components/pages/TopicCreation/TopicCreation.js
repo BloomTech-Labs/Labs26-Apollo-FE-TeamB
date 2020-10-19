@@ -259,7 +259,13 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
         onOk={handleSubmit}
         onCancel={handleCancel}
         footer={[
-          <>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: currentStep === 1 ? 'flex-end' : 'space-between',
+              alignItems: 'center',
+            }}
+          >
             {/* Renders Prev button if not on first step */}
             {currentStep > 1 && currentStep < totalSteps && (
               <Button
@@ -273,6 +279,22 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
               >
                 Prev
               </Button>
+            )}
+            {currentStep === 3 && (
+              <AddQuestionMenu
+                isContext={true}
+                defaultQuestionList={leaderQuestionList}
+                questionState={currentTopic.defaultsurvey.questions}
+                stateHandler={handleCurrentTopicState}
+              />
+            )}
+            {currentStep === 4 && (
+              <AddQuestionMenu
+                isContext={false}
+                defaultQuestionList={memberQuestionList}
+                questionState={currentTopic.defaultsurvey.questions}
+                stateHandler={handleCurrentTopicState}
+              />
             )}
             {/* Renders Next button if not on last step */}
             {currentStep < totalSteps - 1 && (
@@ -316,7 +338,7 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
                 Close
               </Button>
             )}
-          </>,
+          </div>,
         ]}
       >
         {currentStep === 1 && (
@@ -364,12 +386,6 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
               activeQuestions={currentTopic.defaultsurvey.questions}
               stateHandler={handleCurrentTopicState}
             />
-            <AddQuestionMenu
-              isContext={true}
-              defaultQuestionList={leaderQuestionList}
-              questionState={currentTopic.defaultsurvey.questions}
-              stateHandler={handleCurrentTopicState}
-            />
           </>
         )}
         {currentStep === 4 && (
@@ -383,12 +399,6 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
               key="step4"
               isContext={false}
               activeQuestions={currentTopic.defaultsurvey.questions}
-              stateHandler={handleCurrentTopicState}
-            />
-            <AddQuestionMenu
-              isContext={false}
-              defaultQuestionList={memberQuestionList}
-              questionState={currentTopic.defaultsurvey.questions}
               stateHandler={handleCurrentTopicState}
             />
           </>

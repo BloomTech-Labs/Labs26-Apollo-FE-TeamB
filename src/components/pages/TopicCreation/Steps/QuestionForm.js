@@ -46,7 +46,6 @@ const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
         maxHeight: '60vh',
         overflow: 'auto',
         overflowX: 'hidden',
-        borderBottom: '1px solid grey',
       }}
     >
       {/* map through questions and make a form item for each one */}
