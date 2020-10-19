@@ -234,6 +234,15 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
         title={
           <>
             <br></br> {/* Empty line for better UI */}
+            <h2
+              style={{
+                textAlign: 'left',
+              }}
+            >
+              {currentStep === 1
+                ? 'New Topic'
+                : `${newContextType.description.split(' ')[0]} Topic`}
+            </h2>
             <Progress
               strokeColor={{
                 '0%': 'indigo',
@@ -242,17 +251,6 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
               percent={(100 / totalSteps) * currentStep}
               showInfo={false}
             />
-            <h2
-              style={{
-                textAlign: 'left',
-                paddingTop: '5%',
-                paddingLeft: '10%',
-              }}
-            >
-              {currentStep === 1
-                ? 'New Topic'
-                : `${newContextType.description.split(' ')[0]} Topic`}
-            </h2>
           </>
         }
         visible={isVisible}
