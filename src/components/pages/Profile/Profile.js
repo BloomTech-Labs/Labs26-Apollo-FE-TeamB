@@ -1,13 +1,44 @@
-import React from 'react';
-import { Modal } from 'antd';
+import React, { useState } from 'react';
+import { Modal, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
-function Profile() {
+function Profile({ authService }) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const showProfileModal = () => {
+    setIsVisible(true);
+  };
   return (
-    <div>
-      <UserOutlined />
-      <Modal></Modal>
-    </div>
+    <>
+      <UserOutlined
+        style={{
+          fontSize: '2rem',
+          border: '1px solid #191919',
+          borderRadius: '50%',
+          padding: '6px',
+        }}
+        onClick={showProfileModal}
+      />
+      <Modal
+        visible={isVisible}
+        onCancel={() => {
+          setIsVisible(false);
+        }}
+        footer=""
+      >
+        <Button
+          key="3"
+          onClick={() => authService.logout()}
+          style={{
+            color: 'white',
+            fontWeight: 'bold',
+            backgroundColor: 'indigo',
+          }}
+        >
+          Sign Out
+        </Button>
+      </Modal>
+    </>
   );
 }
 
