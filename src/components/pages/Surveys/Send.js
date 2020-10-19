@@ -115,10 +115,15 @@ function Send(props) {
       props.currentTopic.topicId,
       questionsToSend,
       props.addNewSurvey
-    );
-    setIsVisible(false);
-    setQuestionsToSend([]);
-    setProgress(20);
+    )
+      .then(() => {
+        setIsVisible(false);
+        setQuestionsToSend([]);
+        setProgress(25);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return (
