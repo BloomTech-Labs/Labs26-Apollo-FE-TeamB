@@ -235,6 +235,10 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
           <>
             <br></br> {/* Empty line for better UI */}
             <Progress
+              strokeColor={{
+                '0%': 'indigo',
+                '100%': 'indigo',
+              }}
               percent={(100 / totalSteps) * currentStep}
               showInfo={false}
             />
@@ -258,24 +262,57 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
           <>
             {/* Renders Prev button if not on first step */}
             {currentStep > 1 && currentStep < totalSteps && (
-              <Button key="prev" onClick={handlePrev}>
+              <Button
+                style={{
+                  backgroundColor: 'indigo',
+                  color: 'white',
+                  fontWeight: 'bold',
+                }}
+                key="prev"
+                onClick={handlePrev}
+              >
                 Prev
               </Button>
             )}
             {/* Renders Next button if not on last step */}
             {currentStep < totalSteps - 1 && (
-              <Button key="next" onClick={handleNext}>
+              <Button
+                style={{
+                  backgroundColor: 'indigo',
+                  color: 'white',
+                  fontWeight: 'bold',
+                }}
+                key="next"
+                onClick={handleNext}
+              >
                 Next
               </Button>
             )}
             {/* Renders Submit button if on last step */}
             {currentStep === totalSteps - 1 && (
-              <Button key="submit" onClick={handleSubmit} loading={loading}>
+              <Button
+                style={{
+                  backgroundColor: 'indigo',
+                  color: 'white',
+                  fontWeight: 'bold',
+                }}
+                key="submit"
+                onClick={handleSubmit}
+                loading={loading}
+              >
                 Submit
               </Button>
             )}
             {currentStep === totalSteps && (
-              <Button key="close" onClick={handleOk}>
+              <Button
+                style={{
+                  backgroundColor: 'indigo',
+                  color: 'white',
+                  fontWeight: 'bold',
+                }}
+                key="close"
+                onClick={handleOk}
+              >
                 Close
               </Button>
             )}
