@@ -1,33 +1,21 @@
-# Basic SPA
-
-For steps on how to work with this repository [please see here](https://docs.labs.lambdaschool.com/labs-spa-starter/)
-
-🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your first Pull-Request is merged. This is intended to be a guideline. Feel free to add your own flare to it.
-
 # Apollo Team B
 
 You can find the deployed project at [Apollo](https://b.apollox.dev/).
 
 ## Contributors
 
-🚫Add contributor info below, make sure add images and edit the social links for each member. Add to or delete these place-holders as needed
-
-|                                                      [Nick Myers](https://github.com/nicholas-myers)                                                       |                                                       [Justin Lohner](https://github.com/jslohner)                                                        |                                                      [Student 3](https://github.com/)                                                       |                                                       [Student 4](https://github.com/)                                                        |                                                      [Student 5](https://github.com/)                                                       |
+|                                                      [Nick Myers](https://github.com/nicholas-myers)                                                       |                                                       [Justin Lohner](https://github.com/jslohner)                                                        |                                                      [Ian McElroy](https://github.com/mcelroyian)                                                       |                                                       [Caleb Barger](https://github.com/Caleb-Barger)                                                        |                                                      [Jiayi Ren](https://github.com/jiayi-ren)                                                       |
 | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) |
-|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/honda0306)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Mister-Corn)                           |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NandoTheessen)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)                            |
-|                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |
+| [<img src="https://media-exp1.licdn.com/dms/image/C5603AQFCrvxS-Albzw/profile-displayphoto-shrink_800_800/0?e=1608768000&v=beta&t=xDP1RzZo9R32TzTUMu6zKMjQOZekGDPtwSaRoT4rlI0" width = "200" />](https://github.com/nicholas-myers) | [<img src="https://media-exp1.licdn.com/dms/image/C4E03AQFexBJnqSgsrw/profile-displayphoto-shrink_800_800/0?e=1608768000&v=beta&t=dDqAIBlIFQxuvfQmv_vWOR349w0YbPylA29S5cGx2pg" width = "200" />](https://github.com/jslohner) | [<img src="https://media-exp1.licdn.com/dms/image/C4D03AQFHoitOokylXQ/profile-displayphoto-shrink_200_200/0?e=1603324800&v=beta&t=XJQzbXKgavn7USOUCjUDE4nAovytewRC7Uw0lmyefQg" width = "200" />](https://github.com/mcelroyian) | [<img src="https://media-exp1.licdn.com/dms/image/C5635AQGWv8H23GXEtg/profile-framedphoto-shrink_800_800/0?e=1603220400&v=beta&t=hwiWKQTvTEZ2I4JT8REGx-tAxrY9w1C3OzNbl__0GXY" width = "200" />](https://github.com/Caleb-Barger) | [<img src="https://media-exp1.licdn.com/dms/image/C5603AQFKmWGttxd0iA/profile-displayphoto-shrink_800_800/0?e=1608768000&v=beta&t=4EBJQWweBNls35zNeMo0cdAk3AtIVzkkgKrhTGZPTzE" width = "200" />](https://github.com/jiayi-ren) |
+|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/nicholas-myers)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jslohner)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/mcelroyian)                           |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Caleb-Barger)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jiayi-ren)                            |
+|                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/nicholas-myers-professional/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/justin-lohner/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/ian-mcelroy/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/calebbarger/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jiayi-jay-ren/)                |
 
 <br>
 <br>
-
-🚫 Optional examples of using images with links for your tech stack, make sure to change these to fit your project
 
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 ![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
 ![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
-
-🚫 more info on using badges [here](https://github.com/badges/shields)
 
 - Fork and clone the repo to install it as your own remote.
   - **note** please [be sure to set your remote](https://help.github.jp/enterprise/2.11/user/articles/changing-a-remote-s-url/) for this repo to point to your Labs Team Front End Repository.
@@ -44,39 +32,31 @@ You can find the deployed project at [Apollo](https://b.apollox.dev/).
 - A user can select a topic to view
 - A user can create a new Survey Request
 
-#### Front end deployed to `🚫insert service here`
+#### Front end deployed to AWS
 
-#### [Back end](🚫link to back end repo here) built using:
+#### [Back end](https://github.com/Lambda-School-Labs/Labs26-Apollo-BE-TeamB) built using:
 
-#### 🚫 back end framework goes here
-
-- point one
-- point two
-- point three
-
-🚫 List the rest of the back end end features and libraries in the same format as the framework above
+- Java Spring
+- Postgres
+- Heroku
 
 # APIs
 
+[API Endpoints](https://github.com/Lambda-School-Labs/Labs26-Apollo-BE-TeamB)
+
 ## OKTA
 
-Using Okta for frontend. Researching how to use on backend with Java.
-
-## Misc API here
-
-🚫Replace text below with a description of the API
-
-You can do anything your heart can imagine. In life you need colors. This is where you take out all your hostilities and frustrations. It's better than kicking the puppy dog around and all that so. I'm sort of a softy, I couldn't shoot Bambi except with a camera. Trees get lonely too, so we'll give him a little friend. We'll lay all these little funky little things in there.
+Authenication provided by OKTA
+Must have an OKTA account to login.
 
 # Installation Instructions
 
-🚫explain how to install the required dependencies to get this project up and running with yarn and NPM
-
-'npm install @ant-design/icons' for UserIcon
+```
+npm install
+npm start
+```
 
 ## Other Scripts
-
-🚫replace these examples with your own
 
     * build - creates a build of the application
     * start - starts the production server after a build is created
@@ -113,8 +93,3 @@ Remember that this project is licensed under the MIT license, and by submitting 
 - Ensure that your code conforms to our existing code conventions and test coverage.
 - Include the relevant issue number, if applicable.
 - You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
-
-## Documentation
-
-See [Backend Documentation](🚫*link to your backend API SWAGGER DOCS here*) for details on the backend of our project.
-See [Frontend Documentation](link to front end readme in /src) for details on the frontend of our project.
