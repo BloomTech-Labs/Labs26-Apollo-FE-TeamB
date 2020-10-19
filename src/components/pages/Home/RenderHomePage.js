@@ -53,6 +53,7 @@ function RenderHomePage(props) {
             }}
           >
             <Content
+              className="context-block"
               style={{
                 textAlign: 'left',
                 marginLeft: '2rem',
@@ -134,10 +135,11 @@ function RenderHomePage(props) {
               )}
             </Content>
             <Content
+              className="response-block"
               style={{
-                width: '70%',
+                width: '60%',
                 display: 'flex',
-                justifyContent: 'center',
+                justifyContent: 'space-between',
                 overflow: 'scroll',
               }}
             >
