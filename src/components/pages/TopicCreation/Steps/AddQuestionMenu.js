@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Select, Dropdown } from 'antd';
+import { Select } from 'antd';
 
 const layout = {
   size: 'middle',

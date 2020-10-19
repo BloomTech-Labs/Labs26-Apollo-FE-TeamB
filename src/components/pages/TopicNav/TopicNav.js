@@ -53,7 +53,7 @@ function TopicNav(props) {
   useEffect(() => {
     const newIcons = [];
 
-    props.topics.map((topic, idx) => {
+    props.topics.forEach((topic, idx) => {
       if (topic.topicId === props.currentTopic.topicId) {
         newIcons.push(filledicons[idx]);
       } else {

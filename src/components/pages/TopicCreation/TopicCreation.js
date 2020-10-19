@@ -148,11 +148,6 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
     setIsVisible(false);
   };
 
-  //form changeHandler
-  const handleChange = e => {
-    const { name, value } = e.target;
-  };
-
   //moves the wizard backwards
   const handlePrev = () => {
     let newStep = currentStep;
@@ -198,16 +193,16 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
       !a.leader && b.leader ? 1 : a.leader && !b.leader ? -1 : 0
     );
     handleCurrentValidation();
-  }, [currentTopic.defaultsurvey]);
+  }, [currentTopic.defaultsurvey, handleCurrentValidation]);
 
   useEffect(() => {
     getContexts(getAllContexts);
     handleCurrentValidation();
-  }, [currentTopic, newContextType]);
+  }, [currentTopic, newContextType, getAllContexts, handleCurrentValidation]);
 
   useEffect(() => {
     handleCurrentValidation();
-  }, [currentStep]);
+  }, [currentStep, handleCurrentValidation]);
 
   return (
     <>
@@ -363,11 +358,7 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
             >
               Review
             </p>
-            <ReviewFinal
-              key="step5"
-              handleChange={handleChange}
-              currentTopic={currentTopic}
-            />
+            <ReviewFinal key="step5" currentTopic={currentTopic} />
           </>
         )}
         {currentStep === 6 && (

@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import {
   getBearerToken,
   getUserInfo,
   getTopics,
-  getCurrentTopic,
 } from '../../../state/actions/apolloActions';
 import { useOktaAuth } from '@okta/okta-react';
 import { getUserTopics } from '../../../api/index';
