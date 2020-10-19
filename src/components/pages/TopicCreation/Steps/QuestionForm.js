@@ -1,8 +1,6 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
-import { DeleteFilled } from '@ant-design/icons';
-// import { MinusCircleOutlined } from '@ant-design/icons';
-import { FaTrashAlt, FaRegTrashAlt } from 'react-icons/fa';
+import { FaRegTrashAlt } from 'react-icons/fa';
 
 const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
   const initShownQuestions = isContext
@@ -79,14 +77,6 @@ const QuestionForm = ({ isContext, activeQuestions, stateHandler }) => {
               onClick={handleClick}
             />
           </div>
-          {/* <Input
-            htmlFor={index}
-            key={index}
-            value={question.body}
-            onChange={inputChange}
-            size="large"
-            style={{ textAlign: 'left' }}
-          /> */}
         </Form.Item>
       ))}
     </Form>
