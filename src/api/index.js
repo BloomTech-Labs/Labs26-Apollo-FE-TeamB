@@ -23,6 +23,7 @@ export const API_GET_TOPIC_BY_ID = '/topics/topic/'
 // createAnswer --> actions 
 // getTopicById --> actions
 // postNewRequest --> actions
+// getAuthHeader --> utils
 // ####################
 
 const sleep = time =>
@@ -101,12 +102,12 @@ const sleep = time =>
 //     });
 // };
 
-const getAuthHeader = authState => {
-  if (!authState.isAuthenticated) {
-    throw new Error('Not authenticated');
-  }
-  return { Authorization: `Bearer ${authState.idToken}` };
-};
+// const getAuthHeader = authState => {
+//   if (!authState.isAuthenticated) {
+//     throw new Error('Not authenticated');
+//   }
+//   return { Authorization: `Bearer ${authState.idToken}` };
+// };
 
 const getDSData = (url, authState) => {
   // here's another way you can compose together your API calls.
