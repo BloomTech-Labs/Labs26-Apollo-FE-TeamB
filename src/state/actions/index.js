@@ -13,11 +13,9 @@ export const GET_CONTEXTS_START = 'GET_CONTEXTS_START';
 export const GET_CONTEXTS_SUCCESS = 'GET_CONTEXTS_SUCCESS';
 export const GET_CONTEXTS_FAIL = 'GET_CONTEXTS_FAIL';
 // ###############################################
-export const SET_CURRENT_TOPIC_START = 'SET_CURRENT_TOPIC_START';
-export const SET_CURRENT_TOPIC_SUCCESS = 'SET_CURRENT_TOPIC_SUCCESS';
-export const SET_CURRENT_TOPIC_FAIL = 'SET_CURRENT_TOPIC_FAIL';
+export const SET_TOPIC_SUCCESS = 'SET_CURRENT_TOPIC_SUCCESS';
+export const SET_TOPIC_FAIL = 'SET_CURRENT_TOPIC_FAIL';
 // ###############################################
-export const ADD_NEW_SURVEY_START = 'ADD_NEW_SURVEY_START';
 export const ADD_NEW_SURVEY_SUCCESS = 'ADD_NEW_SURVEY_SUCCESS';
 export const ADD_NEW_SURVEY_FAIL = 'ADD_NEW_SURVEY_FAIL';
 // ###############################################
@@ -128,15 +126,20 @@ export const joinTopic = joinCode => {
   }
 }
 
-// action to take the topic from get topic by id call and add to state
-// export const getCurrentTopic = topic => {
-//   return dispatch => {
-//     dispatch({ type: SET_CURRENT_TOPIC, payload: topic });
-//   };
-// };
+export const setTopic = topic => {
+  return dispatch => {
+    dispatch({ type: SET_TOPIC_SUCCESS, payload: topic });
+    if (!topic) {
+      dispatch({ type: SET_TOPIC_FAIL, payload: {error: "Bad topic passed ( check your args )" }})
+    }
+  };
+};
 
-// export const addNewSurvey = survey => {
-//   return dispatch => {
-//     dispatch({ type: ADD_NEW_SURVEY, payload: survey });
-//   };
-// };
+export const addNewSurvey = survey => {
+  return dispatch => {
+    dispatch({ type: ADD_NEW_SURVEY_SUCCESS, payload: survey });
+    if (!survey) {
+      dispatch({ type: ADD_NEW_SURVEY_FAIL, payload: {error: "Bad survey passed ( check your args )" }})
+    }
+  };
+};
