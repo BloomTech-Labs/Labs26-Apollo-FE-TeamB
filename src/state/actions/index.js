@@ -27,12 +27,17 @@ export const JOIN_TOPIC_START = 'JOIN_TOPIC_START'
 export const JOIN_TOPIC_SUCCESS= 'JOIN_TOPIC_SUCCESS'
 export const JOIN_TOPIC_FAIL= 'JOIN_TOPIC_FAIL'
 // ###############################################
+export const CREATE_ANSWER_START = 'CREATE_ANSWER_START'
+export const CREATE_ANSWER_SUCCESS = 'CREATE_ANSWER_SUCCESS'
+export const CREATE_ANSWER_FAIL = 'CREATE_ANSWER_FAIL'
+// ###############################################
 
 import axiosWithAuth from '../../utils/axiosWithAuth'
 import {API_USER_TOPICS, 
   API_CREATE_NEW,
   API_GET_CONTEXTS,
-  API_JOIN_TOPIC
+  API_JOIN_TOPIC,
+  API_CREATE_ANSWER
 } from '../../api'
 
 export const setUserInfo = userinfo => {
@@ -107,6 +112,23 @@ export const getContexts = () => {
       })
   };
 };
+
+export const createAnswer = answer => {
+  return dispatch => {
+    dispatch({ type: CREATE_ANSWER_START,
+    payload: {error: "", isFetching: true }})
+    axiosWithAuth()
+      .post(API_CREATE_ANSWER, answer)
+      .then(_res => {
+        dispatch({ type: CREATE_ANSWER_SUCCESS,
+        payload: {error: "", isFetching: false }})
+      })
+      .catch(err => {
+        dispatch({ type: CREATE_NEW_TOPIC_FAIL,
+        payload: {error: err, isFetching: false }})
+      })
+  }
+}
 
 export const joinTopic = joinCode => {
   return dispatch => {

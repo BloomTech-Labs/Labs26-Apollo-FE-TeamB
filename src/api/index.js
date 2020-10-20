@@ -10,6 +10,7 @@ export const API_CREATE_NEW = '/topics/new'
 export const API_GET_CONTEXTS = '/contexts/contexts' 
 export const API_URL = `${process.env.REACT_APP_API_URI}`
 export const API_JOIN_TOPIC = '/topics/topic/'
+export const API_CREATE_ANSWER = '/surveys/response'
 
 // ####################
 // CALLS REFACTORED
@@ -18,6 +19,7 @@ export const API_JOIN_TOPIC = '/topics/topic/'
 // createNewTopic --> actions
 // getContexts --> actions
 // userJoinTopic --> actions ( as joinTopic ) 
+// createAnswer --> actions 
 // ####################
 
 const sleep = time =>
@@ -61,16 +63,16 @@ const sleep = time =>
 //     });
 // };
 
-const createAnswer = (newAnswer, fn) => {
-  return axiosWithAuth()
-    .post(`/surveys/response`, newAnswer)
-    .then(response => {
-      return fn;
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};
+// const createAnswer = (newAnswer, fn) => {
+//   return axiosWithAuth()
+//     .post(`/surveys/response`, newAnswer)
+//     .then(response => {
+//       return fn;
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+// };
 
 // get a topic by topic id, to set the currentTopic to
 const getTopicById = (dispatchFunc, topicid) => {
