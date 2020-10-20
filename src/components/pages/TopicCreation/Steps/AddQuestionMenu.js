@@ -34,7 +34,6 @@ const AddQuestionMenu = ({
       }
       onSelect={handleSelect}
       dropdownMatchSelectWidth={500}
-      style={{ marginTop: '5%' }}
     >
       {/* manually added custom option */}
       <Select.Option key={-1} value="Custom">
