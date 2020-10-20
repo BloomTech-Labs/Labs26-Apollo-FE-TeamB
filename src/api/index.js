@@ -11,6 +11,7 @@ export const API_GET_CONTEXTS = '/contexts/contexts'
 export const API_URL = `${process.env.REACT_APP_API_URI}`
 export const API_JOIN_TOPIC = '/topics/topic/'
 export const API_CREATE_ANSWER = '/surveys/response'
+export const API_GET_TOPIC_BY_ID = '/topics/topic/'
 
 // ####################
 // CALLS REFACTORED
@@ -20,6 +21,7 @@ export const API_CREATE_ANSWER = '/surveys/response'
 // getContexts --> actions
 // userJoinTopic --> actions ( as joinTopic ) 
 // createAnswer --> actions 
+// getTopicById --> actions
 // ####################
 
 const sleep = time =>
@@ -75,14 +77,14 @@ const sleep = time =>
 // };
 
 // get a topic by topic id, to set the currentTopic to
-const getTopicById = (dispatchFunc, topicid) => {
-  return axiosWithAuth()
-    .get(`/topics/topic/${topicid}`)
-    .then(response => {
-      return dispatchFunc(response.data);
-    })
-    .catch(error => console.log(error));
-};
+// const getTopicById = (dispatchFunc, topicid) => {
+//   return axiosWithAuth()
+//     .get(`/topics/topic/${topicid}`)
+//     .then(response => {
+//       return dispatchFunc(response.data);
+//     })
+//     .catch(error => console.log(error));
+// };
 
 // send a request to submit a new survey for a topic
 const postNewRequest = (topicId, questionslist, dispatchFunc) => {

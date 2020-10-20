@@ -9,6 +9,10 @@ export const GET_TOPICS_START = 'GET_TOPICS_START';
 export const GET_TOPICS_SUCCESS = 'GET_TOPICS_SUCCESS';
 export const GET_TOPICS_FAIL = 'GET_TOPICS_FAIL';
 // ###############################################
+export const GET_TOPIC_BY_ID_START = 'GET_TOPIC_BY_ID_START'
+export const GET_TOPIC_BY_ID_SUCCESS = 'GET_TOPIC_BY_ID_SUCCESS'
+export const GET_TOPIC_BY_ID_FAIL = 'GET_TOPIC_BY_ID_FAIL'
+// ###############################################
 export const GET_CONTEXTS_START = 'GET_CONTEXTS_START';
 export const GET_CONTEXTS_SUCCESS = 'GET_CONTEXTS_SUCCESS';
 export const GET_CONTEXTS_FAIL = 'GET_CONTEXTS_FAIL';
@@ -37,7 +41,8 @@ import {API_USER_TOPICS,
   API_CREATE_NEW,
   API_GET_CONTEXTS,
   API_JOIN_TOPIC,
-  API_CREATE_ANSWER
+  API_CREATE_ANSWER,
+  API_GET_TOPIC_BY_ID
 } from '../../api'
 
 export const setUserInfo = userinfo => {
@@ -91,6 +96,24 @@ export const createNewTopic = topicInfo => {
       .catch(err => {
         dispatch({ type: CREATE_NEW_TOPIC_FAIL,
           payload: { error: err, isFetching: false }})
+      })
+  }
+}
+
+export const getTopicById = topicId => {
+  return dispatch => {
+    dispatch({ type: GET_TOPIC_BY_ID_START,
+    payload: {error: "", isFetching: true}})
+    axiosWithAuth()
+      .get(`${API_GET_TOPIC_BY_ID}${topicId}`)
+      .then(res => {
+        dispatch({ type: GET_TOPIC_BY_ID_SUCCESS,
+        payload: {error: "", isFetching: false }})
+        setTopic(res.data)
+      })
+      .catch(err => {
+        dispatch({ type: GET_TOPIC_BY_ID_FAIL,
+        payload: {error: err, isFetching: false}})
       })
   }
 }
