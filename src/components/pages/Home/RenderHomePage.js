@@ -1,14 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { SendButton, RespondForm } from '../Surveys/index';
-import {
-  Layout,
-  PageHeader,
-  Button,
-  Select,
-  Divider,
-  Modal,
-  message,
-} from 'antd';
+import { Layout, PageHeader, Button, Select, message } from 'antd';
 import { UserOutlined, CopyOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { RenderContextQuestions } from '../ContextQuestions/RenderContextQuestions';
@@ -18,11 +10,10 @@ import {
   getCurrentRequest,
 } from '../../../state/actions/apolloActions';
 import { TopicNav } from '../TopicNav';
-import { getTopicById, getRequestById } from '../../../api/index';
+import { getRequestById } from '../../../api/index';
 import Profile from '../Profile/Profile';
 
 const { Content } = Layout;
-const { Option } = Select;
 
 function RenderHomePage(props) {
   const { authService, currentTopic } = props;
@@ -44,7 +35,7 @@ function RenderHomePage(props) {
             style={{
               padding: '2rem',
             }}
-            extra={[<Profile authService={authService} />]}
+            extra={[<Profile key="profile" authService={authService} />]}
           ></PageHeader>
           <Layout
             style={{
@@ -61,24 +52,8 @@ function RenderHomePage(props) {
                 overflow: 'scroll',
               }}
             >
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-around',
-                  marginBottom: '2rem',
-                }}
-              >
-                <h2
-                  style={{
-                    textAlign: 'left',
-                    fontSize: '2rem',
-                    fontWeight: 'bold',
-                  }}
-                >
-                  {props.currentTopic && props.currentTopic.title}
-                </h2>
+              <div className="topic-title">
+                <h2>{props.currentTopic && props.currentTopic.title}</h2>
                 <Button
                   style={{
                     backgroundColor: 'indigo',
