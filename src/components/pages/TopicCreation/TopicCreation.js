@@ -148,11 +148,6 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
     setIsVisible(false);
   };
 
-  //form changeHandler
-  const handleChange = e => {
-    const { name, value } = e.target;
-  };
-
   //moves the wizard backwards
   const handlePrev = () => {
     let newStep = currentStep;
@@ -198,16 +193,16 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
       !a.leader && b.leader ? 1 : a.leader && !b.leader ? -1 : 0
     );
     handleCurrentValidation();
-  }, [currentTopic.defaultsurvey]);
+  }, [currentTopic.defaultsurvey, handleCurrentValidation]);
 
   useEffect(() => {
     getContexts(getAllContexts);
     handleCurrentValidation();
-  }, [currentTopic, newContextType]);
+  }, [currentTopic, newContextType, getAllContexts, handleCurrentValidation]);
 
   useEffect(() => {
     handleCurrentValidation();
-  }, [currentStep]);
+  }, [currentStep, handleCurrentValidation]);
 
   return (
     <>
@@ -234,52 +229,109 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
         title={
           <>
             <br></br> {/* Empty line for better UI */}
-            <Progress
-              percent={(100 / totalSteps) * currentStep}
-              showInfo={false}
-            />
             <h2
               style={{
                 textAlign: 'left',
-                paddingTop: '5%',
-                paddingLeft: '10%',
               }}
             >
               {currentStep === 1
                 ? 'New Topic'
                 : `${newContextType.description.split(' ')[0]} Topic`}
             </h2>
+            <Progress
+              strokeColor={{
+                '0%': 'indigo',
+                '100%': 'indigo',
+              }}
+              percent={(100 / totalSteps) * currentStep}
+              showInfo={false}
+            />
           </>
         }
         visible={isVisible}
         onOk={handleSubmit}
         onCancel={handleCancel}
         footer={[
-          <>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: currentStep === 1 ? 'flex-end' : 'space-between',
+              alignItems: 'center',
+            }}
+          >
             {/* Renders Prev button if not on first step */}
             {currentStep > 1 && currentStep < totalSteps && (
-              <Button key="prev" onClick={handlePrev}>
+              <Button
+                style={{
+                  backgroundColor: 'indigo',
+                  color: 'white',
+                  fontWeight: 'bold',
+                }}
+                key="prev"
+                onClick={handlePrev}
+              >
                 Prev
               </Button>
             )}
+            {currentStep === 3 && (
+              <AddQuestionMenu
+                isContext={true}
+                defaultQuestionList={leaderQuestionList}
+                questionState={currentTopic.defaultsurvey.questions}
+                stateHandler={handleCurrentTopicState}
+              />
+            )}
+            {currentStep === 4 && (
+              <AddQuestionMenu
+                isContext={false}
+                defaultQuestionList={memberQuestionList}
+                questionState={currentTopic.defaultsurvey.questions}
+                stateHandler={handleCurrentTopicState}
+              />
+            )}
             {/* Renders Next button if not on last step */}
             {currentStep < totalSteps - 1 && (
-              <Button key="next" onClick={handleNext}>
+              <Button
+                style={{
+                  backgroundColor: 'indigo',
+                  color: 'white',
+                  fontWeight: 'bold',
+                }}
+                key="next"
+                onClick={handleNext}
+              >
                 Next
               </Button>
             )}
             {/* Renders Submit button if on last step */}
             {currentStep === totalSteps - 1 && (
-              <Button key="submit" onClick={handleSubmit} loading={loading}>
+              <Button
+                style={{
+                  backgroundColor: 'indigo',
+                  color: 'white',
+                  fontWeight: 'bold',
+                }}
+                key="submit"
+                onClick={handleSubmit}
+                loading={loading}
+              >
                 Submit
               </Button>
             )}
             {currentStep === totalSteps && (
-              <Button key="close" onClick={handleOk}>
+              <Button
+                style={{
+                  backgroundColor: 'indigo',
+                  color: 'white',
+                  fontWeight: 'bold',
+                }}
+                key="close"
+                onClick={handleOk}
+              >
                 Close
               </Button>
             )}
-          </>,
+          </div>,
         ]}
       >
         {currentStep === 1 && (
@@ -327,12 +379,6 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
               activeQuestions={currentTopic.defaultsurvey.questions}
               stateHandler={handleCurrentTopicState}
             />
-            <AddQuestionMenu
-              isContext={true}
-              defaultQuestionList={leaderQuestionList}
-              questionState={currentTopic.defaultsurvey.questions}
-              stateHandler={handleCurrentTopicState}
-            />
           </>
         )}
         {currentStep === 4 && (
@@ -348,12 +394,6 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
               activeQuestions={currentTopic.defaultsurvey.questions}
               stateHandler={handleCurrentTopicState}
             />
-            <AddQuestionMenu
-              isContext={false}
-              defaultQuestionList={memberQuestionList}
-              questionState={currentTopic.defaultsurvey.questions}
-              stateHandler={handleCurrentTopicState}
-            />
           </>
         )}
         {currentStep === 5 && (
@@ -363,11 +403,7 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
             >
               Review
             </p>
-            <ReviewFinal
-              key="step5"
-              handleChange={handleChange}
-              currentTopic={currentTopic}
-            />
+            <ReviewFinal key="step5" currentTopic={currentTopic} />
           </>
         )}
         {currentStep === 6 && (
