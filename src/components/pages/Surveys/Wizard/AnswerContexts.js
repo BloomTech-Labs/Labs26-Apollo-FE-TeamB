@@ -31,7 +31,7 @@ function AnswerContexts({
       type: `TEXT`,
       answer: '',
     };
-    console.log(newQuestion);
+
     setQuestionsToSend([...questionsToSend, newQuestion]);
     if (body === 'Custom') {
       setNewQuestionIndex([...newQuestionIndex, questionsToSend.length]);
