@@ -41,6 +41,7 @@ export const POST_NEW_REQUEST_FAIL= "POST_NEW_REQUEST_FAIL"
 // ###############################################
 
 import axiosWithAuth from '../../utils/axiosWithAuth'
+
 import {API_USER_TOPICS, 
   API_CREATE_NEW,
   API_GET_CONTEXTS,
@@ -52,7 +53,7 @@ import {API_USER_TOPICS,
 export const setUserInfo = userinfo => {
   return dispatch => {
     dispatch({ type: SET_USER_INFO_SUCCESS, payload: userinfo })
-    if (userinfo == null) {
+    if (!userinfo) {
       dispatch({ type: SET_USER_INFO_FAIL,
         payload: { error: "Userinfo is null ( check your args )"}})
     }

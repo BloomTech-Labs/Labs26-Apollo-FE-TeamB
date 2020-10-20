@@ -25,6 +25,7 @@ export const API_GET_TOPIC_BY_ID = '/topics/topic/'
 // postNewRequest --> actions
 // getAuthHeader --> utils
 // apiAuthGet --> utils
+// getProfileData --> utils
 // ####################
 
 const sleep = time =>
@@ -129,16 +130,16 @@ const sleep = time =>
 //   return axios.get(apiUrl, { headers: authHeader });
 // };
 
-const getProfileData = authState => {
-  try {
-    return apiAuthGet(getAuthHeader(authState)).then(response => response.data);
-  } catch (error) {
-    return new Promise(() => {
-      console.log(error);
-      return [];
-    });
-  }
-};
+// const getProfileData = authState => {
+//   try {
+//     return apiAuthGet(getAuthHeader(authState)).then(response => response.data);
+//   } catch (error) {
+//     return new Promise(() => {
+//       console.log(error);
+//       return [];
+//     });
+//   }
+// };
 
 export {
   sleep,
