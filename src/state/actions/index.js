@@ -25,11 +25,16 @@ export const CREATE_NEW_TOPIC_START = 'CREATE_NEW_TOPIC_START'
 export const CREATE_NEW_TOPIC_SUCCESS = 'CREATE_NEW_TOPIC_SUCCESS'
 export const CREATE_NEW_TOPIC_FAIL = 'CREATE_NEW_TOPIC_FAIL'
 // ###############################################
+export const JOIN_TOPIC_START = 'JOIN_TOPIC_START' 
+export const JOIN_TOPIC_SUCCESS= 'JOIN_TOPIC_SUCCESS'
+export const JOIN_TOPIC_FAIL= 'JOIN_TOPIC_FAIL'
+// ###############################################
 
 import axiosWithAuth from '../../utils/axiosWithAuth'
 import {API_USER_TOPICS, 
   API_CREATE_NEW,
-  API_GET_CONTEXTS
+  API_GET_CONTEXTS,
+  API_JOIN_TOPIC
 } from '../../api'
 
 export const setUserInfo = userinfo => {
@@ -104,6 +109,24 @@ export const getContexts = () => {
       })
   };
 };
+
+export const joinTopic = joinCode => {
+  return dispatch => {
+    dispatch({ type: JOIN_TOPIC_START,
+    payload: {error: "", isFetching: true}})
+    axiosWithAuth()
+      .post(`${API_JOIN_TOPIC}${joinCode}`)
+      .then(_res => {
+        dispatch({ type: JOIN_TOPIC_SUCCESS,
+        payload: {error: "", isFetching: false}})
+        getUserTopics()
+      })
+      .catch(err => {
+        dispatch({ type: JOIN_TOPIC_FAIL,
+        payload: {error: err, isFetching: false}})
+      })
+  }
+}
 
 // action to take the topic from get topic by id call and add to state
 // export const getCurrentTopic = topic => {

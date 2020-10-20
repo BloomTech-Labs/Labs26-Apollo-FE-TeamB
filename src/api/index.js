@@ -9,6 +9,7 @@ export const API_USER_TOPICS = '/topics/topics'
 export const API_CREATE_NEW = '/topics/new'
 export const API_GET_CONTEXTS = '/contexts/contexts' 
 export const API_URL = `${process.env.REACT_APP_API_URI}`
+export const API_JOIN_TOPIC = '/topics/topic/'
 
 // ####################
 // CALLS REFACTORED
@@ -16,6 +17,7 @@ export const API_URL = `${process.env.REACT_APP_API_URI}`
 // getUserTopics --> actions
 // createNewTopic --> actions
 // getContexts --> actions
+// userJoinTopic --> actions ( as joinTopic ) 
 // ####################
 
 const sleep = time =>
@@ -35,17 +37,17 @@ const sleep = time =>
 //     });
 // };
 
-const userJoinTopic = (joinCode, fn) => {
-  return axiosWithAuth()
-    .post(`/topics/topic/${joinCode}`)
-    .then(r => {
-      getUserTopics(fn);
-      return 'success';
-    })
-    .catch(err => {
-      return 'error';
-    });
-};
+// const userJoinTopic = (joinCode, fn) => {
+//   return axiosWithAuth()
+//     .post(`/topics/topic/${joinCode}`)
+//     .then(r => {
+//       getUserTopics(fn);
+//       return 'success';
+//     })
+//     .catch(err => {
+//       return 'error';
+//     });
+// };
 
 // get the list of contexts when starting the create new topic wizard
 // const getContexts = dispatchFunc => {
