@@ -80,9 +80,7 @@ const JoinTopic = props => {
         >
           Join
         </Button>
-        <Divider />
-        <p>OR</p>
-        <Divider />
+        <Divider>OR</Divider>
         <TopicCreation cancelJoin={handleCancel} />
       </Modal>
     </>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Select, Dropdown } from 'antd';
+import { Select } from 'antd';
 
 const layout = {
   size: 'middle',
@@ -34,7 +34,6 @@ const AddQuestionMenu = ({
       }
       onSelect={handleSelect}
       dropdownMatchSelectWidth={500}
-      style={{ marginTop: '5%' }}
     >
       {/* manually added custom option */}
       <Select.Option key={-1} value="Custom">
