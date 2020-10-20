@@ -54,6 +54,7 @@ function ResponseList({
             currentTopic.users.map((member, index) => {
               return (
                 <UserOutlined
+                  key={member.user.username}
                   style={{
                     border: '1px solid #191919',
                     borderRadius: '50%',
