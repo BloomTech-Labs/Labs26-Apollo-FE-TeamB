@@ -22,6 +22,7 @@ export const API_GET_TOPIC_BY_ID = '/topics/topic/'
 // userJoinTopic --> actions ( as joinTopic ) 
 // createAnswer --> actions 
 // getTopicById --> actions
+// postNewRequest --> actions
 // ####################
 
 const sleep = time =>
@@ -87,18 +88,18 @@ const sleep = time =>
 // };
 
 // send a request to submit a new survey for a topic
-const postNewRequest = (topicId, questionslist, dispatchFunc) => {
-  return axiosWithAuth()
-    .post(`/surveys/topic/${topicId}`, questionslist)
-    .then(response => {
-      console.log(response.data);
-      // refresh the current Topic
-      dispatchFunc(response.data);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-};
+// const postNewRequest = (topicId, questionslist, dispatchFunc) => {
+//   return axiosWithAuth()
+//     .post(`/surveys/topic/${topicId}`, questionslist)
+//     .then(response => {
+//       console.log(response.data);
+//       // refresh the current Topic
+//       dispatchFunc(response.data);
+//     })
+//     .catch(error => {
+//       console.log(error);
+//     });
+// };
 
 const getAuthHeader = authState => {
   if (!authState.isAuthenticated) {

@@ -35,6 +35,10 @@ export const CREATE_ANSWER_START = 'CREATE_ANSWER_START'
 export const CREATE_ANSWER_SUCCESS = 'CREATE_ANSWER_SUCCESS'
 export const CREATE_ANSWER_FAIL = 'CREATE_ANSWER_FAIL'
 // ###############################################
+export const POST_NEW_REQUEST_START = "POST_NEW_REQUEST_START"
+export const POST_NEW_REQUEST_SUCCESS= "POST_NEW_REQUEST_SUCCESS"
+export const POST_NEW_REQUEST_FAIL= "POST_NEW_REQUEST_FAIL"
+// ###############################################
 
 import axiosWithAuth from '../../utils/axiosWithAuth'
 import {API_USER_TOPICS, 
@@ -96,6 +100,23 @@ export const createNewTopic = topicInfo => {
       .catch(err => {
         dispatch({ type: CREATE_NEW_TOPIC_FAIL,
           payload: { error: err, isFetching: false }})
+      })
+  }
+}
+
+export const postNewRequest = (topicId, questionsList) => {
+  return dispatch => {
+    dispatch({ type: POST_NEW_REQUEST_START,
+    payload: {error: "", isFetching: true }})
+    axiosWithAuth() 
+      .post(`${API_POST_NEW_REQUEST}${topicId}`, questionsList)
+      .then(_res => { // set request? 
+        dispatch({ type: POST_NEW_REQUEST_SUCCESS,
+        payload: {error: "", isFetching: false}})
+      })
+      .catch(err => {
+        dispatch({ type: POST_NEW_REQUEST_FAIL,
+        payload: {error: err, isFetching: false}})
       })
   }
 }
