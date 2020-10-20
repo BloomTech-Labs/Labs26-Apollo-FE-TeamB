@@ -24,6 +24,7 @@ export const API_GET_TOPIC_BY_ID = '/topics/topic/'
 // getTopicById --> actions
 // postNewRequest --> actions
 // getAuthHeader --> utils
+// apiAuthGet --> utils
 // ####################
 
 const sleep = time =>
@@ -109,22 +110,24 @@ const sleep = time =>
 //   return { Authorization: `Bearer ${authState.idToken}` };
 // };
 
-const getDSData = (url, authState) => {
-  // here's another way you can compose together your API calls.
-  // Note the use of GetAuthHeader here is a little different than in the getProfileData call.
-  const headers = getAuthHeader(authState);
-  if (!url) {
-    throw new Error('No URL provided');
-  }
-  return axios
-    .get(url, { headers })
-    .then(res => JSON.parse(res.data))
-    .catch(err => err);
-};
+// ################################################# are we using this?
+// const getDSData = (url, authState) => {
+//   // here's another way you can compose together your API calls.
+//   // Note the use of GetAuthHeader here is a little different than in the getProfileData call.
+//   const headers = getAuthHeader(authState);
+//   if (!url) {
+//     throw new Error('No URL provided');
+//   }
+//   return axios
+//     .get(url, { headers })
+//     .then(res => JSON.parse(res.data))
+//     .catch(err => err);
+// };
+// ################################################# are we using this?
 
-const apiAuthGet = authHeader => {
-  return axios.get(apiUrl, { headers: authHeader });
-};
+// const apiAuthGet = authHeader => {
+//   return axios.get(apiUrl, { headers: authHeader });
+// };
 
 const getProfileData = authState => {
   try {
