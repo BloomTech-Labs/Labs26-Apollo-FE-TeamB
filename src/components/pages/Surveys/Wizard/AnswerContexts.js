@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaRegTrashAlt } from 'react-icons/fa';
 
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Select } from 'antd';
 
 const { TextArea } = Input;
 
@@ -13,6 +13,8 @@ function AnswerContexts({
   onFinish,
 }) {
   const [newQuestionIndex, setNewQuestionIndex] = useState([]);
+  const [defaultQuestionList, setDefaultQuestionList] = useState([]);
+  const [questionList, setQuestionList] = useState([]);
 
   const deleteQuestion = questionIndex => {
     // create a copy of questionsToSend
@@ -22,15 +24,44 @@ function AnswerContexts({
     setQuestionsToSend(newQuestions);
   };
 
-  const addQuestion = () => {
+  const addQuestion = body => {
     const newQuestion = {
-      body: '',
+      body: body === 'Custom' ? '' : `${body}`,
       leader: true,
       type: `TEXT`,
       answer: '',
     };
+    console.log(newQuestion);
     setQuestionsToSend([...questionsToSend, newQuestion]);
-    setNewQuestionIndex([...newQuestionIndex, questionsToSend.length]);
+    if (body === 'Custom') {
+      setNewQuestionIndex([...newQuestionIndex, questionsToSend.length]);
+    }
+  };
+
+  // defaultQuestions extraction on initial render
+  useEffect(() => {
+    let defaultQuestions = questionsToSend.filter(question => {
+      if (question.leader === true) {
+        return question;
+      }
+      return null;
+    });
+    setDefaultQuestionList(defaultQuestions);
+  }, []);
+
+  // all of displayed context questions including default and custom
+  useEffect(() => {
+    let contextQuestions = questionsToSend.filter(question => {
+      if (question.leader === true) {
+        return question;
+      }
+      return null;
+    });
+    setQuestionList(contextQuestions);
+  }, [questionsToSend]);
+
+  const handleSelect = question => {
+    addQuestion(question);
   };
 
   return (
@@ -118,7 +149,31 @@ function AnswerContexts({
           )
         );
       })}
-      <Button onClick={addQuestion}>New Question</Button>
+      <Select
+        size={'middle'}
+        value={<p style={{ textAlign: 'left' }}>Add Question</p>}
+        onSelect={handleSelect}
+        style={{ marginTop: '5%' }}
+        dropdownStyle={{ minWidth: 'max-content' }} // dropdown will take max-content width
+      >
+        {/* manually added custom option */}
+        <Select.Option key={-1} value="Custom">
+          <p style={{ textAlign: 'left', margin: '0' }}>Custom</p>
+        </Select.Option>
+        {/* map through question list and add them to dropdown */}
+        {defaultQuestionList.map((question, idx) => {
+          // if default question is not shown, display in dropdown
+          if (!questionList.some(q => q.body === question.body)) {
+            return (
+              <Select.Option key={idx} value={question.body}>
+                <p style={{ textAlign: 'left', margin: '0' }}>
+                  {question.body}
+                </p>
+              </Select.Option>
+            );
+          }
+        })}
+      </Select>
     </Form>
   );
 }
