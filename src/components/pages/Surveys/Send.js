@@ -38,17 +38,34 @@ function Send(props) {
   const [progress, setProgress] = useState(25);
   const prevProgress = useRef(0); //store previous progress
 
-  const hasMemberQuestions = array => {
+  const checkMinNumOfQuestions = (array, condition) => {
     return array.some(element => {
-      return element.leader === false;
+      return element.leader === condition;
     });
   };
   // function to move to next step in wizard
   const next = () => {
     // if on the first step: answer context questions
     // submit form to trigger validation
-    if (progress === 50) {
-      if (hasMemberQuestions(questionsToSend)) {
+    if (progress === 25) {
+      if (checkMinNumOfQuestions(questionsToSend, true)) {
+        form.submit();
+      } else {
+        message.config({
+          maxCount: 1,
+          className: 'modal-validation',
+        });
+        message.error({
+          content: `Must have at least 1 context question`,
+          duration: 2,
+          style: {
+            marginTop: '40%',
+            fontSize: '1.4rem',
+          },
+        });
+      }
+    } else if (progress === 50) {
+      if (checkMinNumOfQuestions(questionsToSend, false)) {
         form.submit();
       } else {
         message.config({
