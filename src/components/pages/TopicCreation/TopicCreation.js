@@ -11,9 +11,9 @@ import {
 } from './Steps/';
 import {
   getTopics,
-  getAllContexts,
-} from '../../../state/actions/apolloActions';
-import { createNewTopic, getContexts } from '../../../api/index';
+  getContexts,
+  createNewTopic,
+} from '../../../state/actions/';
 
 import 'antd/dist/antd.css';
 
@@ -387,5 +387,5 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   getTopics,
-  getAllContexts,
+  getContexts,
 })(TopicCreation);
