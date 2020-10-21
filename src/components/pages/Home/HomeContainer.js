@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import {
-  getBearerToken,
-  getUserInfo,
-  getTopics,
+  setUserInfo,
   getCurrentTopic,
-} from '../../../state/actions/apolloActions';
+  setBearerToken,
+  getTopics,
+} from '../../../state/actions/';
+// import {getBearerToken} from '../../../utils'
 import { useOktaAuth } from '@okta/okta-react';
-import { getUserTopics } from '../../../api/index';
+// import { getUserTopics } from '../../../api/index';
 import RenderHomePage from './RenderHomePage';
 
 function HomeContainer({
@@ -41,7 +42,7 @@ function HomeContainer({
   }, [memoAuthService]);
 
   useEffect(() => {
-    getUserTopics(getTopics);
+    getTopics();
   }, []);
 
   return (
@@ -65,7 +66,7 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  getBearerToken,
-  getUserInfo,
+  setBearerToken,
+  setUserInfo,
   getTopics,
 })(HomeContainer);
