@@ -1,14 +1,15 @@
 // ####################
 // API ENDPOINTS
-export const API_LIVE_URL = 'https://apollo-b-api.herokuapp.com'
-export const API_LOCAL_TEST_URL = 'http://localhost:2019'
-export const API_USER_TOPICS = '/topics/topics'
-export const API_CREATE_NEW = '/topics/new'
-export const API_GET_CONTEXTS = '/contexts/contexts' 
-export const API_URL = `${process.env.REACT_APP_API_URI}`
-export const API_JOIN_TOPIC = '/topics/topic/'
-export const API_CREATE_ANSWER = '/surveys/response'
-export const API_GET_TOPIC_BY_ID = '/topics/topic/'
+export const API_LIVE_URL = 'https://apollo-b-api.herokuapp.com/';
+export const API_LOCAL_TEST_URL = 'http://localhost:2019/';
+export const API_USER_TOPICS = '/topics/topics/';
+export const API_CREATE_NEW = '/topics/new/';
+export const API_GET_CONTEXTS = '/contexts/contexts/';
+export const API_URL = `${process.env.REACT_APP_API_URI}`;
+export const API_JOIN_TOPIC = '/topics/topic/';
+export const API_CREATE_ANSWER = '/surveys/response/';
+export const API_GET_TOPIC_BY_ID = '/topics/topic/';
+export const API_POST_NEW_REQUEST = '/surveys/topic/';
 
 // ####################
 // CALLS REFACTORED
@@ -16,8 +17,8 @@ export const API_GET_TOPIC_BY_ID = '/topics/topic/'
 // getUserTopics --> actions
 // createNewTopic --> actions
 // getContexts --> actions
-// userJoinTopic --> actions ( as joinTopic ) 
-// createAnswer --> actions 
+// userJoinTopic --> actions ( as joinTopic )
+// createAnswer --> actions
 // getTopicById --> actions
 // postNewRequest --> actions
 // getAuthHeader --> utils
@@ -25,8 +26,6 @@ export const API_GET_TOPIC_BY_ID = '/topics/topic/'
 // getProfileData --> utils
 // sleep --> utils
 // ####################
-
-
 
 // const createNewTopic = (newTopicData, fn) => {
 //   return axiosWithAuth()
