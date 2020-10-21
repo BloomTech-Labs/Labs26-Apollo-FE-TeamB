@@ -19,6 +19,7 @@ function Send(props) {
   useEffect(() => {
     const d = new Date();
     const today = d.getDate();
+    setSent(false);
     props.currentTopic.surveysrequests.forEach(request => {
       if (new Date(request.createdDate).getDate() === today) {
         setSent(true);
