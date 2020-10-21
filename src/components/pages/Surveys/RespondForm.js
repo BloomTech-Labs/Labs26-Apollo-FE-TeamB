@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Form, Input, Button } from 'antd';
-import { createAnswer } from '../../../api/index';
-import { getCurrentTopic } from '../../../state/actions/apolloActions';
-import { getTopicById } from '../../../api/index';
+// import { createAnswer } from '../../../api/index';
+import {
+  createAnswer,
+  getTopicById, 
+  getCurrentTopic } from '../../../state/actions';
 
 const RespondForm = props => {
   const { currentRequest, toggleResponseForm } = props;
