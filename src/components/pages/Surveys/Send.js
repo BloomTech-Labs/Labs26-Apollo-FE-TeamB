@@ -5,11 +5,12 @@ import ChooseContexts from './Wizard/ChooseContexts';
 import ChooseMembers from './Wizard/ChooseMembers';
 import AnswerContexts from './Wizard/AnswerContexts';
 import ReviewRequest from './Wizard/ReviewRequest';
-import { postNewRequest } from '../../../api/index';
+// import { postNewRequest } from '../../../api/index';
 import {
   getCurrentTopic,
   addNewSurvey,
-} from '../../../state/actions/apolloActions';
+  postNewRequest
+} from '../../../state/actions';
 
 const { TextArea } = Input;
 
