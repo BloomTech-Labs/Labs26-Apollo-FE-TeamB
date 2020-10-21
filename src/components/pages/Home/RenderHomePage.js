@@ -71,30 +71,36 @@ function RenderHomePage(props) {
 
               <Select
                 style={{ padding: '0' }}
-                placeholder={props.currentRequest.createdDate}
+                placeholder={
+                  currentTopic.surveysrequests.length === 0
+                    ? 'No Requests Sent'
+                    : props.currentRequest.createdDate
+                }
                 dropdownRender={menu => (
                   <div style={{ padding: '0' }}>
-                    {currentTopic.surveysrequests &&
-                      currentTopic.surveysrequests.map((request, index) => {
-                        return (
-                          <Button
-                            key={request.surveyid}
-                            style={{
-                              margin: '0',
-                              width: '100%',
-                              height: '100%',
-                            }}
-                            onClick={() => {
-                              getRequestById(
-                                request.surveyid,
-                                props.getCurrentRequest
-                              );
-                            }}
-                          >
-                            {request.createdDate}
-                          </Button>
-                        );
-                      })}
+                    {currentTopic.surveysrequests
+                      ? currentTopic.surveysrequests.map((request, index) => {
+                          console.log('HOME', request);
+                          return (
+                            <Button
+                              key={request.surveyid}
+                              style={{
+                                margin: '0',
+                                width: '100%',
+                                height: '100%',
+                              }}
+                              onClick={() => {
+                                getRequestById(
+                                  request.surveyid,
+                                  props.getCurrentRequest
+                                );
+                              }}
+                            >
+                              {request.createdDate}
+                            </Button>
+                          );
+                        })
+                      : 'Nothing to show'}
                   </div>
                 )}
               ></Select>
