@@ -1,6 +1,6 @@
-import { LIVE_URL } from '../api'
-import axios from 'axios'
-import {store} from '../state/store'
+import { API_LIVE_URL } from '../api';
+import axios from 'axios';
+import { store } from '../state/store';
 
 export const axiosWithAuth = () => {
   const token = store.getState().bearerToken;
@@ -8,7 +8,7 @@ export const axiosWithAuth = () => {
     headers: {
       Authorization: 'Bearer ' + token,
     },
-    baseURL: LIVE_URL,
+    baseURL: API_LIVE_URL,
   });
 };
 
@@ -21,10 +21,10 @@ export const getProfileData = authState => {
       return [];
     });
   }
-}
+};
 
 export const apiAuthGet = authHeader => {
-  return axios.get(apiUrl, { headers: authHeader });
+  return axios.get(API_LIVE_URL, { headers: authHeader });
 };
 
 export const getAuthHeader = authState => {
@@ -32,7 +32,7 @@ export const getAuthHeader = authState => {
     throw new Error('Not authenticated');
   }
   return { Authorization: `Bearer ${authState.idToken}` };
-}
+};
 
 export const sleep = time =>
   new Promise(resolve => {
