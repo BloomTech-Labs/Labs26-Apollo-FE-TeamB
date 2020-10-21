@@ -33,3 +33,8 @@ export const getAuthHeader = authState => {
   }
   return { Authorization: `Bearer ${authState.idToken}` };
 }
+
+export const sleep = time =>
+  new Promise(resolve => {
+    setTimeout(resolve, time);
+  });

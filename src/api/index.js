@@ -1,6 +1,3 @@
-import axios from 'axios';
-
-// !MAJOR REFACTOR!
 // ####################
 // API ENDPOINTS
 export const API_LIVE_URL = 'https://apollo-b-api.herokuapp.com'
@@ -26,12 +23,10 @@ export const API_GET_TOPIC_BY_ID = '/topics/topic/'
 // getAuthHeader --> utils
 // apiAuthGet --> utils
 // getProfileData --> utils
+// sleep --> utils
 // ####################
 
-const sleep = time =>
-  new Promise(resolve => {
-    setTimeout(resolve, time);
-  });
+
 
 // const createNewTopic = (newTopicData, fn) => {
 //   return axiosWithAuth()
@@ -141,15 +136,15 @@ const sleep = time =>
 //   }
 // };
 
-export {
-  sleep,
-  createNewTopic,
-  userJoinTopic,
-  getContexts,
-  createAnswer,
-  getTopicById,
-  postNewRequest,
-  getProfileData,
-  getDSData,
-  apiAuthGet,
-};
+// export {
+//   sleep,
+//   createNewTopic,
+//   userJoinTopic,
+//   getContexts,
+//   createAnswer,
+//   getTopicById,
+//   postNewRequest,
+//   getProfileData,
+//   getDSData,
+//   apiAuthGet,
+// };
