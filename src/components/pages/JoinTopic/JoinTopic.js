@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button, message } from 'antd';
 import { JoinCodeForm } from './components';
-import { userJoinTopic, getUserTopics } from '../../../api/index';
-import { getTopics } from '../../../state/actions/apolloActions';
+// import { userJoinTopic, getUserTopics } from '../../../api/index';
+// import { getUserTopics } from '../../../state/';
+import {getTopics, joinTopic as userJoinTopic} from '../../../state/actions'
 import 'antd/dist/antd.css';
 
 const JoinTopic = props => {
