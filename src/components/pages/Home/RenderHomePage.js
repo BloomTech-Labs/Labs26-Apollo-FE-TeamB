@@ -72,6 +72,7 @@ function RenderHomePage(props) {
               <Select
                 style={{ padding: '0' }}
                 placeholder={
+                  currentTopic.surveysrequests &&
                   currentTopic.surveysrequests.length === 0
                     ? 'No Requests Sent'
                     : props.currentRequest.createdDate
