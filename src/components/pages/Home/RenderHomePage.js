@@ -7,8 +7,9 @@ import { TopicCreation } from '../TopicCreation';
 import { JoinTopic } from '../JoinTopic';
 import { RenderSurveyQuestions } from '../SurveyQuestions/RenderSurveyQuestions';
 import { ResponseList } from '../Responses';
-import { getTopicById } from '../../../api/index';
-import { getCurrentTopic } from '../../../state/actions/apolloActions';
+// import { getTopicById } from '../../../api/index';
+import { getCurrentTopic,
+getTopicById } from '../../../state/actions/';
 import { CaretDownOutlined } from '@ant-design/icons';
 
 const { Content, Sider } = Layout;
