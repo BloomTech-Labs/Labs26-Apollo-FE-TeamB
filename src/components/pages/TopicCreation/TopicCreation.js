@@ -219,13 +219,7 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
         Create
       </Button>
       <Modal
-        centered={true}
-        width="40%"
-        bodyStyle={{
-          width: '80%',
-          height: '70vh',
-          margin: '0 auto',
-        }}
+        className="create-topic-modal"
         title={
           <>
             <br></br> {/* Empty line for better UI */}
