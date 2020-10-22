@@ -193,16 +193,16 @@ const TopicCreation = ({ getTopics, contexts, getAllContexts, cancelJoin }) => {
       !a.leader && b.leader ? 1 : a.leader && !b.leader ? -1 : 0
     );
     handleCurrentValidation();
-  }, [currentTopic.defaultsurvey, handleCurrentValidation]);
+  }, [currentTopic.defaultsurvey]);
 
   useEffect(() => {
     getContexts(getAllContexts);
     handleCurrentValidation();
-  }, [currentTopic, newContextType, getAllContexts, handleCurrentValidation]);
+  }, [currentTopic, newContextType, getAllContexts]);
 
   useEffect(() => {
     handleCurrentValidation();
-  }, [currentStep, handleCurrentValidation]);
+  }, [currentStep]);
 
   return (
     <>
