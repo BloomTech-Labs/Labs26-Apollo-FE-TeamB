@@ -107,7 +107,6 @@ function RenderHomePage(props) {
             <Content
               className="response-block"
               style={{
-                // width: '60%',
                 display: 'flex',
                 justifyContent: 'space-between',
                 overflow: 'scroll',

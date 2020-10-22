@@ -56,12 +56,24 @@
       }
     .context-block {
       width: 30%;
+      margin-left: 1rem;
       @media screen and (max-width: 500px) {
         width: 100%;
         padding: 0 1rem;
         border-bottom: 1px solid #191919;
+        margin-left: 0;
       }
     }
-    
+    .response-block {
+        width: 70%;
+        @media screen and (max-width: 500px) {
+            width: 100%;
+            padding: 0 1rem;
+            margin-left: 0;
+            p {
+                display: none;
+            }
+          }
+    }
   }
 }
