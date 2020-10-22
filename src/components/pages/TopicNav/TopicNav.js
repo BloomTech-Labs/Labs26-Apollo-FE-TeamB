@@ -27,10 +27,10 @@ function TopicNav(props) {
     border: '4px solid white',
     borderRadius: '50%',
     padding: '1rem',
-    fontSize: '2rem',
+    // fontSize: '2rem',
   };
   const outlinedicons = [
-    <MobileOutlined style={topicLinkStyle} />,
+    <MobileOutlined className="topicIcon" style={topicLinkStyle} />,
     <BugOutlined style={topicLinkStyle} />,
     <AccountBookOutlined style={topicLinkStyle} />,
     <AudioOutlined style={topicLinkStyle} />,
@@ -65,23 +65,11 @@ function TopicNav(props) {
   }, [props.currentTopic]);
 
   return (
-    <Sider
-      style={{
-        backgroundColor: 'indigo',
-        borderTopRightRadius: '4rem',
-        borderBottomRightRadius: '4rem',
-      }}
-    >
+    <div className="topicNav">
       {props.topics.map((topic, index) => {
         return (
           <span
             key={index}
-            style={{
-              display: 'block',
-              width: '100%',
-              margin: '2rem 0',
-              backgroundColor: 'light indigo',
-            }}
             onClick={() => {
               getTopicById(props.getCurrentTopic, topic.topicId);
             }}
@@ -91,7 +79,7 @@ function TopicNav(props) {
         );
       })}
       <JoinTopic />
-    </Sider>
+    </div>
   );
 }
 

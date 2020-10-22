@@ -1,0 +1,80 @@
+.topicNav {
+  width: 8vw;
+}
+
+.dashboard {
+  display: flex;
+  //   styles the topicNav
+  .header {
+    @media screen and (max-width: 500px) {
+      border-bottom: 1px solid #191919;
+      padding: 0;
+      h1 {
+        font-size: 2rem;
+      }
+      span {
+        font-size: 1rem;
+      }
+    }
+  }
+  .topicNav {
+    width: 8vw;
+    background-color: indigo;
+    border-bottom-right-radius: 4rem;
+    border-top-right-radius: 4rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    @media screen and (max-width: 500px) {
+      width: 100%;
+      display: flex;
+      border-bottom-right-radius: 0rem;
+      border-top-right-radius: 0rem;
+      height: 20vh;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+    span {
+      font-size: 2rem;
+      margin: 5% 0;
+      @media screen and (max-width: 500px) {
+        font-size: 1rem;
+      }
+    }
+    
+  }
+  @media screen and (max-width: 500px) {
+    flex-direction: column-reverse;
+  }
+
+  //   styles the content sections for context and member q and a
+  .content {
+    display: flex;
+    flex-flow: row;
+    @media screen and (max-width: 500px) {
+        flex-flow: column;
+        overflow: scroll;
+      }
+    .context-block {
+      width: 30%;
+      margin-left: 1rem;
+      @media screen and (max-width: 500px) {
+        width: 100%;
+        padding: 0 1rem;
+        border-bottom: 1px solid #191919;
+        margin-left: 0;
+      }
+    }
+    .response-block {
+        width: 70%;
+        @media screen and (max-width: 500px) {
+            width: 100%;
+            padding: 0 1rem;
+            margin-left: 0;
+            p {
+                display: none;
+            }
+          }
+    }
+  }
+}

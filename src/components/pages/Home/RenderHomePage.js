@@ -25,7 +25,7 @@ function RenderHomePage(props) {
 
   return (
     <>
-      <Layout style={{ height: '100vh' }}>
+      <div className="dashboard" style={{ height: '100vh' }}>
         <TopicNav />
         <Layout>
           <PageHeader
@@ -37,18 +37,13 @@ function RenderHomePage(props) {
             }}
             extra={[<Profile key="profile" authService={authService} />]}
           ></PageHeader>
-          <Layout
-            style={{
-              display: 'flex',
-              flexFlow: 'row',
-            }}
-          >
+          <div className="content">
             <Content
               className="context-block"
               style={{
                 textAlign: 'left',
-                marginLeft: '2rem',
-                width: '30%',
+                // marginLeft: '2rem',
+                // width: '30%',
                 overflow: 'scroll',
               }}
             >
@@ -117,7 +112,6 @@ function RenderHomePage(props) {
             <Content
               className="response-block"
               style={{
-                width: '60%',
                 display: 'flex',
                 justifyContent: 'space-between',
                 overflow: 'scroll',
@@ -132,9 +126,9 @@ function RenderHomePage(props) {
                 props.currentRequest.questions &&
                 props.currentRequest.responded && <ResponseList />}
             </Content>
-          </Layout>
+          </div>
         </Layout>
-      </Layout>
+      </div>
     </>
   );
 }

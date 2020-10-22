@@ -21,7 +21,7 @@ const LoginContainer = () => {
       // add your custom logo to your signing/register widget here.
       i18n: {
         en: {
-          'primaryauth.title': 'Welcome to Labs Basic SPA Please sign in',
+          'primaryauth.title': 'Weclome to Apollo!',
           // change title for your app
         },
       },
@@ -47,7 +47,19 @@ const LoginContainer = () => {
     );
   }, []);
 
-  return <div id="sign-in-widget" />;
+  return (
+    <div className="loginContainer">
+      <div className="loginBanner">
+        <h1 style={{ color: 'white' }}>A</h1>
+        <h1 style={{ color: 'white' }}>P</h1>
+        <h1 style={{ color: 'white' }}>O</h1>
+        <h1 style={{ color: 'white' }}>L</h1>
+        <h1 style={{ color: 'white' }}>L</h1>
+        <h1 style={{ color: 'white' }}>O</h1>
+      </div>
+      <div id="sign-in-widget" />
+    </div>
+  );
 };
 
 export default LoginContainer;

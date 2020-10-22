@@ -48,8 +48,8 @@ function ResponseList({
         className="members"
         style={{ display: 'flex', alignItems: 'center' }}
       >
-        Members:
-        <div style={{ display: 'flex' }}>
+        <p>Members:</p>
+        <div className="memberList" style={{ display: 'flex' }}>
           {currentTopic.users &&
             currentTopic.users.map((member, index) => {
               return (
