@@ -2,6 +2,8 @@
 
 You can find the deployed project at [Apollo](https://b.apollox.dev/).
 
+[<img src="./readme_assets/video-play.png">](https://youtu.be/3xgOLyWJb3w)
+
 ## Contributors
 
 |                                                      [Nick Myers](https://github.com/nicholas-myers)                                                       |                                                       [Justin Lohner](https://github.com/jslohner)                                                        |                                                      [Ian McElroy](https://github.com/mcelroyian)                                                       |                                                       [Caleb Barger](https://github.com/Caleb-Barger)                                                        |                                                      [Jiayi Ren](https://github.com/jiayi-ren)                                                       |
