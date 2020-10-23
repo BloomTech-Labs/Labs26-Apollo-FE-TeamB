@@ -24,6 +24,11 @@ function ReviewRequest({ questionsToSend, setProgress }) {
         return null;
       })}
       <Button
+        style={{
+          backgroundColor: 'indigo',
+          color: 'white',
+          fontWeight: 'bold',
+        }}
         onClick={() => {
           editSection('context');
         }}
@@ -39,6 +44,11 @@ function ReviewRequest({ questionsToSend, setProgress }) {
         return null;
       })}
       <Button
+        style={{
+          backgroundColor: 'indigo',
+          color: 'white',
+          fontWeight: 'bold',
+        }}
         onClick={() => {
           editSection('member');
         }}

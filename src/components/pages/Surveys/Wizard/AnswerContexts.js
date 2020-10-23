@@ -118,7 +118,16 @@ function AnswerContexts({
           )
         );
       })}
-      <Button onClick={addQuestion}>New Question</Button>
+      <Button
+        style={{
+          backgroundColor: 'indigo',
+          color: 'white',
+          fontWeight: 'bold',
+        }}
+        onClick={addQuestion}
+      >
+        New Question
+      </Button>
     </Form>
   );
 }

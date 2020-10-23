@@ -99,7 +99,16 @@ function ChooseMembers({
             );
           })}
       </Form>
-      <Button onClick={addNewMemberQuestion}>New Member Question</Button>
+      <Button
+        style={{
+          backgroundColor: 'indigo',
+          color: 'white',
+          fontWeight: 'bold',
+        }}
+        onClick={addNewMemberQuestion}
+      >
+        New Member Question
+      </Button>
     </>
   );
 }

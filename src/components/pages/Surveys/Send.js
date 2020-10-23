@@ -129,12 +129,28 @@ function Send(props) {
   return (
     <>
       {!sent && (
-        <Button onClick={() => showModal()} style={{ marginLeft: '1rem' }}>
-          Send New Request
+        <Button
+          onClick={() => showModal()}
+          style={{
+            marginLeft: '1rem',
+            backgroundColor: 'indigo',
+            color: 'white',
+            fontWeight: 'bold',
+          }}
+        >
+          New Request
         </Button>
       )}
       {sent && (
-        <Button style={{ marginLeft: '1rem' }} disabled={true}>
+        <Button
+          style={{
+            marginLeft: '1rem',
+            backgroundColor: '#7e52c3',
+            color: 'white',
+            fontWeight: 'bold',
+          }}
+          disabled={true}
+        >
           Sent
         </Button>
       )}
@@ -147,14 +163,45 @@ function Send(props) {
         onCancel={cancelModal}
         footer={[
           <span key={1}>
-            {progress >= 50 && <Button onClick={prev}>Previous</Button>}
+            {progress >= 50 && (
+              <Button
+                style={{
+                  backgroundColor: 'indigo',
+                  color: 'white',
+                  fontWeight: 'bold',
+                }}
+                onClick={prev}
+              >
+                Previous
+              </Button>
+            )}
           </span>,
           <span key={2}>
-            {progress <= 50 && <Button onClick={next}>Next</Button>}
+            {progress <= 50 && (
+              <Button
+                style={{
+                  backgroundColor: 'indigo',
+                  color: 'white',
+                  fontWeight: 'bold',
+                }}
+                onClick={next}
+              >
+                Next
+              </Button>
+            )}
           </span>,
           <span key={3}>
             {progress === 75 && (
-              <Button onClick={submitNewRequest}>Send Request</Button>
+              <Button
+                style={{
+                  backgroundColor: 'indigo',
+                  color: 'white',
+                  fontWeight: 'bold',
+                }}
+                onClick={submitNewRequest}
+              >
+                Send Request
+              </Button>
             )}
           </span>,
         ]}
